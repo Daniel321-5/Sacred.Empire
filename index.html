@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacred Daniel's Empire</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #1a237e;
+            color: gold;
+            text-align: center;
+            padding: 1rem 0;
+            border-bottom: 5px solid gold;
+        }
+        .header-images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .header-images img {
+            max-height: 150px;
+            border: 2px solid gold;
+            border-radius: 5px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .page {
+            display: none;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .active {
+            display: block;
+        }
+        nav {
+            background-color: #1a237e;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav a {
+            color: gold;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #303f9f;
+        }
+        footer {
+            background-color: #1a237e;
+            color: gold;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        .page-image {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #1a237e;
+            border-radius: 5px;
+        }
+        .contact-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .contact-list li {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background-color: #f8f8f8;
+            border-left: 3px solid #1a237e;
+        }
+        .citizenship-form {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .citizenship-form ol {
+            padding-left: 1.5rem;
+        }
+        .citizenship-form li {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sacred Daniel's Empire</h1>
+        <div class="header-images">
+            <img src="https://media.discordapp.net/attachments/961215307014365184/1384223715075686410/1200px-Flag_of_Spain.png?ex=6851a64b&is=685054cb&hm=a9a5a169023f5a5a82d7c9bcba6adcdad95f9bc741d5e40b35e9a62f4d772037&=&format=webp&quality=lossless&width=1012&height=675" alt="Flag">
+            <img src="https://media.discordapp.net/attachments/961215307014365184/1384222787463417916/20211209_130933.jpg?ex=6851a56e&is=685053ee&hm=640db8e0597b60ca274012246d4f6e769e3b5db8c112095283925c6d8a78be11&=&format=webp&width=317&height=317" alt="Symbol">
+            <img src="https://media.discordapp.net/attachments/961215307014365184/1384222788138700882/5c8d1d84fcd5694f34ec5a7c122609d0.jpg?ex=6851a56e&is=685053ee&hm=7dd13137baf6fde17dd7e1521c62df504e92e2dea5fceb1725bf401a9c8f7d38&=&format=webp&width=327&height=581" alt="Emblem">
+        </div>
+    </header>
+    
+    <nav>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('history')">History</a>
+        <a href="#" onclick="showPage('codex')">Codex</a>
+        <a href="#" onclick="showPage('government')">Government</a>
+        <a href="#" onclick="showPage('media')">Media</a>
+        <a href="#" onclick="showPage('contact')">Contact</a>
+    </nav>
+    
+    <div class="container">
+        <div id="home" class="page active">
+            <h2>Welcome to Sacred Daniel's Empire</h2>
+            <p>The glorious maritime nation under the wise rule of our sacred Emperor.</p>
+        </div>
+        
+        <div id="about" class="page">
+            <h2>About Us</h2>
+            <p>Sacred Daniel's Empire is a small sovereign state with an absolute monarchy located on the coast, with a strong focus on maritime activities. The country's economy is driven by fishing, trading, shipbuilding, in short - sea is the main reason why this empire is even alive. Its picturesque coastline offers stunning views and opportunities for tourism, attracting visitors from around the world. The culture of the country is deeply rooted in its maritime heritage, with traditional sailing practices and customs celebrated and preserved. Sacred Daniel's Empire is known for its vibrant coastal communities, bustling ports, increased crime rate, wise leaders.</p>
+        </div>
+        
+        <div id="history" class="page">
+            <h2>History</h2>
+            <img src="https://media.discordapp.net/attachments/961215307014365184/1384222788411461682/Screenshot_2025-06-08-20-34-43-413_com.android.chrome-edit.jpg?ex=6851a56e&is=685053ee&hm=688b416ec325a6d6bcf88a47cf29da97cd36a696729b274eb02543f20c1fadd1&=&format=webp&width=454&height=581" alt="Historical Document" class="page-image">
+            <p>Here you can learn the history of the country. <a href="https://docs.google.com/document/d/1iSz32g8wN5WH6trZ8I9tlJhcz8VL54w27zmrCDE2jCM/edit?usp=drivesdk" target="_blank">Read our history document</a></p>
+        </div>
+        
+        <div id="codex" class="page">
+            <h2>Our Codex</h2>
+            <p>Our country follow only one codex which describes all the matter things. <a href="https://docs.google.com/document/d/1qPyRhbWn7Z0yEtAarzPgJIiCiyuVShJeIUF90LDkKAY/edit?usp=drivesdk" target="_blank">Read the Codex</a></p>
+        </div>
+        
+        <div id="government" class="page">
+            <h2>Government</h2>
+            <img src="https://media.discordapp.net/attachments/961215307014365184/1384224308162723991/image.png?ex=6851a6d8&is=68505558&hm=23ce418d49027444fd690c279fcc9d25c4536a06cb6d9cda6d8fdcfa078cec5f&=&format=webp&quality=lossless&width=691&height=454" alt="Military Order" class="page-image">
+            <p>Our country is ruled by our sacred Emperor and our lovely religious-military order which has its own articles on the second part of the codex. <a href="https://docs.google.com/document/d/1jPr4N3k1AJTX8z73flbp39JR_ew-Jv3yZWvA5O3-N00/edit?usp=drivesdk" target="_blank">Learn about our government</a></p>
+        </div>
+        
+        <div id="media" class="page">
+            <h2>Media</h2>
+            <p>Current news is published personally by the imperial house, and accordingly if you have reliable information that can attract the empire, send it to the mail forgamesandstuff2006@gmail.com</p>
+        </div>
+        
+        <div id="contact" class="page">
+            <h2>Empire contacts</h2>
+            
+            <ul class="contact-list">
+                <li><strong>Holy Emperor Daniel De Courno</strong><br>Contact methods: Discord - senioreugene</li>
+                <li><strong>High Advisor to the Emperor Arthur Bha</strong><br>Discord - arthurbha</li>
+                <li><strong>Heir to the throne and Daniel's son, Einar De Courno (skald)</strong><br>Contact is not possible at the moment, only for citizens.</li>
+            </ul>
+            
+            <div class="citizenship-form">
+                <h3>Citizenship</h3>
+                <p>To obtain citizenship, write to this email: forgamesandstuff2006@gmail.com using the following form:</p>
+                <ol>
+                    <li>Your first and last name (you can choose completely different ones than in your previous country, but you are obliged to live by your chosen first and last name for the rest of your life in the empire).</li>
+                    <li>Your email for communication (the empire has other ways to communicate between citizens, email is for extremely important news).</li>
+                    <li>Are you ready to take an oath of allegiance to the society of freedom and honor? A "yes" answer is sufficient at this stage.</li>
+                    <li>Indicate here whether you will be able to apply for a passport that you will receive with dignity? (Print it out, protect it from possible damage). If you are unable to obtain a passport from ready-made materials yourself, contact the emperor asking him to send it to you (this operation may take more time).</li>
+                    <li>Tell us about yourself (who you are in this life, how you look at life, maybe you have goals in this life, your date of birth, your previous army experience, your class in society or your ancestors class, your detailed look - send us your picture or the drawing of yourself, strictly yourself, its gonna be used nowhere but in your passport which is available only for you).</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 1700 Sacred Daniel's Empire. All rights reserved.
+    </footer>
+    
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Prevent default anchor behavior
+            return false;
+        }
+    </script>
+</body>
+</html>
