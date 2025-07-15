@@ -1,7 +1,7 @@
 ## About This Project
 
 This is the official web presence of Sacred Daniel's Empire, a sovereign maritime nation. The website serves as:
-- A digital embassy for international relations
+- A digital ееmbassy for international relations
 - An archive of national documents and history
 - The primary contact point for citizenship inquiries
 - A platform for imperial communications
