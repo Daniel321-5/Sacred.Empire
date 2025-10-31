@@ -3,12 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Sacred Daniel's Empire | Maritime Kingdom Since 1700 | Морская Империя</title>
     <meta name="description" content="Official sovereign maritime state with pirate traditions and naval heritage. Официальный сайт морской империи с традициями кораблестроения и пиратства">
     <meta name="keywords" content="Sacred Daniel's Empire, maritime kingdom, ships, piracy, naval history, Spain colonial era, British navy, marine research, морская империя, корабли, пиратство, абсолютная монархия, Испания, Британия">
@@ -35,6 +29,360 @@
       "description": "Sovereign naval power with pirate traditions | Суверенная морская держава",
       "url": "https://daniel321-5.github.io/Sacred.Empire/#",
       "logo": "https://daniel321-5.github.io/Sacred.Empire/TBA-SITE/imperial_emblem.webp",
+      "foundingDate": "1700",
+      "keywords": [
+        {"@language": "en", "@value": "ships, piracy, naval battles, Spain colonies, British fleet"},
+        {"@language": "ru", "@value": "корабли, пиратство, морские сражения, колониальная Испания, Британский флот"}
+      ],
+      "founder": {
+        "@type": "Person",
+        "name": "Daniel De Courno",
+        "description": "Emperor and naval commander | Император и флотоводец"
+      }
+    }
+    </script>
+    
+    <link rel="alternate" hreflang="en" href="https://daniel321-5.github.io/Sacred.Empire/#" />
+    <link rel="alternate" hreflang="ru" href="https://daniel321-5.github.io/Sacred.Empire/#" />
+    <link rel="alternate" hreflang="x-default" href="https://daniel321-5.github.io/Sacred.Empire/#" />
+    
+    <link rel="icon" href="TBA-SITE/favicon.webp" type="image/webp">
+    <link rel="apple-touch-icon" href="TBA-SITE/apple-icon.webp">
+    
+    <link rel="canonical" href="https://daniel321-5.github.io/Sacred.Empire/#">
+    
+    <meta name="theme-color" content="#1a237e">
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="7 days">
+
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #1a237e;
+            color: gold;
+            text-align: center;
+            padding: 1rem 0;
+            border-bottom: 5px solid gold;
+        }
+        .header-images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .header-images img {
+            max-height: 150px;
+            border: 2px solid gold;
+            border-radius: 5px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            flex: 1;
+        }
+        .page {
+            display: none;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .active {
+            display: block;
+        }
+        nav {
+            background-color: #1a237e;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav a {
+            color: gold;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #303f9f;
+        }
+        footer {
+            background-color: #1a237e;
+            color: gold;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto;
+        }
+        .page-image {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #1a237e;
+            border-radius: 5px;
+        }
+        .contact-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .contact-list li {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background-color: #f8f8f8;
+            border-left: 3px solid #1a237e;
+        }
+        .citizenship-form {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .citizenship-form ol {
+            padding-left: 1.5rem;
+        }
+        .citizenship-form li {
+            margin-bottom: 1rem;
+        }
+        .hero-card {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .hero-title {
+            color: #1a237e;
+            border-bottom: 2px solid gold;
+            padding-bottom: 0.5rem;
+        }
+        .hero-subtitle {
+            font-style: italic;
+            color: #555;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sacred Daniel's Empire</h1>
+        <div class="header-images">
+            <img src="TBA-SITE/1200px-Flag_of_Spain.webp" alt="Imperial Flag">
+            <img src="TBA-SITE/20211209_130933.webp" alt="Imperial Symbol">
+            <img src="TBA-SITE/5c8d1d84fcd5694f34ec5a7c122609d0.webp" alt="Imperial Emblem">
+        </div>
+    </header>
+    
+    <nav>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('history')">History</a>
+        <a href="#" onclick="showPage('heroes')">Heroes of the Empire</a>
+        <a href="#" onclick="showPage('codex')">Codex</a>
+        <a href="#" onclick="showPage('government')">Government</a>
+        <a href="#" onclick="showPage('media')">Media</a>
+        <a href="#" onclick="showPage('contact')">Contact</a>
+    </nav>
+    
+    <div class="container">
+        <div id="home" class="page active">
+            <h2>Welcome to Sacred Daniel's Empire</h2>
+            <p>The glorious maritime nation under the wise rule of our sacred Emperor.</p>
+        </div>
+        
+        <div id="about" class="page">
+            <h2>About Us</h2>
+            <p>Sacred Daniel's Empire is a small sovereign state with an absolute monarchy located on the coast, with a strong focus on maritime activities. The country's economy is driven by fishing, trading, shipbuilding, in short - sea is the main reason why this empire is even alive. Its picturesque coastline offers stunning views and opportunities for tourism, attracting visitors from around the world. The culture of the country is deeply rooted in its maritime heritage, with traditional sailing practices and customs celebrated and preserved. Sacred Daniel's Empire is known for its vibrant coastal communities, bustling ports, increased crime rate, wise leaders.</p>
+        </div>
+        
+        <div id="history" class="page">
+            <h2>History</h2>
+            <img src="TBA-SITE/IMG_20250622_170301.jpg" alt="Historical Document" class="page-image">
+            <p>The real location of the empire is unknown but after some skirmishes, myths are saying that its somewhe on South coast of Africa. Empire saved the map of archipelago with its base (black) and fort (red) before leaving it in 1800. Here you can learn the history of the country. <a href="https://docs.google.com/document/d/1iSz32g8wN5WH6trZ8I9tlJhcz8VL54w27zmrCDE2jCM/edit?usp=drivesdk" target="_blank">Read our history document</a></p>
+        </div>
+        
+        <div id="heroes" class="page">
+            <h2>Heroes of the Empire</h2>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Lord Daniel, The First Prophet</h3>
+                <p class="hero-subtitle">Titles: The First Daniel, Lord of the Black Angels, Prophet of the Kraken, The Sea-Father</p>
+                <p class="hero-subtitle">Era: 1st Century A.D. and beyond (Beginning 33 A.D.)</p>
+                <p class="hero-subtitle">Sacred Vessel: The Mini Angel (Originally a Roman Trireme)</p>
+                
+                <p>Lord Daniel is not merely a historical figure; he is the cornerstone of a nation and a faith. His story begins in the pivotal year 33 A.D., in the immediate, disillusioned aftermath of the Crucifixion of Jesus Christ. Unlike the masses, Daniel did not mourn; he was filled with disgust and fear at the event. This rejection of the established divine order was the catalyst for his destiny.</p>
+                
+                <p>In an act of supreme defiance, he gathered a band of outcasts: thieves, mercenaries, and runaway slaves, and under cover of darkness, they seized a Roman trireme, slaughtering its crew. This ship, the very next day, would be christened the Mini Angel, the first sacred vessel of a new future empire.</p>
+                
+                <p>The founding miracle occurred on the second day of their voyage. The sea turned black, and from the depths rose the Kraken, a colossal entity that Daniel interpreted not as a monster, but as a new God. While his crew trembled, Daniel stood firm and received his revelation. He declared to his followers: "There is no God left but the Kraken. And we are his sons and daughters." In that moment, he transformed from a fugitive into a Prophet, establishing the one true faith of his future empire. This direct, divine encounter made him a living saint, the chosen herald of a deity of the deep.</p>
+                
+                <p>Daniel possessed a transcendent form of leadership. He found a crew of pathetic land-rats ready to betray each other for a piece of stale bread and, through his will and vision, forged them into pirates living by a code of honor, dignity, and respect for women. His early fleet was a unique society. Out of necessity, women were more numerous aboard ships due to the lack of land, participating fully in this new maritime life. It was under Daniel's rule that this disparate band evolved into a disciplined clan, the "Black Angels," who became more than soldiers, they were a family bound by blood and battle.</p>
+                
+                <p>Daniel's reign was one of relentless expansion and confrontation with the unknown. His voyage to the forbidden Island in 1100 A.D. showcases his courage and the limits of his power. After a brutal, unexplained attack by feral tribesmen who seemed driven by a terror greater than his own crew, Daniel was forced to retreat. His final log entry, "They feared not us. They fled from something else… something in the high valleys," marked one of the rare times the empire chose mystery over conquest, purging the island's coordinates from their charts forever.</p>
+                
+                <p><strong>The Eternal Rival: Admiral James Norridon</strong></p>
+                <p>Daniel's character is further defined by his long-standing conflict with Admiral James Norridon of the Royal Navy. This was not a simple feud but a clash of philosophies. Norridon was a master of disciplined, honorable warfare, while Daniel fought as an unpredictable, ruthless privateer king. Despite the bloodshed, Daniel deeply admired Norridon for his honor and his profound understanding of the sea. Their battles were a "deadly dance" where neither could land a killing blow. In his old age, it is said that Daniel would toast his rival: "To Norridon. May the depths be kinder to him than I ever was." This relationship reveals a complex man who cherished a worthy enemy as a sharpening stone for his own mind and spirit.</p>
+                
+                <p>Lord Daniel's life laid the foundation for everything that followed: he provided the sacred relic: the Mini Angel, a ship that would be rebuilt over centuries but forever remain the soul of the empire. He founded the state religion: the Cult of the Kraken, which would later be formalized into the militant "Legion of the Squid" order. He established the core principles of honor, brotherhood, and naval supremacy. He instituted the imperial title, ensuring every ruler to follow would bear his name and the title Sacred, forever intertwining the destiny of the emperor with the legendary ship he first stole, and the God he first witnessed.</p>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">His Sacred Majesty, Emperor Daniel de Courno</h3>
+                <p class="hero-subtitle">Title: Sacred Emperor of the Empire of Sacred Daniel</p>
+                <p class="hero-subtitle">Era: 18th Century</p>
+                <p class="hero-subtitle">Notable Vessel: The Sacred Mini Angel (Brig and flagman of the empire)</p>
+                
+                <p><strong>Character Analysis</strong></p>
+                <p>Emperor Daniel de Courno was the defining ruler of his age, a sovereign whose intellect and calculated demeanor shaped an era of expansion, reform, and consolidation for his empire. Daniel's most defining trait was his calculating and highly intelligent mind. He was not a man of impulsive action. Every decision, from the smallest decree to the grandest imperial policy, was considered numerous times, and even after a course was chosen, he would continue to ponder its ramifications. This relentless analysis made him a formidable strategist, always several steps ahead of his adversaries and allies alike.</p>
+                
+                <p>Despite his reserved and thoughtful nature, the Emperor possessed undeniable charisma and an easy ability to make friends. This personal charm was a powerful political tool, allowing him to secure alliances, inspire loyalty in his admirals, and present a compelling figurehead to his people. He was a thinker, but not a recluse.</p>
+                
+                <p>Unusual for a monarch of his stature, Daniel de Courno was deeply connected to the maritime lifeblood of his empire. He was known to personally take to the seas on his brig, the Sacred Mini Angel, demonstrating a hands-on approach to leadership and a genuine connection to his navy.</p>
+                
+                <p>His reign was profoundly marked by the Archipelago Campaign (1760-1800), a period of intense activity that saw the empire stumble upon, conquer, and ultimately abandon a strategically vital island chain. The campaign was an era of sweeping reforms, severe reprisals, and significant military victories. Under Daniel's direction, the empire aggressively developed the archipelago, funneling massive quantities of resources back to the Capital to fuel its growth.</p>
+                
+                <p>A key strategic victory, unrelated to battle, was the alliance with the Scots (1765-1800). Emperor Daniel immediately recognized the opportunity presented by the lost Scottish fleet. With shrewd foresight, he swiftly extended an offer of alliance, transforming a potential threat into a "powerful, temporary navy." This three-decade-long pact, built on mutual necessity and a "grudging respect," secured imperial dominance over the islands and showcased Daniel's talent for strategic partnership.</p>
+                
+                <p>The campaign's military climax was the decisive annihilation of the Dublin Fleet in 1798. While commanded by the legendary Admiral Bharath, the victory was a direct result of the imperial war machine Daniel had built and the alliances he had fostered, exemplified by the last-minute arrival of their loyal "rogue schooner."</p>
+                
+                <p>In a final act of strategic calculation that defined his entire reign, history records that the Empire made the strategic decision to abandon the archipelago in 1800 to pursue greater ambitions elsewhere.</p>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Arthur Bha – The Emperor's High Advisor</h3>
+                <p class="hero-subtitle">Titles: Imperial Advisor, Keeper of the Archives</p>
+                <p class="hero-subtitle">Affiliation: The Imperial House of Sacred Daniel</p>
+                <p class="hero-subtitle">Known For: Unconventional intelligence gathering, profound loyalty, and a life lived in many guises</p>
+                
+                <p>Arthur Bha was the quintessential man of contrasts. Officially, he was the emperor's highest advisor, a figure most at home in the dim light of the imperial archives, surrounded by the secrets and laws of the realm. He was a scholar and a diplomat, the meticulous hand that recorded history and guided the emperor with a quiet, reasoned voice.</p>
+                
+                <p>Yet, the palace walls could not contain him. When the weight of duty became stifling, Arthur would vanish. He was not a man who traveled on a personal ship with fanfare; instead, he was a master of infiltration. He would disguise himself as a common traveler, joining merchant crews, pirate bands, or even buying tickets on noble transports. This was not for leisure, but a deeper need to understand the empire from the ground up.</p>
+                
+                <p>His journeys were far from passive. Arthur Bha was a man of direct and often dangerous action: he walked foreign roads, listening to stories and subtly convincing worthy individuals to seek citizenship in the empire, strengthening its fabric from the outside in; utilizing the combat skills honed during his six years of mandatory military service, he took up bounty hunting, his sword proving deadly against deserters and outlaws; on the far frontiers, he transformed into a gatherer and hunter, foraging for rare plants like cotton shrubs and medicinal herbs while simultaneously tracking wanted criminals. This dual pursuit earned him independent wealth and renown.</p>
+                
+                <p>His very name, Bha, was adopted in honor of Admiral Bharath, a figure he deeply admired. This was not an empty gesture. Within the empire, Arthur became the silent guardian of the Admiral's legacy, personally ensuring that Bharath's innovative machines—the pulleys, pumps, and other contraptions—remained in working order. He studied, repaired, and defended their necessity against those who saw them as mere relics.</p>
+                
+                <p>Arthur Bha defied simple categorization. To the world, he was a diplomat, a scholar, a bounty hunter, and a botanist—all separate faces of a multifaceted life. But to the emperor, he was simply Arthur Bha—the man who recorded history, guarded its truths, and, when needed, rewrote fate itself with a blade or a pen. He was the unseen thread that connected the throne to the world, a loyalist who served not from a dusty chamber, but from the bustling decks and dusty roads of the realm itself. Though his name may not echo in war songs, the empire would not have endured without its quiet, most capable shadow.</p>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Admiral Bharath – The Stubborn Architect of the Empire</h3>
+                <p class="hero-subtitle">Titles: Admiral of the Imperial Navy, The Cook-Admiral, The Mad Scientist, Emperor (1850-1855)</p>
+                <p class="hero-subtitle">Era: Mid-to-Late 19th Century</p>
+                <p class="hero-subtitle">Known For: Naval brilliance, technological innovation, and an unprecedented rise from cabin boy to Emperor</p>
+                
+                <p>Admiral Bharath's career is a testament to sheer, unyielding stubbornness and latent genius. His story began as a scrawny, orphaned boy on the docks of Volney, spotted by Captains Patih and Joe. They brought him aboard the Sacred Mini Angel, the flagship of Emperor Daniel himself. Unlike any other sailor, Bharath's ambition was not for command but for the ship. He became the ship's cook, a brilliant one and refused promotions for years. His legendary meals were a cornerstone of crew morale. This genuine love for cooking later manifested in him opening a tavern and a dining house in the capital, establishing his deep connection to the common sailors long before he led them.</p>
+                
+                <p>When fate and his own relentless mind pushed him into command, Bharath revealed his true genius: he was a master of diplomacy and psychological warfare. His most legendary move during the Archipelago Campaign was the bloodless capture of six islands from a rival fleet (likely French), without spending a single grain of gunpowder. This event perfectly encapsulates his strategic philosophy. While capable of overwhelming force, he preferred to outthink his opponents, using his skills to make the enemy lower their flags and surrender without a fight. He proved that the empire's greatest expansion could be achieved not just through cannon fire, but through unparalleled cunning.</p>
+                
+                <p>Bharath's mind was never confined to naval tactics. He was a genius inventor and a restless engineer, constantly seeing problems and designing solutions. He was the driving force behind the empire's technological advancement, constantly arguing with the traditionalist Emperor Daniel about the need for improvement. He designed pulley systems for faster cargo loading, hydraulic pumps, and primitive telegraphs. His workshops were chaotic, but his ideas worked. This created a unique cultural divide in the empire: Bharath's innovations revolutionized the navy and infrastructure, while the Imperial household clung to tradition, a testament to his stubborn but effective push for progress.</p>
+                
+                <p>Bharath's brilliance made him powerful enemies who orchestrated a vicious smear campaign against him. His salvation came from the very top: Emperor Daniel and his enigmatic friend, Lonee, personally started a rescue mission to extract Bharath and dismantle the conspiracy, proving the immense trust and value Daniel placed in him.</p>
+                
+                <p>This trust was echoed by the entire military. When Emperor Daniel later succumbed to an unknown illness (likely tuberculosis), the empire faced a succession crisis. In a testament to his universal respect, Admiral Bharath was chosen as the new ruler by the unanimous support of the army and the elite imperial guard, The Black Angels (TBA).</p>
+                
+                <p>His reign (1850-1855) was that of a military man struggling with governance. Recognizing his own limitations in politics, he made the startlingly humble decision to abdicate in 1855, prioritizing the empire's stability over his own power.</p>
+                
+                <p>He remains a symbol that true talent and stubborn determination cannot be contained, whether in a ship's galley, on the admiral's bridge, or even on the imperial throne.</p>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Lord Def – The Zealous Heart</h3>
+                <p class="hero-subtitle">Titles: Lord, Captain, City-Builder, High Inquisitor of the Legion of the Squid</p>
+                <p class="hero-subtitle">Era: 17th-18th Centuries</p>
+                <p class="hero-subtitle">Known For: A profound transformation from a charismatic nobleman to a fanatical zealot, driven by a core of innate kindness and formidable intellect</p>
+                
+                <p>Lord Def's life is a story of radical transformation, a journey where his core traits of kindness, responsiveness, and incredible intelligence were refined and redirected through extraordinary experiences.</p>
+                
+                <p>In his youth, he was the epitome of nobility, known for his charm and love for high society. He was a frequent guest at the philharmonic and every prestigious ball, and his sharp mind found a dangerous outlet in a passion for gambling. However, this was not the recklessness of a fool, but the calculated risk-taking of a brilliant man seeking stimulation.</p>
+                
+                <p>Beneath the surface of the gambler and socialite lay Def's true nature: he was fundamentally kind, responsive, and possessed of a formidable intellect. These were not traits he acquired, but ones that defined his every action. This innate goodness manifested in his role as a patient teacher, where he led merchant convoys not through intimidation, but by schooling raw recruits in seamanship through discipline and skill.</p>
+                
+                <p>His intelligence was both creative and strategic. He was a visionary builder who designed and oversaw the construction of an entire fortified city called Fort Green, demonstrating not only architectural genius but also the foresight to terraform the land for sustainable agriculture. His mind was capable of grand designs, both for stone and for society.</p>
+                
+                <p>Def was a man who could seamlessly transition from the drawing room to the battlefield. He was courageous and hands-on, personally dueling one of the empire's most wanted assassins and throwing him into a dungeon. Yet, he also possessed a profound, almost spiritual need for solitude, finding peace in the unlikeliest of places: fishing in the heart of the treacherous Dark Sea, a testament to his unshakable calm and unique daring.</p>
+                
+                <p>In his later years, the same intensity that once drove him to gambling and city-building found a new, ultimate focus: religious fervor. He went completely to the Legion of the Squid. His kindness curdled into a brutal, unwavering fanaticism. His innate responsiveness became an intrusive need to police faith. His brilliant intellect was now a weapon for theological argument and the orchestration of purges. He ascended to the rank of high inquisitor, preaching the Kraken's will with fire and steel. The man who once built a city to sustain life now dedicated himself to reshaping souls through holy war.</p>
+                
+                <p>Lord Def is a tragic and compelling figure. He was not a man who changed his nature, but one whose profound inner qualities—his goodness, his sharp mind, his capacity for deep focus—were twisted and amplified by his experiences and his faith. His journey from the glittering ballrooms to the grim chambers of the inquisition is the story of a great soul seeking purpose, ultimately finding it in the service of a dark and demanding god. He remains the empire's most complex zealot: a man who built and nurtured, only to become its most relentless purifier.</p>
+            </div>
+        </div>
+        
+        <div id="codex" class="page">
+            <h2>Our Codex</h2>
+            <p>Our country follow only one codex which describes all the matter things. <a href="https://docs.google.com/document/d/1qPyRhbWn7Z0yEtAarzPgJIiCiyuVShJeIUF90LDkKAY/edit?usp=drivesdk" target="_blank">Read the Codex</a></p>
+        </div>
+        
+        <div id="government" class="page">
+            <h2>Government</h2>
+            <img src="TBA-SITE/image.webp" alt="Military Order" class="page-image">
+            <p>Our country is ruled by our sacred Emperor and our lovely religious-military order which has its own articles on the second part of the codex. <a href="https://docs.google.com/document/d/1jPr4N3k1AJTX8z73flbp39JR_ew-Jv3yZWvA5O3-N00/edit?usp=drivesdk" target="_blank">Learn about our government</a></p>
+        </div>
+        
+        <div id="media" class="page">
+            <h2>Media</h2>
+            <p>Current news is published personally by the imperial house, and accordingly if you have reliable information that can attract the empire, send it to the mail forgamesandstuff2006@gmail.com</p>
+        </div>
+        
+        <div id="contact" class="page">
+            <h2>Empire contacts</h2>
+            
+            <ul class="contact-list">
+                <li><strong>Holy Emperor Daniel De Courno</strong><br>Contact methods: Discord - senioreugene</li>
+                <li><strong>High Advisor to the Emperor Arthur Bha</strong><br>Discord - arthurbha</li>
+                <li><strong>Heir to the throne and Daniel's son, Einar De Courno (skald)</strong><br>Contact is not possible at the moment, only for citizens.</li>
+            </ul>
+            
+            <div class="citizenship-form">
+                <h3>Citizenship</h3>
+                <p>To obtain citizenship, write to this email: forgamesandstuff2006@gmail.com using the following form:</p>
+                <ol>
+                    <li>Your first and last name (you can choose completely different ones than in your previous country, but you are obliged to live by your chosen first and last name for the rest of your life in the empire).</li>
+                    <li>Your email for communication (the empire has other ways to communicate between citizens, email is for extremely important news).</li>
+                    <li>Are you ready to take an oath of allegiance to the society of freedom and honor? A "yes" answer is sufficient at this stage.</li>
+                    <li>Indicate here whether you will be able to apply for a passport that you will receive with dignity? (Print it out, protect it from possible damage). If you are unable to obtain a passport from ready-made materials yourself, contact the emperor asking him to send it to you (this operation may take more time).</li>
+                    <li>Tell us about yourself (who you are in this life, how you look at life, maybe you have goals in this life, your date of birth, your previous army experience, your class in society or your ancestors class, your detailed look - send us your picture or the drawing of yourself, strictly yourself, its gonna be used nowhere but in your passport which is available only for you).</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 1700 Sacred Daniel's Empire. All rights reserved.
+    </footer>
+    
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Prevent default anchor behavior
+            return false;
+        }
+    </script>
+</body>
+</html>      "logo": "https://daniel321-5.github.io/Sacred.Empire/TBA-SITE/imperial_emblem.webp",
       "foundingDate": "1700",
       "keywords": [
         {"@language": "en", "@value": "ships, piracy, naval battles, Spain colonies, British fleet"},
