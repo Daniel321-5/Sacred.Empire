@@ -64,6 +64,30 @@
             box-sizing: border-box;
         }
         
+        /* ДОБАВЛЕНО: Стили для переключателя темы */
+        .theme-switcher {
+            background: linear-gradient(90deg, #ffeb3b 0%, #1a237e 100%);
+            color: #000;
+            text-align: center;
+            padding: 10px 0;
+            font-weight: bold;
+            border-bottom: 2px solid gold;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-switcher:hover {
+            background: linear-gradient(90deg, #ff9800 0%, #0d153a 100%);
+            color: #fff;
+        }
+        
+        .theme-switcher span {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        
         body {
             font-family: 'Times New Roman', serif;
             background-color: #f5f5f5;
@@ -71,6 +95,54 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        /* ДОБАВЛЕНО: Темная тема */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .page {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .hero-card {
+            background-color: #2d2d2d;
+            border-color: #444;
+        }
+        
+        body.dark-mode .citizenship-form {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-mode .contact-list li {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-mode .research-paper h3,
+        body.dark-mode .research-paper h4,
+        body.dark-mode .research-paper h5 {
+            color: #bb86fc;
+        }
+        
+        body.dark-mode .tabs-container {
+            border-color: #444;
+        }
+        
+        body.dark-mode .tab-content {
+            background-color: #1e1e1e;
+        }
+        
+        body.dark-mode .tab-button {
+            background-color: #0d153a;
+        }
+        
+        body.dark-mode .tab-button:hover {
+            background-color: #1a237e;
         }
         
         header {
@@ -343,6 +415,12 @@
             .comparative-images {
                 flex-direction: column;
             }
+            
+            /* Адаптация переключателя темы */
+            .theme-switcher span {
+                margin: 0 5px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -355,6 +433,15 @@
             <img src="TBA-SITE/5c8d1d84fcd5694f34ec5a7c122609d0.webp" alt="Imperial Emblem">
         </div>
     </header>
+    
+    <!-- ДОБАВЛЕНО: Переключатель темы -->
+    <div class="theme-switcher" onclick="toggleTheme()">
+        <span>☀️</span>
+        <span>The Sun Scorching Sinners</span>
+        <span>|</span>
+        <span>The Night - the Outing of Werewolves</span>
+        <span>🌙</span>
+    </div>
     
     <nav>
         <a href="#" onclick="showPage('home')">Home</a>
@@ -681,9 +768,36 @@
             evt.preventDefault();
         }
         
-        // Ensure home page is active on load
+        // ДОБАВЛЕНО: Функция переключения темы
+        function toggleTheme() {
+            const body = document.body;
+            const themeSwitcher = document.querySelector('.theme-switcher');
+            
+            if (body.classList.contains('dark-mode')) {
+                // Переключаем на светлую тему
+                body.classList.remove('dark-mode');
+                themeSwitcher.innerHTML = '<span>☀️</span><span>The Sun Scorching Sinners</span><span>|</span><span>The Night - the Outing of Werewolves</span><span>🌙</span>';
+            } else {
+                // Переключаем на темную тему
+                body.classList.add('dark-mode');
+                themeSwitcher.innerHTML = '<span>🌙</span><span>The Night - the Outing of Werewolves</span><span>|</span><span>The Sun Scorching Sinners</span><span>☀️</span>';
+            }
+            
+            // Сохраняем выбор пользователя в localStorage
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+        
+        // Загружаем сохраненную тему при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
+            
+            // Проверяем сохраненную тему
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                const themeSwitcher = document.querySelector('.theme-switcher');
+                themeSwitcher.innerHTML = '<span>🌙</span><span>The Night - the Outing of Werewolves</span><span>|</span><span>The Sun Scorching Sinners</span><span>☀️</span>';
+            }
         });
     </script>
 </body>
