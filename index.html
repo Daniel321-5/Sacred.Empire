@@ -64,42 +64,74 @@
             box-sizing: border-box;
         }
         
-        /* Стили для меню пользователя */
-        .user-menu {
+        /* Стили для кнопки входа */
+        .login-button-container {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1000;
         }
         
-        .menu-button {
+        .login-button {
             background-color: #1a237e;
             color: gold;
             border: 2px solid gold;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
             transition: all 0.3s;
         }
         
-        .menu-button:hover {
+        .login-button:hover {
             background-color: #303f9f;
-            transform: scale(1.1);
+            transform: scale(1.05);
+        }
+        
+        /* Стили для меню пользователя */
+        .user-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .user-menu.active {
+            display: block;
+        }
+        
+        .user-button {
+            background-color: #1a237e;
+            color: gold;
+            border: 2px solid gold;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .user-button:hover {
+            background-color: #303f9f;
         }
         
         .dropdown-menu {
             position: absolute;
-            top: 60px;
+            top: 100%;
             right: 0;
             background-color: #1a237e;
             border: 2px solid gold;
             border-radius: 5px;
             min-width: 200px;
+            margin-top: 5px;
             display: none;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
@@ -182,6 +214,7 @@
             margin-bottom: 20px;
             border-bottom: 2px solid gold;
             padding-bottom: 10px;
+            text-align: center;
         }
         
         body.dark-mode .modal h2 {
@@ -227,6 +260,7 @@
             cursor: pointer;
             width: 100%;
             transition: background-color 0.3s;
+            font-weight: bold;
         }
         
         .submit-button:hover {
@@ -260,6 +294,7 @@
         .profile-info h3 {
             color: #1a237e;
             margin-bottom: 10px;
+            text-align: center;
         }
         
         body.dark-mode .profile-info h3 {
@@ -267,19 +302,27 @@
         }
         
         .profile-info p {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        body.dark-mode .profile-info p {
+            border-bottom: 1px solid #444;
         }
         
         .logout-button {
             background-color: #d32f2f;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
             width: 100%;
             font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
         }
         
         .logout-button:hover {
@@ -393,6 +436,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-weight: bold;
         }
         
         .send-button:hover {
@@ -497,6 +541,7 @@
             text-align: center;
             padding: 1rem 0;
             border-bottom: 5px solid gold;
+            position: relative;
         }
         
         .header-images {
@@ -768,35 +813,39 @@
                 font-size: 1rem;
             }
             
-            /* Адаптация меню пользователя для мобильных */
+            /* Адаптация кнопок входа */
+            .login-button-container,
             .user-menu {
                 top: 10px;
                 right: 10px;
             }
             
-            .menu-button {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-            
-            .dropdown-menu {
-                top: 50px;
-                min-width: 150px;
+            .login-button,
+            .user-button {
+                padding: 8px 15px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Меню пользователя в правом верхнем углу -->
-    <div class="user-menu">
-        <button class="menu-button" id="menuButton">⋮</button>
-        <div class="dropdown-menu" id="dropdownMenu">
+    <!-- Кнопка Log In (показывается когда пользователь не авторизован) -->
+    <div class="login-button-container" id="loginButtonContainer">
+        <button class="login-button" onclick="showLoginModal()">Log In</button>
+    </div>
+    
+    <!-- Меню пользователя (показывается после входа) -->
+    <div class="user-menu" id="userMenu">
+        <button class="user-button" onclick="toggleUserMenu()">
+            <span>👤</span>
+            <span id="userName">User</span>
+        </button>
+        <div class="dropdown-menu" id="userDropdown">
             <button onclick="showPersonalCabinet()">
-                👤 Personal Cabinet
+                Personal Cabinet
             </button>
-            <button id="chatButton" onclick="showChat()" style="display: none;">
-                💬 Live Chat
+            <button onclick="showChat()">
+                Live Chat
             </button>
         </div>
     </div>
@@ -805,15 +854,15 @@
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <button class="close-button" onclick="closeLoginModal()">×</button>
-            <h2>Personal Cabinet Login</h2>
+            <h2>Imperial Login</h2>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Login:</label>
-                    <input type="text" id="username" required>
+                    <input type="text" id="username" required placeholder="Enter your login">
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" required>
+                    <input type="password" id="password" required placeholder="Enter your password">
                 </div>
                 <button type="button" class="submit-button" onclick="login()">Enter the Empire</button>
                 <div class="error-message" id="loginError">Invalid login or password!</div>
@@ -1183,21 +1232,213 @@
         let currentUser = null;
         let chatMessages = [];
 
-        // Функция показа/скрытия меню
-        function toggleMenu() {
-            const dropdown = document.getElementById('dropdownMenu');
+        // Функция показа модального окна входа
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            setTimeout(() => {
+                document.getElementById('username').focus();
+            }, 100);
+        }
+
+        // Функция закрытия окна входа
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+
+        // Функция авторизации
+        function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorElement = document.getElementById('loginError');
+            
+            if (users[username] && users[username].password === password) {
+                // Успешная авторизация
+                currentUser = {
+                    username: username,
+                    ...users[username]
+                };
+                
+                // Сохраняем в localStorage
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Закрываем окно входа
+                closeLoginModal();
+                
+                // Меняем кнопку Log In на меню пользователя
+                document.getElementById('loginButtonContainer').style.display = 'none';
+                document.getElementById('userMenu').classList.add('active');
+                document.getElementById('userName').textContent = currentUser.name;
+                
+                // Добавляем приветственное сообщение в чат
+                addWelcomeMessage();
+                
+                // Показываем уведомление об успешном входе
+                alert(`Welcome to the Empire, ${currentUser.name}!`);
+            } else {
+                // Неправильные данные
+                errorElement.style.display = 'block';
+                document.getElementById('username').style.borderColor = '#ff4444';
+                document.getElementById('password').style.borderColor = '#ff4444';
+            }
+        }
+
+        // Функция переключения меню пользователя
+        function toggleUserMenu() {
+            const dropdown = document.getElementById('userDropdown');
             dropdown.classList.toggle('active');
         }
 
         // Закрытие меню при клике вне его
         document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('dropdownMenu');
-            const menuButton = document.getElementById('menuButton');
+            const userMenu = document.getElementById('userMenu');
+            const userButton = userMenu.querySelector('.user-button');
+            const dropdown = document.getElementById('userDropdown');
             
-            if (!menuButton.contains(event.target) && !dropdown.contains(event.target)) {
+            if (userMenu.classList.contains('active') && 
+                !userButton.contains(event.target) && 
+                !dropdown.contains(event.target)) {
                 dropdown.classList.remove('active');
             }
         });
+
+        // Функция показа личного кабинета
+        function showPersonalCabinet() {
+            document.getElementById('userDropdown').classList.remove('active');
+            
+            const cabinetContent = document.getElementById('cabinetContent');
+            
+            if (currentUser) {
+                cabinetContent.innerHTML = `
+                    <div class="profile-info">
+                        <h3>Imperial Citizen Profile</h3>
+                        <p><strong>Login:</strong> ${currentUser.username}</p>
+                        <p><strong>Name:</strong> ${currentUser.name}</p>
+                        <p><strong>Bio:</strong> ${currentUser.bio}</p>
+                        <p><strong>Status:</strong> Verified Citizen of the Empire</p>
+                    </div>
+                    <button class="logout-button" onclick="logout()">Logout from Empire</button>
+                `;
+            }
+            
+            document.getElementById('personalCabinetModal').classList.add('active');
+        }
+
+        // Функция закрытия личного кабинета
+        function closePersonalCabinet() {
+            document.getElementById('personalCabinetModal').classList.remove('active');
+        }
+
+        // Функция показа чата
+        function showChat() {
+            document.getElementById('userDropdown').classList.remove('active');
+            
+            if (currentUser) {
+                document.getElementById('chatModal').classList.add('active');
+                updateChatDisplay();
+                setTimeout(() => {
+                    document.getElementById('chatInput').focus();
+                    const chatMessagesElement = document.getElementById('chatMessages');
+                    chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
+                }, 100);
+            }
+        }
+
+        // Функция закрытия чата
+        function closeChat() {
+            document.getElementById('chatModal').classList.remove('active');
+            document.getElementById('chatInput').value = '';
+        }
+
+        // Функция отправки сообщения
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message && currentUser) {
+                const newMessage = {
+                    user: currentUser.name,
+                    text: message,
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                    timestamp: new Date().getTime()
+                };
+                
+                chatMessages.push(newMessage);
+                input.value = '';
+                updateChatDisplay();
+                
+                // Прокручиваем вниз
+                const chatMessagesElement = document.getElementById('chatMessages');
+                chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
+            }
+        }
+
+        // Функция обновления отображения чата
+        function updateChatDisplay() {
+            const chatMessagesElement = document.getElementById('chatMessages');
+            const onlineCount = document.getElementById('onlineCount');
+            
+            // Обновляем онлайн
+            onlineCount.textContent = `Online: ${currentUser ? 1 : 0}`;
+            
+            // Очищаем и добавляем сообщения
+            chatMessagesElement.innerHTML = '';
+            
+            if (chatMessages.length === 0) {
+                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>';
+            } else {
+                chatMessages.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message';
+                    messageDiv.innerHTML = `
+                        <div class="message-header">
+                            <span class="message-user">${msg.user}</span>
+                            <span class="message-time">${msg.time}</span>
+                        </div>
+                        <div class="message-content">${msg.text}</div>
+                    `;
+                    chatMessagesElement.appendChild(messageDiv);
+                });
+            }
+        }
+
+        // Функция добавления приветственного сообщения
+        function addWelcomeMessage() {
+            if (currentUser) {
+                const welcomeMessage = {
+                    user: 'Imperial System',
+                    text: `Citizen ${currentUser.name} has entered the Imperial Chat. Long live the Empire!`,
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                    timestamp: new Date().getTime()
+                };
+                
+                chatMessages.push(welcomeMessage);
+                updateChatDisplay();
+            }
+        }
+
+        // Функция выхода
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            
+            // Меняем меню пользователя на кнопку Log In
+            document.getElementById('userMenu').classList.remove('active');
+            document.getElementById('loginButtonContainer').style.display = 'block';
+            document.getElementById('userDropdown').classList.remove('active');
+            
+            // Закрываем модальные окна
+            closePersonalCabinet();
+            closeChat();
+            
+            // Очищаем чат
+            chatMessages = [];
+            
+            // Показываем уведомление о выходе
+            alert('You have left the Empire. Until we meet again!');
+        }
 
         // Функция показа страницы
         function showPage(pageId) {
@@ -1211,7 +1452,8 @@
             document.getElementById(pageId).classList.add('active');
             
             // Скрываем выпадающее меню
-            document.getElementById('dropdownMenu').classList.remove('active');
+            const dropdown = document.getElementById('userDropdown');
+            if (dropdown) dropdown.classList.remove('active');
             
             // Обновляем URL без перезагрузки страницы
             history.pushState(null, null, `#${pageId}`);
@@ -1259,200 +1501,17 @@
             }
         }
 
-        // Функция показа личного кабинета
-        function showPersonalCabinet() {
-            const dropdown = document.getElementById('dropdownMenu');
-            dropdown.classList.remove('active');
-            
-            if (currentUser) {
-                // Если пользователь авторизован, показываем личный кабинет
-                showProfile();
-            } else {
-                // Если не авторизован, показываем окно входа
-                document.getElementById('loginModal').classList.add('active');
-            }
-        }
-
-        // Функция закрытия окна входа
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.remove('active');
-            document.getElementById('loginError').style.display = 'none';
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-        }
-
-        // Функция авторизации
-        function login() {
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            const errorElement = document.getElementById('loginError');
-            
-            if (users[username] && users[username].password === password) {
-                // Успешная авторизация
-                currentUser = {
-                    username: username,
-                    ...users[username]
-                };
-                
-                // Сохраняем в localStorage
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                
-                // Закрываем окно входа
-                closeLoginModal();
-                
-                // Показываем кнопку чата в меню
-                document.getElementById('chatButton').style.display = 'block';
-                
-                // Показываем профиль
-                showProfile();
-                
-                // Добавляем приветственное сообщение в чат
-                addWelcomeMessage();
-            } else {
-                // Неправильные данные
-                errorElement.style.display = 'block';
-            }
-        }
-
-        // Функция показа профиля
-        function showProfile() {
-            const cabinetContent = document.getElementById('cabinetContent');
-            
-            if (currentUser) {
-                cabinetContent.innerHTML = `
-                    <div class="profile-info">
-                        <h3>Imperial Citizen Profile</h3>
-                        <p><strong>Login:</strong> ${currentUser.username}</p>
-                        <p><strong>Name:</strong> ${currentUser.name}</p>
-                        <p><strong>Bio:</strong> ${currentUser.bio}</p>
-                        <p><strong>Status:</strong> Verified Citizen of the Empire</p>
-                    </div>
-                    <button class="logout-button" onclick="logout()">Logout from Empire</button>
-                `;
-            }
-            
-            document.getElementById('personalCabinetModal').classList.add('active');
-        }
-
-        // Функция закрытия личного кабинета
-        function closePersonalCabinet() {
-            document.getElementById('personalCabinetModal').classList.remove('active');
-        }
-
-        // Функция выхода
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            
-            // Скрываем кнопку чата
-            document.getElementById('chatButton').style.display = 'none';
-            
-            // Закрываем модальные окна
-            closePersonalCabinet();
-            
-            // Очищаем чат
-            chatMessages = [];
-            updateChatDisplay();
-            
-            // Показываем окно входа
-            showPersonalCabinet();
-        }
-
-        // Функция показа чата
-        function showChat() {
-            const dropdown = document.getElementById('dropdownMenu');
-            dropdown.classList.remove('active');
-            
-            if (currentUser) {
-                document.getElementById('chatModal').classList.add('active');
-                setTimeout(() => {
-                    document.getElementById('chatInput').focus();
-                }, 100);
-            } else {
-                showPersonalCabinet();
-            }
-        }
-
-        // Функция закрытия чата
-        function closeChat() {
-            document.getElementById('chatModal').classList.remove('active');
-            document.getElementById('chatInput').value = '';
-        }
-
-        // Функция отправки сообщения
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            
-            if (message && currentUser) {
-                const newMessage = {
-                    user: currentUser.name,
-                    text: message,
-                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                    timestamp: new Date().getTime()
-                };
-                
-                chatMessages.push(newMessage);
-                input.value = '';
-                updateChatDisplay();
-                
-                // Прокручиваем вниз
-                const chatMessagesElement = document.getElementById('chatMessages');
-                chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
-            }
-        }
-
-        // Функция обновления отображения чата
-        function updateChatDisplay() {
-            const chatMessagesElement = document.getElementById('chatMessages');
-            const onlineCount = document.getElementById('onlineCount');
-            
-            // Обновляем онлайн (простая имитация)
-            onlineCount.textContent = `Online: ${currentUser ? 1 : 0}`;
-            
-            // Очищаем и добавляем сообщения
-            chatMessagesElement.innerHTML = '';
-            
-            if (chatMessages.length === 0) {
-                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>';
-            } else {
-                chatMessages.forEach(msg => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message';
-                    messageDiv.innerHTML = `
-                        <div class="message-header">
-                            <span class="message-user">${msg.user}</span>
-                            <span class="message-time">${msg.time}</span>
-                        </div>
-                        <div class="message-content">${msg.text}</div>
-                    `;
-                    chatMessagesElement.appendChild(messageDiv);
-                });
-            }
-            
-            // Прокручиваем вниз
-            chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
-        }
-
-        // Функция добавления приветственного сообщения
-        function addWelcomeMessage() {
-            if (currentUser) {
-                const welcomeMessage = {
-                    user: 'Imperial System',
-                    text: `Citizen ${currentUser.name} has entered the Imperial Chat. Long live the Empire!`,
-                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                    timestamp: new Date().getTime()
-                };
-                
-                chatMessages.push(welcomeMessage);
-                updateChatDisplay();
-            }
-        }
-
         // Обработка нажатия Enter в поле ввода чата
         document.getElementById('chatInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 sendMessage();
+            }
+        });
+
+        // Обработка нажатия Enter в поле ввода логина
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
             }
         });
 
@@ -1462,7 +1521,9 @@
             const savedUser = localStorage.getItem('currentUser');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
-                document.getElementById('chatButton').style.display = 'block';
+                document.getElementById('loginButtonContainer').style.display = 'none';
+                document.getElementById('userMenu').classList.add('active');
+                document.getElementById('userName').textContent = currentUser.name;
                 updateChatDisplay();
             }
             
