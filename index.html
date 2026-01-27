@@ -125,10 +125,6 @@
             background-color: #303f9f;
         }
         
-        .dropdown-menu button i {
-            margin-right: 10px;
-        }
-        
         /* Стили для модальных окон */
         .modal {
             display: none;
@@ -173,6 +169,8 @@
             font-size: 24px;
             cursor: pointer;
             color: #1a237e;
+            font-weight: bold;
+            padding: 5px;
         }
         
         body.dark-mode .close-button {
@@ -239,6 +237,7 @@
             color: #ff4444;
             margin-top: 10px;
             display: none;
+            text-align: center;
         }
         
         body.dark-mode .error-message {
@@ -279,6 +278,8 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            width: 100%;
+            font-size: 16px;
         }
         
         .logout-button:hover {
@@ -409,7 +410,7 @@
             color: #aaa;
         }
         
-        /* ДОБАВЛЕНО: Стили для переключателя темы */
+        /* Стили для переключателя темы */
         .theme-switcher {
             background: linear-gradient(90deg, #ffeb3b 0%, #1a237e 100%);
             color: #000;
@@ -443,7 +444,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
         
-        /* ДОБАВЛЕНО: Темная тема */
+        /* Темная тема */
         body.dark-mode {
             background-color: #121212;
             color: #e0e0e0;
@@ -533,7 +534,7 @@
             margin-bottom: 2rem;
         }
         
-        .active {
+        .page.active {
             display: block;
         }
         
@@ -789,13 +790,13 @@
 <body>
     <!-- Меню пользователя в правом верхнем углу -->
     <div class="user-menu">
-        <button class="menu-button" onclick="toggleMenu()">⋮</button>
+        <button class="menu-button" id="menuButton">⋮</button>
         <div class="dropdown-menu" id="dropdownMenu">
             <button onclick="showPersonalCabinet()">
-                <i>👤</i> Personal Cabinet
+                👤 Personal Cabinet
             </button>
             <button id="chatButton" onclick="showChat()" style="display: none;">
-                <i>💬</i> Live Chat
+                💬 Live Chat
             </button>
         </div>
     </div>
@@ -814,7 +815,7 @@
                     <label for="password">Password:</label>
                     <input type="password" id="password" required>
                 </div>
-                <button type="submit" class="submit-button">Enter the Empire</button>
+                <button type="button" class="submit-button" onclick="login()">Enter the Empire</button>
                 <div class="error-message" id="loginError">Invalid login or password!</div>
             </form>
         </div>
@@ -839,7 +840,7 @@
             <div class="chat-container">
                 <div class="chat-header">
                     <span>Imperial Citizens Chat</span>
-                    <span id="onlineCount">Online: 0</span>
+                    <span id="onlineCount">Online: 1</span>
                 </div>
                 <div class="chat-messages" id="chatMessages">
                     <div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>
@@ -861,7 +862,7 @@
         </div>
     </header>
     
-    <!-- ДОБАВЛЕНО: Переключатель темы -->
+    <!-- Переключатель темы -->
     <div class="theme-switcher" onclick="toggleTheme()">
         <span>☀️</span>
         <span>The Sun Scorching Sinners</span>
@@ -871,15 +872,15 @@
     </div>
     
     <nav>
-        <a href="#" onclick="showPage('home')">Home</a>
-        <a href="#" onclick="showPage('about')">About Us</a>
-        <a href="#" onclick="showPage('history')">History</a>
-        <a href="#" onclick="showPage('heroes')">Heroes of the Empire</a>
-        <a href="#" onclick="showPage('science')">Science of the Empire</a>
-        <a href="#" onclick="showPage('codex')">Codex</a>
-        <a href="#" onclick="showPage('government')">Government</a>
-        <a href="#" onclick="showPage('media')">Media</a>
-        <a href="#" onclick="showPage('contact')">Contact</a>
+        <a href="#home" onclick="return showPage('home')">Home</a>
+        <a href="#about" onclick="return showPage('about')">About Us</a>
+        <a href="#history" onclick="return showPage('history')">History</a>
+        <a href="#heroes" onclick="return showPage('heroes')">Heroes of the Empire</a>
+        <a href="#science" onclick="return showPage('science')">Science of the Empire</a>
+        <a href="#codex" onclick="return showPage('codex')">Codex</a>
+        <a href="#government" onclick="return showPage('government')">Government</a>
+        <a href="#media" onclick="return showPage('media')">Media</a>
+        <a href="#contact" onclick="return showPage('contact')">Contact</a>
     </nav>
     
     <div class="container">
@@ -907,7 +908,7 @@
                 <p class="hero-subtitle">Titles: The First Daniel, Lord of the Black Angels, Prophet of the Kraken, The Sea-Father</p>
                 <p class="hero-subtitle">Era: 1st Century A.D. and beyond (Beginning 33 A.D.)</p>
                 <p class="hero-subtitle">Sacred Vessel: The Mini Angel (Originally a Roman Trireme)</p>
-                <p class="hero-subtitle">P.S: There are at least 3 Daniels in card. The first one, His son and grandson who later will pronounce empire and himself as an emperor
+                <p class="hero-subtitle">P.S: There are at least 3 Daniels in card. The first one, His son and grandson who later will pronounce empire and himself as an emperor</p>
                     
                 <p>Lord Daniel is not merely a historical figure; he is the cornerstone of a nation and a faith. His story begins in the pivotal year 33 A.D., in the immediate, disillusioned aftermath of the Crucifixion of Jesus Christ. Unlike the masses, Daniel did not mourn; he was filled with disgust and fear at the event. This rejection of the established divine order was the catalyst for his destiny.</p>
                 
@@ -928,4 +929,4 @@
             <div class="hero-card">
                 <h3 class="hero-title">His Sacred Majesty, Emperor Daniel de Courno</h3>
                 <p class="hero-subtitle">Title: Sacred Emperor of the Empire of Sacred Daniel</p>
-                <p class="hero-subtitle">
+                <p class="hero
