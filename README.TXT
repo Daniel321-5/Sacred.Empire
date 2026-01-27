@@ -22,3 +22,7 @@ Technical Notes
 - Fully responsive design (works on mobile/desktop)
 - Hosted on [GitHub]
 - All documents linked via Google 
+
+Attention!
+if you are citizen youll be given an unique login and password to log into your personal cabinet. 
+Also, registered users are able to chat on live chat section (still in building, doestn work now)
