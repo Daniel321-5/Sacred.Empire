@@ -1402,56 +1402,44 @@
         }
         
         // Получение аватарки пользователя из Firebase Storage
-        function getUserAvatar(userId) {
-            if (!isFirebaseConnected) return Promise.resolve(DEFAULT_AVATAR);
+        async function getUserAvatar(userId) {
+            if (!isFirebaseConnected) return DEFAULT_AVATAR;
             
-            return new Promise((resolve) => {
-                try {
-                    const storageRef = storage.ref();
-                    const avatarRef = storageRef.child(`avatars/${userId}.jpg`);
-                    
-                    avatarRef.getDownloadURL()
-                        .then(url => resolve(url))
-                        .catch(error => {
-                            console.log(`No avatar found for ${userId}, using default`);
-                            resolve(DEFAULT_AVATAR);
-                        });
-                } catch (error) {
-                    console.log(`Error getting avatar for ${userId}:`, error);
-                    resolve(DEFAULT_AVATAR);
-                }
-            });
+            try {
+                const storageRef = storage.ref();
+                const avatarRef = storageRef.child(`avatars/${userId}.jpg`);
+                
+                const url = await avatarRef.getDownloadURL();
+                return url;
+            } catch (error) {
+                console.log(`No avatar found for ${userId}, using default`);
+                return DEFAULT_AVATAR;
+            }
         }
         
         // Сохранение аватарки в Firebase Storage
-        function saveUserAvatar(userId, file) {
-            if (!isFirebaseConnected || !currentUser) return Promise.resolve(false);
+        async function saveUserAvatar(userId, file) {
+            if (!isFirebaseConnected || !currentUser) return false;
             
-            return new Promise((resolve) => {
-                try {
-                    const storageRef = storage.ref();
-                    const avatarRef = storageRef.child(`avatars/${userId}.jpg`);
-                    
-                    avatarRef.put(file)
-                        .then(() => {
-                            avatarRef.getDownloadURL()
-                                .then(avatarUrl => {
-                                    database.ref(`userAvatars/${userId}`).set(avatarUrl);
-                                    currentUser.avatarUrl = avatarUrl;
-                                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                                    resolve(avatarUrl);
-                                })
-                                .catch(() => resolve(false));
-                        })
-                        .catch(error => {
-                            console.error("Error saving avatar:", error);
-                            resolve(false);
-                        });
-                } catch (error) {
-                    console.error("Error saving avatar:", error);
-                    resolve(false);
-                }
-            });
+            try {
+                const storageRef = storage.ref();
+                const avatarRef = storageRef.child(`avatars/${userId}.jpg`);
+                
+                await avatarRef.put(file);
+                
+                // Обновляем URL аватарки в базе данных
+                const avatarUrl = await avatarRef.getDownloadURL();
+                await database.ref(`userAvatars/${userId}`).set(avatarUrl);
+                
+                // Обновляем аватарку у текущего пользователя
+                currentUser.avatarUrl = avatarUrl;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                return avatarUrl;
+            } catch (error) {
+                console.error("Error saving avatar:", error);
+                return false;
+            }
         }
         
         // Загрузка аватарки пользователя
@@ -1485,7 +1473,7 @@
         }
         
         // Сохранение новой аватарки
-        function saveNewAvatar() {
+        async function saveNewAvatar() {
             const input = document.getElementById('avatarUpload');
             const file = input.files[0];
             
@@ -1494,21 +1482,19 @@
                 return;
             }
             
-            saveUserAvatar(currentUser.username, file)
-                .then(success => {
-                    if (success) {
-                        alert('Avatar updated successfully!');
-                        updateAvatarInUI();
-                    } else {
-                        alert('Error updating avatar. Please try again.');
-                    }
-                });
+            const success = await saveUserAvatar(currentUser.username, file);
+            if (success) {
+                alert('Avatar updated successfully!');
+                updateAvatarInUI();
+            } else {
+                alert('Error updating avatar. Please try again.');
+            }
         }
         
         // Обновление аватарки в интерфейсе
         function updateAvatarInUI() {
             if (currentUser && currentUser.avatarUrl) {
-                // Обновляем иконку в меню пользователя
+                // Обновляем аватарку в меню пользователя
                 const avatarIcon = document.getElementById('userAvatarIcon');
                 if (avatarIcon) {
                     avatarIcon.innerHTML = `<img src="${currentUser.avatarUrl}" style="width: 20px; height: 20px; border-radius: 50%; border: 1px solid gold;">`;
@@ -1531,9 +1517,9 @@
                 usersRef = database.ref('chat/users');
                 
                 // Слушаем новые сообщения
-                chatRef.limitToLast(100).on('value', (snapshot) => {
+                chatRef.limitToLast(100).on('value', async (snapshot) => {
                     const messages = snapshot.val() || {};
-                    updateFirebaseChatDisplay(messages);
+                    await updateFirebaseChatDisplay(messages);
                 });
                 
                 return true;
@@ -1544,7 +1530,7 @@
         }
         
         // Обновление отображения чата Firebase с аватарками
-        function updateFirebaseChatDisplay(messages) {
+        async function updateFirebaseChatDisplay(messages) {
             const chatMessagesElement = document.getElementById('chatMessages');
             if (!chatMessagesElement) return;
             
@@ -1557,7 +1543,7 @@
             if (messagesArray.length === 0) {
                 chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>';
             } else {
-                messagesArray.forEach(msg => {
+                for (const msg of messagesArray) {
                     const messageDiv = document.createElement('div');
                     
                     if (msg.type === 'system') {
@@ -1567,8 +1553,15 @@
                             <div class="message-time">${msg.time}</div>
                         `;
                     } else {
-                        // Используем дефолтную аватарку или пытаемся получить из Firebase
+                        // Получаем аватарку пользователя
                         let avatarUrl = DEFAULT_AVATAR;
+                        if (msg.userId) {
+                            try {
+                                avatarUrl = await getUserAvatar(msg.userId);
+                            } catch (error) {
+                                console.log(`Could not get avatar for ${msg.userId}`);
+                            }
+                        }
                         
                         messageDiv.className = 'message';
                         messageDiv.innerHTML = `
@@ -1584,7 +1577,7 @@
                     }
                     
                     chatMessagesElement.appendChild(messageDiv);
-                });
+                }
             }
             
             // Прокручиваем вниз
@@ -1649,69 +1642,42 @@
             document.getElementById('loginModal').classList.remove('active');
         }
         
-        function login() {
+        async function login() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorElement = document.getElementById('loginError');
             
-            // Очищаем предыдущие ошибки
-            document.getElementById('username').style.borderColor = '';
-            document.getElementById('password').style.borderColor = '';
-            errorElement.style.display = 'none';
-            
-            if (!username || !password) {
-                errorElement.textContent = 'Please enter both login and password!';
-                errorElement.style.display = 'block';
-                return;
-            }
-            
             if (users[username] && users[username].password === password) {
                 currentUser = {
                     username: username,
-                    name: users[username].name,
-                    bio: users[username].bio,
-                    avatarUrl: DEFAULT_AVATAR
+                    ...users[username]
                 };
                 
-                // Получаем аватарку пользователя асинхронно
-                getUserAvatar(username)
-                    .then(avatarUrl => {
-                        currentUser.avatarUrl = avatarUrl;
-                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                        
-                        closeLoginModal();
-                        
-                        document.getElementById('loginButtonContainer').style.display = 'none';
-                        document.getElementById('userMenu').classList.add('active');
-                        document.getElementById('userName').textContent = currentUser.name;
-                        
-                        // Обновляем иконку аватарки
-                        updateAvatarInUI();
-                        
-                        // Подключаемся к Firebase чату если пользователь вошел
-                        if (isFirebaseConnected) {
-                            connectToFirebaseChat();
-                            sendFirebaseSystemMessage(`${currentUser.name} has entered the Imperial Chat. Long live the Empire!`);
-                        }
-                        
-                        alert(`Welcome to the Empire, ${currentUser.name}!`);
-                    })
-                    .catch(error => {
-                        console.error("Error getting avatar:", error);
-                        // Все равно логиним пользователя, но с дефолтной аватаркой
-                        currentUser.avatarUrl = DEFAULT_AVATAR;
-                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                        
-                        closeLoginModal();
-                        
-                        document.getElementById('loginButtonContainer').style.display = 'none';
-                        document.getElementById('userMenu').classList.add('active');
-                        document.getElementById('userName').textContent = currentUser.name;
-                        
-                        alert(`Welcome to the Empire, ${currentUser.name}!`);
-                    });
+                // Получаем аватарку пользователя
+                try {
+                    currentUser.avatarUrl = await getUserAvatar(username);
+                } catch (error) {
+                    currentUser.avatarUrl = DEFAULT_AVATAR;
+                }
+                
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                closeLoginModal();
+                
+                document.getElementById('loginButtonContainer').style.display = 'none';
+                document.getElementById('userMenu').classList.add('active');
+                document.getElementById('userName').textContent = currentUser.name;
+                
+                // Обновляем иконку аватарки
+                updateAvatarInUI();
+                
+                // Подключаемся к Firebase чату если пользователь вошел
+                if (isFirebaseConnected) {
+                    connectToFirebaseChat();
+                    sendFirebaseSystemMessage(`${currentUser.name} has entered the Imperial Chat. Long live the Empire!`);
+                }
+                
+                alert(`Welcome to the Empire, ${currentUser.name}!`);
             } else {
-                errorElement.textContent = 'Invalid login or password!';
                 errorElement.style.display = 'block';
                 document.getElementById('username').style.borderColor = '#ff4444';
                 document.getElementById('password').style.borderColor = '#ff4444';
@@ -1736,9 +1702,8 @@
             }
         });
         
-        function showPersonalCabinet() {
-            const dropdown = document.getElementById('userDropdown');
-            if (dropdown) dropdown.classList.remove('active');
+        async function showPersonalCabinet() {
+            document.getElementById('userDropdown').classList.remove('active');
             
             const cabinetContent = document.getElementById('cabinetContent');
             
@@ -1778,16 +1743,13 @@
         }
         
         function showChat() {
-            const dropdown = document.getElementById('userDropdown');
-            if (dropdown) dropdown.classList.remove('active');
+            document.getElementById('userDropdown').classList.remove('active');
             
             if (currentUser) {
                 document.getElementById('chatModal').classList.add('active');
                 
                 setTimeout(() => {
-                    const chatInput = document.getElementById('chatInput');
-                    if (chatInput) chatInput.focus();
-                    
+                    document.getElementById('chatInput').focus();
                     const chatMessagesElement = document.getElementById('chatMessages');
                     if (chatMessagesElement) {
                         chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
@@ -1798,8 +1760,7 @@
         
         function closeChat() {
             document.getElementById('chatModal').classList.remove('active');
-            const chatInput = document.getElementById('chatInput');
-            if (chatInput) chatInput.value = '';
+            document.getElementById('chatInput').value = '';
         }
         
         function sendMessage() {
@@ -1822,7 +1783,7 @@
             }
         }
         
-        function logout() {
+        async function logout() {
             if (currentUser) {
                 // Добавляем сообщение о выходе
                 if (isFirebaseConnected) {
@@ -1835,8 +1796,7 @@
             
             document.getElementById('userMenu').classList.remove('active');
             document.getElementById('loginButtonContainer').style.display = 'block';
-            const dropdown = document.getElementById('userDropdown');
-            if (dropdown) dropdown.classList.remove('active');
+            document.getElementById('userDropdown').classList.remove('active');
             
             closePersonalCabinet();
             closeChat();
@@ -1845,23 +1805,16 @@
         }
         
         // Обработка нажатия Enter в поле ввода чата (ДОБАВЛЕНО)
-        document.addEventListener('DOMContentLoaded', function() {
-            const chatInput = document.getElementById('chatInput');
-            if (chatInput) {
-                chatInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        sendMessage();
-                    }
-                });
+        document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
             }
-            
-            const passwordInput = document.getElementById('password');
-            if (passwordInput) {
-                passwordInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        login();
-                    }
-                });
+        });
+        
+        // Обработка нажатия Enter в поле ввода логина (ДОБАВЛЕНО)
+        document.getElementById('password')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
             }
         });
         
@@ -1936,7 +1889,7 @@
         }
         
         // Загружаем сохраненную тему при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             showPage('home');
             
             // Инициализируем Firebase (ДОБАВЛЕНО)
@@ -1949,14 +1902,14 @@
                     currentUser = JSON.parse(savedUser);
                     
                     // Получаем актуальную аватарку
-                    getUserAvatar(currentUser.username)
-                        .then(avatarUrl => {
-                            currentUser.avatarUrl = avatarUrl;
+                    try {
+                        if (isFirebaseConnected) {
+                            currentUser.avatarUrl = await getUserAvatar(currentUser.username);
                             localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                        })
-                        .catch(error => {
-                            console.log("Could not get updated avatar:", error);
-                        });
+                        }
+                    } catch (error) {
+                        console.log("Could not get updated avatar:", error);
+                    }
                     
                     document.getElementById('loginButtonContainer').style.display = 'none';
                     document.getElementById('userMenu').classList.add('active');
