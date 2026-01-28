@@ -25,4 +25,4 @@ Technical Notes
 
 Attention!
 if you are citizen youll be given an unique login and password to log into your personal cabinet. 
-Also, registered users are able to chat on live chat section (still in building, doestn work now)
+Also, registered users are able to chat on live chat section (Works now!)
