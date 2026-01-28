@@ -60,6 +60,7 @@
     <!-- ДОБАВЛЕН FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
     <style>
         * {
@@ -369,6 +370,8 @@
             background-color: white;
             border-radius: 5px;
             border-left: 3px solid #1a237e;
+            display: flex;
+            gap: 10px;
         }
         
         body.dark-mode .message {
@@ -376,11 +379,29 @@
             border-left-color: gold;
         }
         
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #1a237e;
+            flex-shrink: 0;
+        }
+        
+        body.dark-mode .message-avatar {
+            border-color: gold;
+        }
+        
+        .message-content-wrapper {
+            flex: 1;
+        }
+        
         .message.system-message {
             background-color: #e3f2fd;
             border-left-color: #2196f3;
             text-align: center;
             font-style: italic;
+            display: block;
         }
         
         body.dark-mode .message.system-message {
@@ -467,6 +488,73 @@
         }
         
         body.dark-mode .chat-notice {
+            color: #aaa;
+        }
+        
+        /* ДОБАВЛЕНО: Стили для аватарки */
+        .avatar-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .avatar-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #1a237e;
+            margin: 0 auto 15px;
+            display: block;
+        }
+        
+        body.dark-mode .avatar-preview {
+            border-color: gold;
+        }
+        
+        .avatar-upload-label {
+            display: inline-block;
+            background-color: #1a237e;
+            color: gold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .avatar-upload-label:hover {
+            background-color: #303f9f;
+        }
+        
+        .avatar-upload-input {
+            display: none;
+        }
+        
+        .change-avatar-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .change-avatar-button:hover {
+            background-color: #45a049;
+        }
+        
+        .avatar-message {
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        
+        body.dark-mode .avatar-message {
             color: #aaa;
         }
         
@@ -840,6 +928,17 @@
                 padding: 8px 15px;
                 font-size: 14px;
             }
+            
+            /* Адаптация аватарки */
+            .avatar-preview {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .message-avatar {
+                width: 30px;
+                height: 30px;
+            }
         }
     </style>
 </head>
@@ -852,7 +951,7 @@
     <!-- ДОБАВЛЕНО: Меню пользователя (показывается после входа) -->
     <div class="user-menu" id="userMenu">
         <button class="user-button" onclick="toggleUserMenu()">
-            <span>👤</span>
+            <span id="userAvatarIcon">👤</span>
             <span id="userName">User</span>
         </button>
         <div class="dropdown-menu" id="userDropdown">
@@ -1238,8 +1337,10 @@
         // Переменные Firebase (ДОБАВЛЕНО)
         let firebaseApp;
         let database;
+        let storage;
         let chatRef;
         let usersRef;
+        let avatarsRef;
         let isFirebaseConnected = false;
         
         // База данных пользователей (ДОБАВЛЕНО)
@@ -1283,18 +1384,126 @@
         
         // Текущий пользователь (ДОБАВЛЕНО)
         let currentUser = null;
+        // Дефолтная аватарка
+        const DEFAULT_AVATAR = 'e90e492da6e1d55a843f225dd8d50ca9.443x443x1.jpg';
         
         // Инициализация Firebase (ДОБАВЛЕНО)
         function initFirebase() {
             try {
                 firebaseApp = firebase.initializeApp(firebaseConfig);
                 database = firebase.database();
+                storage = firebase.storage();
                 isFirebaseConnected = true;
                 console.log("Firebase initialized successfully");
                 return true;
             } catch (error) {
                 console.error("Firebase initialization error:", error);
                 return false;
+            }
+        }
+        
+        // Получение аватарки пользователя из Firebase Storage
+        async function getUserAvatar(userId) {
+            if (!isFirebaseConnected) return DEFAULT_AVATAR;
+            
+            try {
+                const storageRef = storage.ref();
+                const avatarRef = storageRef.child(`avatars/${userId}.jpg`);
+                
+                const url = await avatarRef.getDownloadURL();
+                return url;
+            } catch (error) {
+                console.log(`No avatar found for ${userId}, using default`);
+                return DEFAULT_AVATAR;
+            }
+        }
+        
+        // Сохранение аватарки в Firebase Storage
+        async function saveUserAvatar(userId, file) {
+            if (!isFirebaseConnected || !currentUser) return false;
+            
+            try {
+                const storageRef = storage.ref();
+                const avatarRef = storageRef.child(`avatars/${userId}.jpg`);
+                
+                await avatarRef.put(file);
+                
+                // Обновляем URL аватарки в базе данных
+                const avatarUrl = await avatarRef.getDownloadURL();
+                await database.ref(`userAvatars/${userId}`).set(avatarUrl);
+                
+                // Обновляем аватарку у текущего пользователя
+                currentUser.avatarUrl = avatarUrl;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                return avatarUrl;
+            } catch (error) {
+                console.error("Error saving avatar:", error);
+                return false;
+            }
+        }
+        
+        // Загрузка аватарки пользователя
+        function uploadAvatar() {
+            const input = document.getElementById('avatarUpload');
+            const file = input.files[0];
+            
+            if (!file) {
+                alert('Please select an image file');
+                return;
+            }
+            
+            // Проверяем размер файла (максимум 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Image size should be less than 2MB');
+                return;
+            }
+            
+            // Проверяем тип файла
+            if (!file.type.match('image/jpeg') && !file.type.match('image/png') && !file.type.match('image/gif')) {
+                alert('Please select a valid image file (JPEG, PNG, or GIF)');
+                return;
+            }
+            
+            // Показываем превью
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('avatarPreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // Сохранение новой аватарки
+        async function saveNewAvatar() {
+            const input = document.getElementById('avatarUpload');
+            const file = input.files[0];
+            
+            if (!file) {
+                alert('Please select an image first');
+                return;
+            }
+            
+            const success = await saveUserAvatar(currentUser.username, file);
+            if (success) {
+                alert('Avatar updated successfully!');
+                updateAvatarInUI();
+            } else {
+                alert('Error updating avatar. Please try again.');
+            }
+        }
+        
+        // Обновление аватарки в интерфейсе
+        function updateAvatarInUI() {
+            if (currentUser && currentUser.avatarUrl) {
+                // Обновляем аватарку в меню пользователя
+                const avatarIcon = document.getElementById('userAvatarIcon');
+                avatarIcon.innerHTML = `<img src="${currentUser.avatarUrl}" style="width: 20px; height: 20px; border-radius: 50%; border: 1px solid gold;">`;
+                
+                // Обновляем превью в личном кабинете
+                const avatarPreview = document.getElementById('avatarPreview');
+                if (avatarPreview) {
+                    avatarPreview.src = currentUser.avatarUrl;
+                }
             }
         }
         
@@ -1307,9 +1516,9 @@
                 usersRef = database.ref('chat/users');
                 
                 // Слушаем новые сообщения
-                chatRef.limitToLast(100).on('value', (snapshot) => {
+                chatRef.limitToLast(100).on('value', async (snapshot) => {
                     const messages = snapshot.val() || {};
-                    updateFirebaseChatDisplay(messages);
+                    await updateFirebaseChatDisplay(messages);
                 });
                 
                 return true;
@@ -1319,8 +1528,8 @@
             }
         }
         
-        // Обновление отображения чата Firebase (ДОБАВЛЕНО)
-        function updateFirebaseChatDisplay(messages) {
+        // Обновление отображения чата Firebase с аватарками
+        async function updateFirebaseChatDisplay(messages) {
             const chatMessagesElement = document.getElementById('chatMessages');
             if (!chatMessagesElement) return;
             
@@ -1333,7 +1542,7 @@
             if (messagesArray.length === 0) {
                 chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>';
             } else {
-                messagesArray.forEach(msg => {
+                for (const msg of messagesArray) {
                     const messageDiv = document.createElement('div');
                     
                     if (msg.type === 'system') {
@@ -1343,18 +1552,31 @@
                             <div class="message-time">${msg.time}</div>
                         `;
                     } else {
+                        // Получаем аватарку пользователя
+                        let avatarUrl = DEFAULT_AVATAR;
+                        if (msg.userId) {
+                            try {
+                                avatarUrl = await getUserAvatar(msg.userId);
+                            } catch (error) {
+                                console.log(`Could not get avatar for ${msg.userId}`);
+                            }
+                        }
+                        
                         messageDiv.className = 'message';
                         messageDiv.innerHTML = `
-                            <div class="message-header">
-                                <span class="message-user">${msg.user}</span>
-                                <span class="message-time">${msg.time}</span>
+                            <img src="${avatarUrl}" class="message-avatar" alt="${msg.user}">
+                            <div class="message-content-wrapper">
+                                <div class="message-header">
+                                    <span class="message-user">${msg.user}</span>
+                                    <span class="message-time">${msg.time}</span>
+                                </div>
+                                <div class="message-content">${msg.text}</div>
                             </div>
-                            <div class="message-content">${msg.text}</div>
                         `;
                     }
                     
                     chatMessagesElement.appendChild(messageDiv);
-                });
+                }
             }
             
             // Прокручиваем вниз
@@ -1419,7 +1641,7 @@
             document.getElementById('loginModal').classList.remove('active');
         }
         
-        function login() {
+        async function login() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorElement = document.getElementById('loginError');
@@ -1430,12 +1652,22 @@
                     ...users[username]
                 };
                 
+                // Получаем аватарку пользователя
+                try {
+                    currentUser.avatarUrl = await getUserAvatar(username);
+                } catch (error) {
+                    currentUser.avatarUrl = DEFAULT_AVATAR;
+                }
+                
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 closeLoginModal();
                 
                 document.getElementById('loginButtonContainer').style.display = 'none';
                 document.getElementById('userMenu').classList.add('active');
                 document.getElementById('userName').textContent = currentUser.name;
+                
+                // Обновляем иконку аватарки
+                updateAvatarInUI();
                 
                 // Подключаемся к Firebase чату если пользователь вошел
                 if (isFirebaseConnected) {
@@ -1469,13 +1701,26 @@
             }
         });
         
-        function showPersonalCabinet() {
+        async function showPersonalCabinet() {
             document.getElementById('userDropdown').classList.remove('active');
             
             const cabinetContent = document.getElementById('cabinetContent');
             
             if (currentUser) {
+                const avatarUrl = currentUser.avatarUrl || DEFAULT_AVATAR;
+                
                 cabinetContent.innerHTML = `
+                    <div class="avatar-container">
+                        <img src="${avatarUrl}" id="avatarPreview" class="avatar-preview" alt="Your Avatar">
+                        <div>
+                            <label for="avatarUpload" class="avatar-upload-label">
+                                Choose New Avatar
+                            </label>
+                            <input type="file" id="avatarUpload" class="avatar-upload-input" accept="image/jpeg,image/png,image/gif" onchange="uploadAvatar()">
+                        </div>
+                        <button class="change-avatar-button" onclick="saveNewAvatar()">Save Avatar</button>
+                        <div class="avatar-message">Maximum size: 2MB. Formats: JPG, PNG, GIF</div>
+                    </div>
                     <div class="profile-info">
                         <h3>Imperial Citizen Profile</h3>
                         <p><strong>Login:</strong> ${currentUser.username}</p>
@@ -1483,6 +1728,7 @@
                         <p><strong>Bio:</strong> ${currentUser.bio}</p>
                         <p><strong>Status:</strong> Verified Citizen of the Empire</p>
                         <p><strong>Chat Name:</strong> ${currentUser.name} (shown in chat)</p>
+                        <p><strong>Avatar:</strong> Your avatar is displayed in the chat next to your messages</p>
                     </div>
                     <button class="logout-button" onclick="logout()">Logout from Empire</button>
                 `;
@@ -1536,7 +1782,7 @@
             }
         }
         
-        function logout() {
+        async function logout() {
             if (currentUser) {
                 // Добавляем сообщение о выходе
                 if (isFirebaseConnected) {
@@ -1642,7 +1888,7 @@
         }
         
         // Загружаем сохраненную тему при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             showPage('home');
             
             // Инициализируем Firebase (ДОБАВЛЕНО)
@@ -1652,9 +1898,23 @@
             const savedUser = localStorage.getItem('currentUser');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
+                
+                // Получаем актуальную аватарку
+                try {
+                    if (isFirebaseConnected) {
+                        currentUser.avatarUrl = await getUserAvatar(currentUser.username);
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    }
+                } catch (error) {
+                    console.log("Could not get updated avatar:", error);
+                }
+                
                 document.getElementById('loginButtonContainer').style.display = 'none';
                 document.getElementById('userMenu').classList.add('active');
                 document.getElementById('userName').textContent = currentUser.name;
+                
+                // Обновляем иконку аватарки
+                updateAvatarInUI();
                 
                 // Подключаемся к Firebase чату если пользователь вошел
                 if (isFirebaseConnected) {
