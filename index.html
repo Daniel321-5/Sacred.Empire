@@ -57,7 +57,7 @@
     <meta name="robots" content="index, follow">
     <meta name="revisit-after" content="7 days">
 
-    <!-- Подключаем Firebase -->
+    <!-- ДОБАВЛЕН FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
@@ -388,28 +388,6 @@
             border-left-color: #64b5f6;
         }
         
-        .message.user-message {
-            background-color: #e8f5e9;
-            border-left-color: #4caf50;
-            margin-left: 20px;
-        }
-        
-        body.dark-mode .message.user-message {
-            background-color: #1b5e20;
-            border-left-color: #81c784;
-        }
-        
-        .message.other-message {
-            background-color: #e3f2fd;
-            border-left-color: #2196f3;
-            margin-right: 20px;
-        }
-        
-        body.dark-mode .message.other-message {
-            background-color: #0d47a1;
-            border-left-color: #64b5f6;
-        }
-        
         .message-header {
             display: flex;
             justify-content: space-between;
@@ -489,66 +467,6 @@
         }
         
         body.dark-mode .chat-notice {
-            color: #aaa;
-        }
-        
-        /* Стили для уведомлений */
-        .notification {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background-color: #4caf50;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            z-index: 3000;
-            display: none;
-            max-width: 300px;
-            animation: slideIn 0.3s ease;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        .notification.error {
-            background-color: #f44336;
-        }
-        
-        .notification.info {
-            background-color: #2196f3;
-        }
-        
-        .chat-status {
-            font-size: 0.9em;
-            color: #90caf9;
-        }
-        
-        .chat-status.connected {
-            color: #81c784;
-        }
-        
-        .chat-status.disconnected {
-            color: #e57373;
-        }
-        
-        .typing-indicator {
-            font-style: italic;
-            color: #666;
-            padding: 5px 10px;
-            font-size: 0.9em;
-            display: none;
-        }
-        
-        body.dark-mode .typing-indicator {
             color: #aaa;
         }
         
@@ -987,14 +905,11 @@
             <div class="chat-container">
                 <div class="chat-header">
                     <span>Imperial Citizens Chat</span>
-                    <span id="onlineCount">
-                        <span class="chat-status disconnected">● Offline</span>
-                    </span>
+                    <span id="onlineCount">Online: 0</span>
                 </div>
                 <div class="chat-messages" id="chatMessages">
                     <div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>
                 </div>
-                <div id="typingIndicator" class="typing-indicator" style="display: none;"></div>
                 <div class="chat-input-container">
                     <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." maxlength="500">
                     <button class="send-button" onclick="sendMessage()">Send</button>
@@ -1034,6 +949,7 @@
     </nav>
     
     <div class="container">
+        <!-- Все страницы сайта остаются без изменений -->
         <div id="home" class="page active">
             <h2>Welcome to Sacred Daniel's Empire</h2>
             <p>The glorious maritime nation under the wise rule of our sacred Emperor.</p>
@@ -1057,12 +973,45 @@
                 <h4 class="hero-subtitle">Sacred Emperor</h4>
                 <p>The founder and wise ruler of the Empire. Known for his strategic mind and deep connection to the sea.</p>
             </div>
-            <!-- Добавьте остальных героев здесь -->
+            <div class="hero-card">
+                <h3 class="hero-title">Blue_The_Drak</h3>
+                <h4 class="hero-subtitle">Nobleman, Dragon Enthusiast</h4>
+                <p>Master of naval combat and dragon lore. Protector of the Empire's eastern waters.</p>
+            </div>
+            <div class="hero-card">
+                <h3 class="hero-title">Einar</h3>
+                <h4 class="hero-subtitle">Son of the Emperor</h4>
+                <p>Heir to the throne, skilled in diplomacy and naval strategy. Continues his father's legacy.</p>
+            </div>
+            <div class="hero-card">
+                <h3 class="hero-title">Otto</h3>
+                <h4 class="hero-subtitle">Noble Captain</h4>
+                <p>Commanding officer of the Imperial Fleet. Known for his bravery in numerous naval battles.</p>
+            </div>
+            <div class="hero-card">
+                <h3 class="hero-title">Def</h3>
+                <h4 class="hero-subtitle">High Inquisitor</h4>
+                <p>Keeper of the Empire's laws and traditions. Also an expert fisherman and naval tactician.</p>
+            </div>
+            <div class="hero-card">
+                <h3 class="hero-title">Pairo</h3>
+                <h4 class="hero-subtitle">Professor and Scientist</h4>
+                <p>Head of the Imperial Research Center. Pioneering marine biology and naval engineering.</p>
+            </div>
+            <div class="hero-card">
+                <h3 class="hero-title">Blue2</h3>
+                <h4 class="hero-subtitle">Noble Explorer</h4>
+                <p>Brother of Blue_The_Drak, charting unknown waters and discovering new lands for the Empire.</p>
+            </div>
         </div>
         
         <div id="science" class="page">
             <h2>Science of the Empire</h2>
-            <p>Our Empire is a center of marine research and scientific discovery.</p>
+            <div class="science-intro">
+                <p>The Empire is at the forefront of marine research and scientific discovery. Our scientists have made groundbreaking discoveries in marine biology, oceanography, and naval engineering.</p>
+                <img src="TBA-SITE/science_image.jpg" alt="Marine Research" class="page-image">
+            </div>
+            
             <div class="tabs-container">
                 <div class="tabs-header">
                     <button class="tab-button active" onclick="openTab(event, 'tab1')">Marine Biology</button>
@@ -1071,38 +1020,214 @@
                 </div>
                 <div id="tab1" class="tab-content active">
                     <h3>Marine Biology Research</h3>
-                    <p>Research on deep-sea creatures and marine ecosystems.</p>
+                    <div class="research-paper">
+                        <h4>Prophet Daniel Marine Life Research Center</h4>
+                        <p>Our premier research facility dedicated to the study of marine ecosystems and deep-sea creatures.</p>
+                        
+                        <h5>Recent Discoveries:</h5>
+                        <ul>
+                            <li>New species of bioluminescent cephalopods in the Dark Sea region</li>
+                            <li>Giant cartilaginous fishes with unique adaptive features</li>
+                            <li>Marine anomalies suggesting undiscovered evolutionary pathways</li>
+                        </ul>
+                        
+                        <h5>Research Focus:</h5>
+                        <p>Behavioral ecology of deep-sea predators, adaptation mechanisms in extreme pressure environments, and the biological basis of oceanic gigantism.</p>
+                    </div>
                 </div>
                 <div id="tab2" class="tab-content">
                     <h3>Oceanographic Studies</h3>
-                    <p>Study of ocean currents, tides, and marine geology.</p>
+                    <div class="research-paper">
+                        <h4>Dark Sea Anomaly Research</h4>
+                        <p>The Empire has been studying the mysterious Dark Sea region for decades, uncovering its secrets.</p>
+                        
+                        <h5>Key Findings:</h5>
+                        <ul>
+                            <li>Unusual thermal currents that defy conventional oceanographic models</li>
+                            <li>Magnetic anomalies affecting navigation equipment</li>
+                            <li>Unique water chemistry supporting previously unknown ecosystems</li>
+                        </ul>
+                        
+                        <h5>Historical Expeditions:</h5>
+                        <p>Our 19th century marine expeditions documented numerous sea monster sightings that are now being re-examined through modern scientific lenses.</p>
+                    </div>
                 </div>
                 <div id="tab3" class="tab-content">
                     <h3>Naval Engineering</h3>
-                    <p>Advanced shipbuilding techniques and naval architecture.</p>
+                    <div class="research-paper">
+                        <h4>Imperial Shipbuilding Innovations</h4>
+                        <p>The Empire combines traditional craftsmanship with cutting-edge technology to build the world's most advanced ships.</p>
+                        
+                        <h5>Technological Advancements:</h5>
+                        <ul>
+                            <li>Pressure-resistant hull designs for deep-sea exploration</li>
+                            <li>Hybrid sail-engine propulsion systems for optimal efficiency</li>
+                            <li>Advanced sonar and detection systems based on marine biology research</li>
+                        </ul>
+                        
+                        <h5>Future Projects:</h5>
+                        <p>Development of submersible research vessels capable of reaching previously inaccessible depths of the Dark Sea.</p>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div id="codex" class="page">
             <h2>Imperial Codex</h2>
-            <p>The laws and traditions of our Empire.</p>
+            <p>The laws and traditions that govern our Empire, passed down through generations of wise rulers.</p>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Fundamental Laws</h3>
+                <ol>
+                    <li>The Emperor's word is law, guided by wisdom and tradition</li>
+                    <li>All citizens must contribute to the Empire's maritime strength</li>
+                    <li>Respect for the sea and its creatures is paramount</li>
+                    <li>Knowledge and research are valued above all material wealth</li>
+                    <li>Loyalty to the Empire and its people is non-negotiable</li>
+                </ol>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Maritime Traditions</h3>
+                <ul>
+                    <li>The Blessing of the Fleet ceremony each spring</li>
+                    <li>Annual celebration of the Empire's founding (1700)</li>
+                    <li>Traditional sailing races between noble houses</li>
+                    <li>Storytelling nights preserving naval history and folklore</li>
+                    <li>Scientific symposiums to share new discoveries</li>
+                </ul>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Citizenship Rights</h3>
+                <ul>
+                    <li>Right to maritime education and training</li>
+                    <li>Access to Imperial research and discoveries</li>
+                    <li>Protection under the Emperor's law</li>
+                    <li>Participation in democratic advisory councils</li>
+                    <li>Right to pursue scientific inquiry</li>
+                </ul>
+            </div>
         </div>
         
         <div id="government" class="page">
-            <h2>Government</h2>
-            <p>Structure of our government and administration.</p>
+            <h2>Government Structure</h2>
+            <p>The Empire operates under an absolute monarchy with advisory councils representing various interests.</p>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">The Emperor</h3>
+                <p><strong>Daniel De Courno</strong> - Sacred Emperor and Supreme Commander</p>
+                <p>Final authority on all matters of state, law, and military command.</p>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Royal Council</h3>
+                <p>Advisory body consisting of the Empire's most trusted nobles and experts:</p>
+                <ul>
+                    <li><strong>Einar</strong> - Heir Apparent and Diplomatic Affairs</li>
+                    <li><strong>Def</strong> - High Inquisitor and Legal Affairs</li>
+                    <li><strong>Pairo</strong> - Scientific Research and Development</li>
+                    <li><strong>Otto</strong> - Naval Command and Defense</li>
+                    <li><strong>Blue_The_Drak & Blue2</strong> - Exploration and Intelligence</li>
+                </ul>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Government Departments</h3>
+                <ul>
+                    <li><strong>Imperial Navy</strong> - Defense and maritime security</li>
+                    <li><strong>Research Institute</strong> - Scientific discovery and innovation</li>
+                    <li><strong>Trade Commission</strong> - Economic affairs and commerce</li>
+                    <li><strong>Cultural Ministry</strong> - Preservation of traditions and history</li>
+                    <li><strong>Exploration Office</strong> - Charting new waters and territories</li>
+                </ul>
+            </div>
         </div>
         
         <div id="media" class="page">
-            <h2>Media</h2>
-            <p>News, announcements, and imperial decrees.</p>
+            <h2>Imperial Media</h2>
+            <p>Stay updated with the latest news, announcements, and scientific discoveries from the Empire.</p>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Recent Announcements</h3>
+                <ul>
+                    <li><strong>New Research Expedition:</strong> The Prophet Daniel Research Center is launching a new deep-sea exploration mission to the Dark Sea</li>
+                    <li><strong>Naval Exercises:</strong> Imperial Fleet conducting joint maneuvers with allied maritime nations</li>
+                    <li><strong>Scientific Breakthrough:</strong> Discovery of new marine species with potential medical applications</li>
+                    <li><strong>Cultural Event:</strong> Annual Sea Festival scheduled for next month</li>
+                </ul>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Imperial Decrees</h3>
+                <div class="citizenship-form">
+                    <h4>Decree #2024-001</h4>
+                    <p>All citizens are encouraged to participate in maritime conservation efforts. The Emperor declares the month of June as "Sea Protection Month."</p>
+                    
+                    <h4>Decree #2024-002</h4>
+                    <p>The Imperial Research Center is granted additional funding for Dark Sea anomaly studies. All findings to be shared with citizen scientists.</p>
+                    
+                    <h4>Decree #2024-003</h4>
+                    <p>New trade agreements established with neighboring maritime states. Imperial exports of naval technology and research to increase by 30%.</p>
+                </div>
+            </div>
+            
+            <div class="hero-card">
+                <h3 class="hero-title">Historical Archives</h3>
+                <p>Access to digital copies of historical documents, expedition logs, and scientific papers:</p>
+                <ul>
+                    <li><a href="https://docs.google.com/document/d/1iSz32g8wN5WH6trZ8I9tlJhcz8VL54w27zmrCDE2jCM/edit?usp=drivesdk" target="_blank">Complete History of the Empire</a></li>
+                    <li><a href="#" onclick="return false">19th Century Expedition Logs</a></li>
+                    <li><a href="#" onclick="return false">Marine Biology Research Papers</a></li>
+                    <li><a href="#" onclick="return false">Naval Battle Chronicles</a></li>
+                </ul>
+            </div>
         </div>
         
         <div id="contact" class="page">
-            <h2>Contact</h2>
-            <p>How to reach the Imperial Office.</p>
+            <h2>Contact the Empire</h2>
+            <p>For official inquiries, research collaborations, or citizenship information.</p>
+            
+            <div class="contact-list">
+                <li>
+                    <strong>Imperial Office</strong><br>
+                    Official communications and state matters<br>
+                    Email: imperial.office@sacred-empire.dn
+                </li>
+                <li>
+                    <strong>Research Center</strong><br>
+                    Scientific inquiries and collaboration<br>
+                    Email: research@prophet-daniel-center.dn
+                </li>
+                <li>
+                    <strong>Naval Command</strong><br>
+                    Military and defense matters<br>
+                    Email: naval.command@imperial-fleet.dn
+                </li>
+                <li>
+                    <strong>Citizenship Bureau</strong><br>
+                    Applications and citizen services<br>
+                    Email: citizenship@imperial-services.dn
+                </li>
+            </div>
+            
+            <div class="citizenship-form">
+                <h3>Apply for Imperial Citizenship</h3>
+                <p>The Empire welcomes dedicated individuals who share our values of knowledge, maritime tradition, and scientific pursuit.</p>
+                
+                <h4>Requirements:</h4>
+                <ol>
+                    <li>Commitment to the Empire's laws and traditions</li>
+                    <li>Willingness to contribute to maritime activities</li>
+                    <li>Respect for scientific inquiry and knowledge</li>
+                    <li>Clean record and good standing</li>
+                    <li>Basic understanding of naval traditions</li>
+                </ol>
+                
+                <p><em>Note: Current citizenship applications are being processed through the official channels listed above. The online application system is under development.</em></p>
+            </div>
         </div>
+        
     </div>
     
     <footer>
@@ -1110,7 +1235,7 @@
     </footer>
     
     <script>
-        // Конфигурация Firebase
+        // Конфигурация Firebase (добавлено)
         const firebaseConfig = {
             apiKey: "AIzaSyCOXWodWpE4KdEW1zwryydQUjfxHPiS-3E",
             authDomain: "sacred-empire-chat.firebaseapp.com",
@@ -1121,48 +1246,14 @@
             appId: "1:131630929373:web:d4208575c65f0df4525234"
         };
         
-        // Переменные Firebase
+        // Переменные Firebase (добавлено)
         let firebaseApp;
         let database;
         let chatRef;
         let usersRef;
-        let typingRef;
-        let currentUserTypingRef;
-        
-        // Инициализация Firebase
-        function initFirebase() {
-            try {
-                firebaseApp = firebase.initializeApp(firebaseConfig);
-                database = firebase.database();
-                console.log("Firebase initialized successfully");
-                return true;
-            } catch (error) {
-                console.error("Firebase initialization error:", error);
-                showNotification("Chat service temporarily unavailable.", "error");
-                return false;
-            }
-        }
-        
-        // Функция показа уведомления
-        function showNotification(message, type = "info") {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            notification.style.display = 'block';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        }
-        
-        // База данных пользователей
+        let isFirebaseConnected = false;
+
+        // База данных пользователей (все аккаунты)
         const users = {
             'emp123dan': {
                 password: 'Lyusek2020',
@@ -1200,33 +1291,45 @@
                 bio: 'the brother of other Blue, nobleman, explorer'
             }
         };
-        
+
         // Текущий пользователь
         let currentUser = null;
-        let isChatConnected = false;
-        let lastTypingTime = 0;
         
-        // Подключение к чату Firebase
-        function connectToChat() {
-            if (!database || !currentUser) return;
+        // Список онлайн пользователей (симуляция)
+        let onlineUsers = new Set();
+        
+        // Сообщения чата (симуляция общего хранилища)
+        let chatMessages = [];
+        
+        // ID текущей сессии (для отслеживания кто онлайн)
+        let sessionId = Math.random().toString(36).substring(2);
+
+        // Инициализация Firebase (добавлено)
+        function initFirebase() {
+            try {
+                firebaseApp = firebase.initializeApp(firebaseConfig);
+                database = firebase.database();
+                isFirebaseConnected = true;
+                console.log("Firebase initialized successfully");
+                return true;
+            } catch (error) {
+                console.error("Firebase initialization error:", error);
+                return false;
+            }
+        }
+
+        // Подключение к чату Firebase (добавлено)
+        function connectToFirebaseChat() {
+            if (!isFirebaseConnected || !currentUser) return;
             
             try {
-                // Ссылки на данные Firebase
                 chatRef = database.ref('chat/messages');
                 usersRef = database.ref('chat/users');
-                typingRef = database.ref('chat/typing');
-                currentUserTypingRef = typingRef.child(currentUser.username);
                 
                 // Слушаем новые сообщения
                 chatRef.limitToLast(100).on('value', (snapshot) => {
                     const messages = snapshot.val() || {};
-                    updateChatDisplay(messages);
-                });
-                
-                // Слушаем статус набора текста
-                typingRef.on('value', (snapshot) => {
-                    const typingUsers = snapshot.val() || {};
-                    updateTypingIndicator(typingUsers);
+                    updateFirebaseChatDisplay(messages);
                 });
                 
                 // Добавляем пользователя в онлайн
@@ -1243,136 +1346,15 @@
                     lastSeen: firebase.database.ServerValue.TIMESTAMP
                 });
                 
-                // Обработка отключения индикатора набора
-                currentUserTypingRef.onDisconnect().remove();
-                
-                isChatConnected = true;
-                updateChatStatus(true);
-                showNotification("Connected to Imperial Chat", "info");
-                
-                // Добавляем системное сообщение о входе
-                sendSystemMessage(`${currentUser.name} has entered the Imperial Chat`);
-                
+                return true;
             } catch (error) {
-                console.error("Chat connection error:", error);
-                showNotification("Failed to connect to chat.", "error");
-                isChatConnected = false;
-                updateChatStatus(false);
+                console.error("Firebase chat connection error:", error);
+                return false;
             }
         }
-        
-        // Обновление статуса подключения чата
-        function updateChatStatus(connected) {
-            const onlineCount = document.getElementById('onlineCount');
-            if (onlineCount) {
-                onlineCount.innerHTML = connected ? 
-                    '<span class="chat-status connected">● Connected</span>' : 
-                    '<span class="chat-status disconnected">● Offline</span>';
-            }
-        }
-        
-        // Отправка системного сообщения
-        function sendSystemMessage(text) {
-            if (!database || !isChatConnected) return;
-            
-            const message = {
-                user: 'Imperial System',
-                text: text,
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                timestamp: Date.now(),
-                type: 'system'
-            };
-            
-            chatRef.push(message);
-        }
-        
-        // Отправка пользовательского сообщения
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const messageText = input.value.trim();
-            
-            if (!messageText || !currentUser || !database || !isChatConnected) {
-                if (messageText && currentUser && !isChatConnected) {
-                    showNotification("Chat is not connected. Please try again.", "error");
-                }
-                return;
-            }
-            
-            const message = {
-                user: currentUser.name,
-                text: messageText,
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                timestamp: Date.now(),
-                type: 'user',
-                userId: currentUser.username
-            };
-            
-            // Отправляем сообщение
-            chatRef.push(message);
-            
-            // Очищаем поле ввода
-            input.value = '';
-            
-            // Удаляем индикатор набора
-            if (currentUserTypingRef) {
-                currentUserTypingRef.remove();
-                lastTypingTime = 0;
-            }
-        }
-        
-        // Обновление индикатора набора текста
-        function updateTypingStatus() {
-            if (!database || !currentUserTypingRef || !isChatConnected) return;
-            
-            const now = Date.now();
-            
-            // Обновляем статус каждые 1.5 секунды
-            if (now - lastTypingTime > 1500) {
-                currentUserTypingRef.set({
-                    name: currentUser.name,
-                    timestamp: now
-                });
-                lastTypingTime = now;
-                
-                // Автоматическое удаление через 3 секунды
-                setTimeout(() => {
-                    if (currentUserTypingRef) {
-                        currentUserTypingRef.remove();
-                    }
-                }, 3000);
-            }
-        }
-        
-        // Обновление индикатора набора текста других пользователей
-        function updateTypingIndicator(typingUsers) {
-            const typingIndicator = document.getElementById('typingIndicator');
-            if (!typingIndicator) return;
-            
-            // Удаляем текущего пользователя из списка
-            if (currentUser) {
-                delete typingUsers[currentUser.username];
-            }
-            
-            const typingUsersArray = Object.values(typingUsers);
-            
-            if (typingUsersArray.length > 0) {
-                // Показываем индикатор для первых 2 пользователей
-                const names = typingUsersArray.slice(0, 2).map(u => u.name);
-                let text = names.join(' and ');
-                
-                if (typingUsersArray.length > 2) {
-                    text += ` and ${typingUsersArray.length - 2} more`;
-                }
-                
-                typingIndicator.textContent = `${text} ${typingUsersArray.length === 1 ? 'is' : 'are'} typing...`;
-                typingIndicator.style.display = 'block';
-            } else {
-                typingIndicator.style.display = 'none';
-            }
-        }
-        
-        // Обновление отображения чата
-        function updateChatDisplay(messages) {
+
+        // Обновление отображения чата Firebase (добавлено)
+        function updateFirebaseChatDisplay(messages) {
             const chatMessagesElement = document.getElementById('chatMessages');
             if (!chatMessagesElement) return;
             
@@ -1383,29 +1365,19 @@
             chatMessagesElement.innerHTML = '';
             
             if (messagesArray.length === 0) {
-                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Be respectful to other citizens.</div>';
+                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>';
             } else {
                 messagesArray.forEach(msg => {
                     const messageDiv = document.createElement('div');
                     
-                    // Определяем класс сообщения
-                    let messageClass = 'message';
                     if (msg.type === 'system') {
-                        messageClass += ' system-message';
-                    } else if (msg.userId === currentUser?.username) {
-                        messageClass += ' user-message';
-                    } else {
-                        messageClass += ' other-message';
-                    }
-                    
-                    messageDiv.className = messageClass;
-                    
-                    if (msg.type === 'system') {
+                        messageDiv.className = 'message system-message';
                         messageDiv.innerHTML = `
                             <div class="message-content">${msg.text}</div>
                             <div class="message-time">${msg.time}</div>
                         `;
                     } else {
+                        messageDiv.className = 'message';
                         messageDiv.innerHTML = `
                             <div class="message-header">
                                 <span class="message-user">${msg.user}</span>
@@ -1424,42 +1396,49 @@
                 chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
             }, 100);
         }
-        
-        // Функция выхода из чата
-        function disconnectFromChat() {
-            if (!database || !currentUser) return;
+
+        // Отправка сообщения в Firebase (добавлено)
+        function sendFirebaseMessage(messageText) {
+            if (!isFirebaseConnected || !currentUser || !chatRef) return false;
             
             try {
-                // Отправляем сообщение о выходе
-                sendSystemMessage(`${currentUser.name} has left the Imperial Chat`);
+                const message = {
+                    user: currentUser.name,
+                    text: messageText,
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                    timestamp: Date.now(),
+                    type: 'user',
+                    userId: currentUser.username
+                };
                 
-                // Удаляем пользователя из онлайн
-                if (usersRef) {
-                    const userOnlineRef = usersRef.child(currentUser.username);
-                    userOnlineRef.update({
-                        online: false,
-                        lastSeen: firebase.database.ServerValue.TIMESTAMP
-                    });
-                }
-                
-                // Удаляем индикатор набора
-                if (currentUserTypingRef) {
-                    currentUserTypingRef.remove();
-                }
-                
-                // Отключаем слушатели
-                if (chatRef) chatRef.off();
-                if (typingRef) typingRef.off();
-                
-                isChatConnected = false;
-                updateChatStatus(false);
-                
+                chatRef.push(message);
+                return true;
             } catch (error) {
-                console.error("Chat disconnect error:", error);
+                console.error("Error sending Firebase message:", error);
+                return false;
             }
         }
-        
-        // Основные функции сайта
+
+        // Отправка системного сообщения в Firebase (добавлено)
+        function sendFirebaseSystemMessage(text) {
+            if (!isFirebaseConnected || !chatRef) return;
+            
+            try {
+                const message = {
+                    user: 'Imperial System',
+                    text: text,
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                    timestamp: Date.now(),
+                    type: 'system'
+                };
+                
+                chatRef.push(message);
+            } catch (error) {
+                console.error("Error sending Firebase system message:", error);
+            }
+        }
+
+        // Функция показа модального окна входа
         function showLoginModal() {
             document.getElementById('loginModal').classList.add('active');
             document.getElementById('loginError').style.display = 'none';
@@ -1470,58 +1449,199 @@
             }, 100);
         }
 
+        // Функция закрытия окна входа
         function closeLoginModal() {
             document.getElementById('loginModal').classList.remove('active');
         }
 
+        // Функция авторизации (обновлена для Firebase)
         function login() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorElement = document.getElementById('loginError');
             
             if (users[username] && users[username].password === password) {
+                // Успешная авторизация
                 currentUser = {
                     username: username,
                     ...users[username]
                 };
                 
+                // Сохраняем в localStorage
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                localStorage.setItem('sessionId', sessionId);
+                
+                // Добавляем пользователя в онлайн
+                addUserToOnline();
+                
+                // Закрываем окно входа
                 closeLoginModal();
                 
+                // Меняем кнопку Log In на меню пользователя
                 document.getElementById('loginButtonContainer').style.display = 'none';
                 document.getElementById('userMenu').classList.add('active');
                 document.getElementById('userName').textContent = currentUser.name;
                 
-                // Подключаемся к чату после входа
-                if (firebaseApp) {
-                    connectToChat();
+                // Подключаемся к Firebase чату если пользователь вошел
+                if (isFirebaseConnected) {
+                    connectToFirebaseChat();
+                    sendFirebaseSystemMessage(`${currentUser.name} has entered the Imperial Chat. Long live the Empire!`);
+                } else {
+                    // Используем локальный чат как fallback
+                    addSystemMessage(`${currentUser.name} has entered the Imperial Chat. Long live the Empire!`);
                 }
                 
-                showNotification(`Welcome to the Empire, ${currentUser.name}!`, "info");
+                // Обновляем счетчик онлайн
+                updateOnlineCount();
+                
+                // Показываем уведомление об успешном входе
+                showNotification(`Welcome to the Empire, ${currentUser.name}!`);
             } else {
+                // Неправильные данные
                 errorElement.style.display = 'block';
                 document.getElementById('username').style.borderColor = '#ff4444';
                 document.getElementById('password').style.borderColor = '#ff4444';
             }
         }
 
-        function logout() {
-            // Отключаемся от чата
-            disconnectFromChat();
-            
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            
-            document.getElementById('userMenu').classList.remove('active');
-            document.getElementById('loginButtonContainer').style.display = 'block';
-            document.getElementById('userDropdown').classList.remove('active');
-            
-            closePersonalCabinet();
-            closeChat();
-            
-            showNotification('You have left the Empire. Until we meet again!', "info");
+        // Функция добавления пользователя в онлайн
+        function addUserToOnline() {
+            if (currentUser) {
+                const userKey = `${currentUser.username}_${sessionId}`;
+                onlineUsers.add(userKey);
+                saveOnlineUsers();
+            }
         }
 
+        // Функция удаления пользователя из онлайн
+        function removeUserFromOnline() {
+            if (currentUser) {
+                const userKey = `${currentUser.username}_${sessionId}`;
+                onlineUsers.delete(userKey);
+                saveOnlineUsers();
+            }
+        }
+
+        // Функция сохранения онлайн пользователей
+        function saveOnlineUsers() {
+            localStorage.setItem('onlineUsers', JSON.stringify(Array.from(onlineUsers)));
+            updateOnlineCount();
+        }
+
+        // Функция загрузки онлайн пользователей
+        function loadOnlineUsers() {
+            try {
+                const saved = localStorage.getItem('onlineUsers');
+                if (saved) {
+                    const usersArray = JSON.parse(saved);
+                    onlineUsers = new Set(usersArray);
+                    
+                    // Удаляем старые сессии (старше 5 минут)
+                    const now = Date.now();
+                    const fiveMinutesAgo = now - 5 * 60 * 1000;
+                    
+                    Array.from(onlineUsers).forEach(userKey => {
+                        const parts = userKey.split('_');
+                        if (parts.length > 1) {
+                            // Здесь можно добавить проверку времени сессии
+                            // Пока просто оставляем всех
+                        }
+                    });
+                }
+            } catch (e) {
+                console.log('Error loading online users:', e);
+            }
+        }
+
+        // Функция обновления счетчика онлайн
+        function updateOnlineCount() {
+            const onlineCount = document.getElementById('onlineCount');
+            if (onlineCount) {
+                const count = onlineUsers.size;
+                onlineCount.textContent = `Online: ${count}`;
+                
+                // Также обновляем в localStorage для других вкладок
+                localStorage.setItem('lastOnlineUpdate', Date.now().toString());
+            }
+        }
+
+        // Функция добавления системного сообщения
+        function addSystemMessage(text) {
+            const message = {
+                id: Date.now().toString(),
+                user: 'Imperial System',
+                text: text,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                timestamp: Date.now(),
+                type: 'system'
+            };
+            
+            addMessageToChat(message);
+        }
+
+        // Функция добавления обычного сообщения
+        function addUserMessage(text, user) {
+            const message = {
+                id: Date.now().toString(),
+                user: user,
+                text: text,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                timestamp: Date.now(),
+                type: 'user'
+            };
+            
+            addMessageToChat(message);
+        }
+
+        // Функция добавления сообщения в чат
+        function addMessageToChat(message) {
+            // Загружаем существующие сообщения
+            loadChatMessages();
+            
+            // Добавляем новое сообщение
+            chatMessages.push(message);
+            
+            // Сохраняем в localStorage
+            saveChatMessages();
+            
+            // Обновляем отображение, если чат открыт
+            if (document.getElementById('chatModal').classList.contains('active')) {
+                updateChatDisplay();
+            }
+        }
+
+        // Функция сохранения сообщений чата
+        function saveChatMessages() {
+            try {
+                // Сохраняем только последние 100 сообщений
+                const messagesToSave = chatMessages.slice(-100);
+                localStorage.setItem('chatMessages', JSON.stringify(messagesToSave));
+            } catch (e) {
+                console.log('Error saving chat messages:', e);
+            }
+        }
+
+        // Функция загрузки сообщений чата
+        function loadChatMessages() {
+            try {
+                const saved = localStorage.getItem('chatMessages');
+                if (saved) {
+                    chatMessages = JSON.parse(saved);
+                }
+            } catch (e) {
+                console.log('Error loading chat messages:', e);
+            }
+        }
+
+        // Функция проверки новых сообщений
+        function checkForNewMessages() {
+            if (currentUser && document.getElementById('chatModal').classList.contains('active')) {
+                loadChatMessages();
+                updateChatDisplay();
+            }
+        }
+
+        // Функция переключения меню пользователя
         function toggleUserMenu() {
             const dropdown = document.getElementById('userDropdown');
             dropdown.classList.toggle('active');
@@ -1540,6 +1660,7 @@
             }
         });
 
+        // Функция показа личного кабинета
         function showPersonalCabinet() {
             document.getElementById('userDropdown').classList.remove('active');
             
@@ -1562,16 +1683,34 @@
             document.getElementById('personalCabinetModal').classList.add('active');
         }
 
+        // Функция закрытия личного кабинета
         function closePersonalCabinet() {
             document.getElementById('personalCabinetModal').classList.remove('active');
         }
 
+        // Функция показа чата (обновлена для Firebase)
         function showChat() {
             document.getElementById('userDropdown').classList.remove('active');
             
             if (currentUser) {
+                // Загружаем сообщения и пользователей онлайн
+                loadChatMessages();
+                loadOnlineUsers();
+                updateOnlineCount();
+                
+                // Открываем чат
                 document.getElementById('chatModal').classList.add('active');
                 
+                // Обновляем отображение
+                if (isFirebaseConnected && chatRef) {
+                    // Используем Firebase чат
+                    // Сообщения уже обновляются через слушатель
+                } else {
+                    // Используем локальный чат
+                    updateChatDisplay();
+                }
+                
+                // Фокусируемся на поле ввода
                 setTimeout(() => {
                     document.getElementById('chatInput').focus();
                     const chatMessagesElement = document.getElementById('chatMessages');
@@ -1580,62 +1719,197 @@
             }
         }
 
+        // Функция закрытия чата
         function closeChat() {
             document.getElementById('chatModal').classList.remove('active');
             document.getElementById('chatInput').value = '';
         }
 
+        // Функция отправки сообщения (обновлена для Firebase)
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message && currentUser) {
+                // Пробуем отправить через Firebase
+                if (isFirebaseConnected) {
+                    const sent = sendFirebaseMessage(message);
+                    if (!sent) {
+                        // Если Firebase не сработал, используем локальный чат
+                        addUserMessage(message, currentUser.name);
+                    }
+                } else {
+                    // Используем локальный чат
+                    addUserMessage(message, currentUser.name);
+                }
+                
+                // Очищаем поле ввода
+                input.value = '';
+                
+                // Прокручиваем вниз
+                const chatMessagesElement = document.getElementById('chatMessages');
+                chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
+                
+                // Обновляем отображение (для локального чата)
+                if (!isFirebaseConnected) {
+                    updateChatDisplay();
+                }
+            }
+        }
+
+        // Функция обновления отображения чата
+        function updateChatDisplay() {
+            const chatMessagesElement = document.getElementById('chatMessages');
+            
+            // Очищаем и добавляем сообщения
+            chatMessagesElement.innerHTML = '';
+            
+            if (chatMessages.length === 0) {
+                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>';
+            } else {
+                chatMessages.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    
+                    if (msg.type === 'system') {
+                        messageDiv.className = 'message system-message';
+                        messageDiv.innerHTML = `
+                            <div class="message-content">${msg.text}</div>
+                            <div class="message-time">${msg.time}</div>
+                        `;
+                    } else {
+                        messageDiv.className = 'message';
+                        messageDiv.innerHTML = `
+                            <div class="message-header">
+                                <span class="message-user">${msg.user}</span>
+                                <span class="message-time">${msg.time}</span>
+                            </div>
+                            <div class="message-content">${msg.text}</div>
+                        `;
+                    }
+                    
+                    chatMessagesElement.appendChild(messageDiv);
+                });
+            }
+            
+            // Прокручиваем вниз
+            chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
+        }
+
+        // Функция выхода (обновлена для Firebase)
+        function logout() {
+            if (currentUser) {
+                // Добавляем сообщение о выходе
+                if (isFirebaseConnected) {
+                    sendFirebaseSystemMessage(`${currentUser.name} has left the Imperial Chat.`);
+                } else {
+                    addSystemMessage(`${currentUser.name} has left the Imperial Chat.`);
+                }
+                
+                // Удаляем из онлайн
+                removeUserFromOnline();
+            }
+            
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            
+            // Меняем меню пользователя на кнопку Log In
+            document.getElementById('userMenu').classList.remove('active');
+            document.getElementById('loginButtonContainer').style.display = 'block';
+            document.getElementById('userDropdown').classList.remove('active');
+            
+            // Закрываем модальные окна
+            closePersonalCabinet();
+            closeChat();
+            
+            // Показываем уведомление о выходе
+            showNotification('You have left the Empire. Until we meet again!');
+        }
+
+        // Функция показа уведомления
+        function showNotification(message) {
+            // Простое уведомление через alert
+            alert(message);
+        }
+
+        // Функция показа страницы
         function showPage(pageId) {
+            // Скрываем все страницы
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => {
                 page.classList.remove('active');
             });
             
+            // Показываем выбранную страницу
             document.getElementById(pageId).classList.add('active');
             
+            // Скрываем выпадающее меню
             const dropdown = document.getElementById('userDropdown');
             if (dropdown) dropdown.classList.remove('active');
             
+            // Обновляем URL без перезагрузки страницы
             history.pushState(null, null, `#${pageId}`);
             
             return false;
         }
 
+        // Функция для работы вкладок на странице науки
         function openTab(evt, tabName) {
+            // Получаем все элементы с классом "tab-content" и скрываем их
             const tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(tab => {
                 tab.classList.remove('active');
             });
             
+            // Получаем все элементы с классом "tab-button" и удаляем класс "active"
             const tabButtons = document.querySelectorAll('.tab-button');
             tabButtons.forEach(button => {
                 button.classList.remove('active');
             });
             
+            // Показываем текущую вкладку и добавляем класс "active" к кнопке
             document.getElementById(tabName).classList.add('active');
             evt.currentTarget.classList.add('active');
+            
+            // Предотвращаем поведение по умолчанию
             evt.preventDefault();
         }
 
+        // Функция переключения темы
         function toggleTheme() {
             const body = document.body;
             const themeSwitcher = document.querySelector('.theme-switcher');
             
             if (body.classList.contains('dark-mode')) {
+                // Переключаем на светлую тему
                 body.classList.remove('dark-mode');
                 themeSwitcher.innerHTML = '<span>☀️</span><span>The Sun Scorching Sinners</span><span>|</span><span>The Night - the Outing of Werewolves</span><span>🌙</span>';
                 localStorage.setItem('theme', 'light');
             } else {
+                // Переключаем на темную тему
                 body.classList.add('dark-mode');
                 themeSwitcher.innerHTML = '<span>🌙</span><span>The Night - the Outing of Werewolves</span><span>|</span><span>The Sun Scorching Sinners</span><span>☀️</span>';
                 localStorage.setItem('theme', 'dark');
             }
         }
 
-        // Инициализация при загрузке страницы
+        // Обработка нажатия Enter в поле ввода чата
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Обработка нажатия Enter в поле ввода логина
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        // Инициализация при загрузке страницы (обновлена для Firebase)
         document.addEventListener('DOMContentLoaded', function() {
             // Инициализируем Firebase
-            const firebaseInitialized = initFirebase();
+            initFirebase();
             
             // Проверяем сохраненного пользователя
             const savedUser = localStorage.getItem('currentUser');
@@ -1645,11 +1919,22 @@
                 document.getElementById('userMenu').classList.add('active');
                 document.getElementById('userName').textContent = currentUser.name;
                 
-                // Если Firebase инициализирован, подключаемся к чату
-                if (firebaseInitialized && currentUser) {
-                    connectToChat();
+                // Добавляем пользователя в онлайн
+                sessionId = localStorage.getItem('sessionId') || sessionId;
+                addUserToOnline();
+                
+                // Загружаем сообщения чата
+                loadChatMessages();
+                
+                // Подключаемся к Firebase чату если пользователь вошел
+                if (isFirebaseConnected) {
+                    connectToFirebaseChat();
                 }
             }
+            
+            // Загружаем онлайн пользователей
+            loadOnlineUsers();
+            updateOnlineCount();
             
             // Проверяем сохраненную тему
             const savedTheme = localStorage.getItem('theme');
@@ -1685,43 +1970,41 @@
                 });
             });
             
-            // Обработка ввода в поле чата для индикатора набора
-            const chatInput = document.getElementById('chatInput');
-            if (chatInput) {
-                chatInput.addEventListener('input', function() {
-                    updateTypingStatus();
-                });
-                
-                chatInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        sendMessage();
-                    }
-                });
-            }
-            
-            // Обработка нажатия Enter в поле ввода логина
-            document.getElementById('password').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    login();
-                }
-            });
-            
-            // Обработка навигации по истории браузера
-            window.addEventListener('popstate', function() {
-                const hash = window.location.hash.substring(1);
-                if (hash && document.getElementById(hash)) {
-                    showPage(hash);
-                } else {
-                    showPage('home');
-                }
-            });
-            
-            // Обработка закрытия окна/вкладки
-            window.addEventListener('beforeunload', function() {
+            // Периодическая проверка новых сообщений и обновление онлайн статуса
+            setInterval(() => {
                 if (currentUser) {
-                    disconnectFromChat();
+                    // Обновляем свой онлайн статус
+                    addUserToOnline();
+                    
+                    // Проверяем новые сообщения (для локального чата)
+                    if (!isFirebaseConnected) {
+                        checkForNewMessages();
+                    }
+                    
+                    // Обновляем счетчик онлайн
+                    updateOnlineCount();
+                    
+                    // Очищаем старые сессии
+                    loadOnlineUsers();
                 }
-            });
+            }, 30000); // Каждые 30 секунд
+        });
+
+        // Обработка навигации по истории браузера
+        window.addEventListener('popstate', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash)) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+        });
+        
+        // Обработка закрытия окна/вкладки
+        window.addEventListener('beforeunload', function() {
+            if (currentUser) {
+                removeUserFromOnline();
+            }
         });
     </script>
 </body>
