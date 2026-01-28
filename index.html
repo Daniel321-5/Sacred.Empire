@@ -57,7 +57,7 @@
     <meta name="robots" content="index, follow">
     <meta name="revisit-after" content="7 days">
 
-    <!-- ДОБАВЛЕН FIREBASE ТОЛЬКО ДЛЯ БАЗЫ ДАННЫХ (без Storage) -->
+    <!-- FIREBASE ТОЛЬКО ДЛЯ БАЗЫ ДАННЫХ (без Storage) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
@@ -68,7 +68,7 @@
             box-sizing: border-box;
         }
         
-        /* ДОБАВЛЕНО: Стили для кнопки входа */
+        /* Стили для кнопки входа */
         .login-button-container {
             position: fixed;
             top: 20px;
@@ -94,7 +94,7 @@
             transform: scale(1.05);
         }
         
-        /* ДОБАВЛЕНО: Стили для меню пользователя */
+        /*  Стили для меню пользователя */
         .user-menu {
             position: fixed;
             top: 20px;
@@ -161,7 +161,7 @@
             background-color: #303f9f;
         }
         
-        /* ДОБАВЛЕНО: Стили для модальных окон */
+        /*  Стили для модальных окон */
         .modal {
             display: none;
             position: fixed;
@@ -282,7 +282,7 @@
             color: #ff6b6b;
         }
         
-        /* ДОБАВЛЕНО: Стили для личного кабинета */
+        /*  Стили для личного кабинета */
         .profile-info {
             background-color: #f8f8f8;
             padding: 20px;
@@ -490,7 +490,7 @@
             color: #aaa;
         }
         
-        /* ДОБАВЛЕНО: Стили для аватарки */
+        /* Стили для аватарки */
         .avatar-container {
             text-align: center;
             margin-bottom: 20px;
@@ -557,7 +557,7 @@
             color: #aaa;
         }
         
-        /* ДОБАВЛЕНО: Стили для переключателя темы */
+        /* Стили для переключателя темы */
         .theme-switcher {
             background: linear-gradient(90deg, #ffeb3b 0%, #1a237e 100%);
             color: #000;
@@ -591,7 +591,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
         
-        /* ДОБАВЛЕНО: Темная тема */
+        /*  Темная тема */
         body.dark-mode {
             background-color: #121212;
             color: #e0e0e0;
@@ -942,12 +942,12 @@
     </style>
 </head>
 <body>
-    <!-- ДОБАВЛЕНО: Кнопка Log In (показывается когда пользователь не авторизован) -->
+    <!--  Кнопка Log In (показывается когда пользователь не авторизован) -->
     <div class="login-button-container" id="loginButtonContainer">
         <button class="login-button" onclick="showLoginModal()">Log In</button>
     </div>
     
-    <!-- ДОБАВЛЕНО: Меню пользователя (показывается после входа) -->
+    <!--  Меню пользователя (показывается после входа) -->
     <div class="user-menu" id="userMenu">
         <button class="user-button" onclick="toggleUserMenu()">
             <span id="userAvatarIcon">👤</span>
@@ -963,7 +963,7 @@
         </div>
     </div>
     
-    <!-- ДОБАВЛЕНО: Модальное окно входа -->
+    <!-- Модальное окно входа -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <button class="close-button" onclick="closeLoginModal()">×</button>
@@ -983,7 +983,7 @@
         </div>
     </div>
     
-    <!-- ДОБАВЛЕНО: Модальное окно личного кабинета -->
+    <!--  Модальное окно личного кабинета -->
     <div class="modal" id="personalCabinetModal">
         <div class="modal-content">
             <button class="close-button" onclick="closePersonalCabinet()">×</button>
@@ -994,7 +994,7 @@
         </div>
     </div>
     
-    <!-- ДОБАВЛЕНО: Модальное окно чата -->
+    <!--  Модальное окно чата -->
     <div class="modal" id="chatModal">
         <div class="modal-content">
             <button class="close-button" onclick="closeChat()">×</button>
@@ -1024,7 +1024,7 @@
         </div>
     </header>
     
-    <!-- ДОБАВЛЕНО: Переключатель темы -->
+    <!--  Переключатель темы -->
     <div class="theme-switcher" onclick="toggleTheme()">
         <span>☀️</span>
         <span>The Sun Scorching Sinners</span>
@@ -1421,10 +1421,10 @@
             const chatMessagesElement = document.getElementById('chatMessages');
             if (!chatMessagesElement) return;
             
-            // Преобразуем объект в массив и сортируем по времени
+            // Преобразование объекта в массив и сортировка по времени
             const messagesArray = Object.values(messages).sort((a, b) => a.timestamp - b.timestamp);
             
-            // Очищаем и добавляем сообщения
+            // Очистка и добавление сообщения
             chatMessagesElement.innerHTML = '';
             
             if (messagesArray.length === 0) {
@@ -1818,7 +1818,7 @@
             evt.preventDefault();
         }
         
-        // ДОБАВЛЕНО: Функция переключения темы
+        //  Функция переключения темы
         function toggleTheme() {
             const body = document.body;
             const themeSwitcher = document.querySelector('.theme-switcher');
