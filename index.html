@@ -39,7 +39,7 @@
       "founder": {
         "@type": "Person",
         "name": "Daniel De Courno",
-        "description": "Emperor and naval commander | Император and флотоводец"
+        "description": "Emperor and naval commander | Император и флотоводец"
       }
     }
     </script>
@@ -68,7 +68,7 @@
             box-sizing: border-box;
         }
         
-        /* Стили для кнопки входа */
+        /* ДОБАВЛЕНО: Стили для кнопки входа */
         .login-button-container {
             position: fixed;
             top: 20px;
@@ -94,7 +94,7 @@
             transform: scale(1.05);
         }
         
-        /* Стили для меню пользователя */
+        /* ДОБАВЛЕНО: Стили для меню пользователя */
         .user-menu {
             position: fixed;
             top: 20px;
@@ -161,7 +161,7 @@
             background-color: #303f9f;
         }
         
-        /* Стили для модальных окон */
+        /* ДОБАВЛЕНО: Стили для модальных окон */
         .modal {
             display: none;
             position: fixed;
@@ -282,7 +282,7 @@
             color: #ff6b6b;
         }
         
-        /* Стили для личного кабинета */
+        /* ДОБАВЛЕНО: Стили для личного кабинета */
         .profile-info {
             background-color: #f8f8f8;
             padding: 20px;
@@ -333,7 +333,7 @@
             background-color: #b71c1c;
         }
         
-        /* Стили для чата */
+        /* ДОБАВЛЕНО: Стили для чата */
         .chat-container {
             max-width: 800px;
             margin: 0 auto;
@@ -470,7 +470,7 @@
             color: #aaa;
         }
         
-        /* Стили для переключателя темы */
+        /* ДОБАВЛЕНО: Стили для переключателя темы */
         .theme-switcher {
             background: linear-gradient(90deg, #ffeb3b 0%, #1a237e 100%);
             color: #000;
@@ -504,7 +504,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
         
-        /* Темная тема */
+        /* ДОБАВЛЕНО: Темная тема */
         body.dark-mode {
             background-color: #121212;
             color: #e0e0e0;
@@ -557,7 +557,6 @@
             text-align: center;
             padding: 1rem 0;
             border-bottom: 5px solid gold;
-            position: relative;
         }
         
         .header-images {
@@ -595,7 +594,7 @@
             margin-bottom: 2rem;
         }
         
-        .page.active {
+        .active {
             display: block;
         }
         
@@ -845,12 +844,12 @@
     </style>
 </head>
 <body>
-    <!-- Кнопка Log In (показывается когда пользователь не авторизован) -->
+    <!-- ДОБАВЛЕНО: Кнопка Log In (показывается когда пользователь не авторизован) -->
     <div class="login-button-container" id="loginButtonContainer">
         <button class="login-button" onclick="showLoginModal()">Log In</button>
     </div>
     
-    <!-- Меню пользователя (показывается после входа) -->
+    <!-- ДОБАВЛЕНО: Меню пользователя (показывается после входа) -->
     <div class="user-menu" id="userMenu">
         <button class="user-button" onclick="toggleUserMenu()">
             <span>👤</span>
@@ -866,7 +865,7 @@
         </div>
     </div>
     
-    <!-- Модальное окно входа -->
+    <!-- ДОБАВЛЕНО: Модальное окно входа -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <button class="close-button" onclick="closeLoginModal()">×</button>
@@ -886,7 +885,7 @@
         </div>
     </div>
     
-    <!-- Модальное окно личного кабинета -->
+    <!-- ДОБАВЛЕНО: Модальное окно личного кабинета -->
     <div class="modal" id="personalCabinetModal">
         <div class="modal-content">
             <button class="close-button" onclick="closePersonalCabinet()">×</button>
@@ -897,7 +896,7 @@
         </div>
     </div>
     
-    <!-- Модальное окно чата -->
+    <!-- ДОБАВЛЕНО: Модальное окно чата -->
     <div class="modal" id="chatModal">
         <div class="modal-content">
             <button class="close-button" onclick="closeChat()">×</button>
@@ -927,7 +926,7 @@
         </div>
     </header>
     
-    <!-- Переключатель темы -->
+    <!-- ДОБАВЛЕНО: Переключатель темы -->
     <div class="theme-switcher" onclick="toggleTheme()">
         <span>☀️</span>
         <span>The Sun Scorching Sinners</span>
@@ -937,19 +936,18 @@
     </div>
     
     <nav>
-        <a href="#home" onclick="return showPage('home')">Home</a>
-        <a href="#about" onclick="return showPage('about')">About Us</a>
-        <a href="#history" onclick="return showPage('history')">History</a>
-        <a href="#heroes" onclick="return showPage('heroes')">Heroes of the Empire</a>
-        <a href="#science" onclick="return showPage('science')">Science of the Empire</a>
-        <a href="#codex" onclick="return showPage('codex')">Codex</a>
-        <a href="#government" onclick="return showPage('government')">Government</a>
-        <a href="#media" onclick="return showPage('media')">Media</a>
-        <a href="#contact" onclick="return showPage('contact')">Contact</a>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('about')">About Us</a>
+        <a href="#" onclick="showPage('history')">History</a>
+        <a href="#" onclick="showPage('heroes')">Heroes of the Empire</a>
+        <a href="#" onclick="showPage('science')">Science of the Empire</a>
+        <a href="#" onclick="showPage('codex')">Codex</a>
+        <a href="#" onclick="showPage('government')">Government</a>
+        <a href="#" onclick="showPage('media')">Media</a>
+        <a href="#" onclick="showPage('contact')">Contact</a>
     </nav>
     
     <div class="container">
-        <!-- Все страницы сайта остаются без изменений -->
         <div id="home" class="page active">
             <h2>Welcome to Sacred Daniel's Empire</h2>
             <p>The glorious maritime nation under the wise rule of our sacred Emperor.</p>
@@ -968,266 +966,257 @@
         
         <div id="heroes" class="page">
             <h2>Heroes of the Empire</h2>
+            
             <div class="hero-card">
-                <h3 class="hero-title">Daniel</h3>
-                <h4 class="hero-subtitle">Sacred Emperor</h4>
-                <p>The founder and wise ruler of the Empire. Known for his strategic mind and deep connection to the sea.</p>
+                <h3 class="hero-title">Lord Daniel, The First Prophet</h3>
+                <p class="hero-subtitle">Titles: The First Daniel, Lord of the Black Angels, Prophet of the Kraken, The Sea-Father</p>
+                <p class="hero-subtitle">Era: 1st Century A.D. and beyond (Beginning 33 A.D.)</p>
+                <p class="hero-subtitle">Sacred Vessel: The Mini Angel (Originally a Roman Trireme)</p>
+                <p class="hero-subtitle">P.S: There are at least 3 Daniels in card. The first one, His son and grandson who later will pronounce empire and himself as an emperor
+                    
+                <p>Lord Daniel is not merely a historical figure; he is the cornerstone of a nation and a faith. His story begins in the pivotal year 33 A.D., in the immediate, disillusioned aftermath of the Crucifixion of Jesus Christ. Unlike the masses, Daniel did not mourn; he was filled with disgust and fear at the event. This rejection of the established divine order was the catalyst for his destiny.</p>
+                
+                <p>In an act of supreme defiance, he gathered a band of outcasts: thieves, mercenaries, and runaway slaves, and under cover of darkness, they seized a Roman trireme, slaughtering its crew. This ship, the very next day, would be christened the Mini Angel, the first sacred vessel of a new future empire.</p>
+                
+                <p>The founding miracle occurred on the second day of their voyage. The sea turned black, and from the depths rose the Kraken, a colossal entity that Daniel interpreted not as a monster, but as a new God. While his crew trembled, Daniel stood firm and received his revelation. He declared to his followers: "There is no God left but the Kraken. And we are his sons and daughters." In that moment, he transformed from a fugitive into a Prophet, establishing the one true faith of his future empire. This direct, divine encounter made him a living saint, the chosen herald of a deity of the deep.</p>
+                
+                <p>Daniel possessed a transcendent form of leadership. He found a crew of pathetic land-rats ready to betray each other for a piece of stale bread and, through his will and vision, forged them into pirates living by a code of honor, dignity, and respect for women. His early fleet was a unique society. Out of necessity, women were more numerous aboard ships due to the lack of land, participating fully in this new maritime life. It was under Daniel's rule that this disparate band evolved into a disciplined clan, the "Black Angels," who became more than soldiers, they were a family bound by blood and battle.</p>
+                
+                <p>Daniel's reign was one of relentless expansion and confrontation with the unknown. His voyage to the forbidden Island in 1100 A.D. showcases his courage and the limits of his power. After a brutal, unexplained attack by feral tribesmen who seemed driven by a terror greater than his own crew, Daniel was forced to retreat. His final log entry, "They feared not us. They fled from something else... something in the high valleys," marked one of the rare times the empire chose mystery over conquest, purging the island's coordinates from their charts forever.</p>
+                
+                <p><strong>The Eternal Rival: Admiral James Norridon</strong></p>
+                <p>Daniel's character is further defined by his long-standing conflict with Admiral James Norridon of the Royal Navy. This was not a simple feud but a clash of philosophies. Norridon was a master of disciplined, honorable warfare, while Daniel fought as an unpredictable, ruthless privateer king. Despite the bloodshed, Daniel deeply admired Norridon for his honor and his profound understanding of the sea. Their battles were a "deadly dance" where neither could land a killing blow. In his old age, it is said that Daniel would toast his rival: "To Norridon. May the depths be kinder to him than I ever was." This relationship reveals a complex man who cherished a worthy enemy as a sharpening stone for his own mind and spirit.</p>
+                
+                <p>Lord Daniel's life laid the foundation for everything that followed: he provided the sacred relic: the Mini Angel, a ship that would be rebuilt over centuries but forever remain the soul of the empire. He founded the state religion: the Cult of the Kraken, which would later be formalized into the militant "Legion of the Squid" order. He established the core principles of honor, brotherhood, and naval supremacy. He instituted the imperial title, ensuring every ruler to follow would bear his name and the title Sacred, forever intertwining the destiny of the emperor with the legendary ship he first stole, and the God he first witnessed.</p>
             </div>
+            
             <div class="hero-card">
-                <h3 class="hero-title">Blue_The_Drak</h3>
-                <h4 class="hero-subtitle">Nobleman, Dragon Enthusiast</h4>
-                <p>Master of naval combat and dragon lore. Protector of the Empire's eastern waters.</p>
+                <h3 class="hero-title">His Sacred Majesty, Emperor Daniel de Courno</h3>
+                <p class="hero-subtitle">Title: Sacred Emperor of the Empire of Sacred Daniel</p>
+                <p class="hero-subtitle">Era: 18th Century</p>
+                <p class="hero-subtitle">Notable Vessel: The Sacred Mini Angel (Brig and flagman of the empire)</p>
+                
+                <p><strong>Character Analysis</strong></p>
+                <p>Emperor Daniel de Courno was the defining ruler of his age, a sovereign whose intellect and calculated demeanor shaped an era of expansion, reform, and consolidation for his empire. Daniel's most defining trait was his calculating and highly intelligent mind. He was not a man of impulsive action. Every decision, from the smallest decree to the grandest imperial policy, was considered numerous times, and even after a course was chosen, he would continue to ponder its ramifications. This relentless analysis made him a formidable strategist, always several steps ahead of his adversaries and allies alike.</p>
+                
+                <p>Despite his reserved and thoughtful nature, the Emperor possessed undeniable charisma and an easy ability to make friends. This personal charm was a powerful political tool, allowing him to secure alliances, inspire loyalty in his admirals, and present a compelling figurehead to his people. He was a thinker, but not a recluse.</p>
+                
+                <p>Unusual for a monarch of his stature, Daniel de Courno was deeply connected to the maritime lifeblood of his empire. He was known to personally take to the seas on his brig, the Sacred Mini Angel, demonstrating a hands-on approach to leadership and a genuine connection to his navy.</p>
+                
+                <p>His reign was profoundly marked by the Archipelago Campaign (1760-1800), a period of intense activity that saw the empire stumble upon, conquer, and ultimately abandon a strategically vital island chain. The campaign was an era of sweeping reforms, severe reprisals, and significant military victories. Under Daniel's direction, the empire aggressively developed the archipelago, funneling massive quantities of resources back to the Capital to fuel its growth.</p>
+                
+                <p>A key strategic victory, unrelated to battle, was the alliance with the Scots (1765-1800). Emperor Daniel immediately recognized the opportunity presented by the lost Scottish fleet. With shrewd foresight, he swiftly extended an offer of alliance, transforming a potential threat into a "powerful, temporary navy." This three-decade-long pact, built on mutual necessity and a "grudging respect," secured imperial dominance over the islands and showcased Daniel's talent for strategic partnership.</p>
+                
+                <p>The campaign's military climax was the decisive annihilation of the Dublin Fleet in 1798. While commanded by the legendary Admiral Bharath, the victory was a direct result of the imperial war machine Daniel had built and the alliances he had fostered, exemplified by the last-minute arrival of their loyal "rogue schooner."</p>
+                
+                <p>In a final act of strategic calculation that defined his entire reign, history records that the Empire made the strategic decision to abandon the archipelago in 1800 to pursue greater ambitions elsewhere.</p>
             </div>
+            
             <div class="hero-card">
-                <h3 class="hero-title">Einar</h3>
-                <h4 class="hero-subtitle">Son of the Emperor</h4>
-                <p>Heir to the throne, skilled in diplomacy and naval strategy. Continues his father's legacy.</p>
+                <h3 class="hero-title">Arthur Bha – The Emperor's High Advisor</h3>
+                <p class="hero-subtitle">Titles: Imperial Advisor, Keeper of the Archives</p>
+                <p class="hero-subtitle">Affiliation: The Imperial House of Sacred Daniel</p>
+                <p class="hero-subtitle">Known For: Unconventional intelligence gathering, profound loyalty, and a life lived in many guises</p>
+                
+                <p>Arthur Bha was the quintessential man of contrasts. Officially, he was the emperor's highest advisor, a figure most at home in the dim light of the imperial archives, surrounded by the secrets and laws of the realm. He was a scholar and a diplomat, the meticulous hand that recorded history and guided the emperor with a quiet, reasoned voice.</p>
+                
+                <p>Yet, the palace walls could not contain him. When the weight of duty became stifling, Arthur would vanish. He was not a man who traveled on a personal ship with fanfare; instead, he was a master of infiltration. He would disguise himself as a common traveler, joining merchant crews, pirate bands, or even buying tickets on noble transports. This was not for leisure, but a deeper need to understand the empire from the ground up.</p>
+                
+                <p>His journeys were far from passive. Arthur Bha was a man of direct and often dangerous action: he walked foreign roads, listening to stories and subtly convincing worthy individuals to seek citizenship in the empire, strengthening its fabric from the outside in; utilizing the combat skills honed during his six years of mandatory military service, he took up bounty hunting, his sword proving deadly against deserters and outlaws; on the far frontiers, he transformed into a gatherer and hunter, foraging for rare plants like cotton shrubs and medicinal herbs while simultaneously tracking wanted criminals. This dual pursuit earned him independent wealth and renown.</p>
+                
+                <p>His very name, Bha, was adopted in honor of Admiral Bharath, a figure he deeply admired. This was not an empty gesture. Within the empire, Arthur became the silent guardian of the Admiral's legacy, personally ensuring that Bharath's innovative machines—the pulleys, pumps, and other contraptions—remained in working order. He studied, repaired, and defended their necessity against those who saw them as mere relics.</p>
+                
+                <p>Arthur Bha defied simple categorization. To the world, he was a diplomat, a scholar, a bounty hunter, and a botanist—all separate faces of a multifaceted life. But to the emperor, he was simply Arthur Bha—the man who recorded history, guarded its truths, and, when needed, rewrote fate itself with a blade or a pen. He was the unseen thread that connected the throne to the world, a loyalist who served not from a dusty chamber, but from the bustling decks and dusty roads of the realm itself. Though his name may not echo in war songs, the empire would not have endured without its quiet, most capable shadow.</p>
             </div>
+            
             <div class="hero-card">
-                <h3 class="hero-title">Otto</h3>
-                <h4 class="hero-subtitle">Noble Captain</h4>
-                <p>Commanding officer of the Imperial Fleet. Known for his bravery in numerous naval battles.</p>
+                <h3 class="hero-title">Admiral Bharath – The Stubborn Architect of the Empire</h3>
+                <p class="hero-subtitle">Titles: Admiral of the Imperial Navy, The Cook-Admiral, The Mad Scientist, Emperor (1850-1855)</p>
+                <p class="hero-subtitle">Era: Mid-to-Late 19th Century</p>
+                <p class="hero-subtitle">Known For: Naval brilliance, technological innovation, and an unprecedented rise from cabin boy to Emperor</p>
+                
+                <p>Admiral Bharath's career is a testament to sheer, unyielding stubbornness and latent genius. His story began as a scrawny, orphaned boy on the docks of Volney, spotted by Captains Patih and Joe. They brought him aboard the Sacred Mini Angel, the flagship of Emperor Daniel himself. Unlike any other sailor, Bharath's ambition was not for command but for the ship. He became the ship's cook, a brilliant one and refused promotions for years. His legendary meals were a cornerstone of crew morale. This genuine love for cooking later manifested in him opening a tavern and a dining house in the capital, establishing his deep connection to the common sailors long before he led them.</p>
+                
+                <p>When fate and his own relentless mind pushed him into command, Bharath revealed his true genius: he was a master of diplomacy and psychological warfare. His most legendary move during the Archipelago Campaign was the bloodless capture of six islands from a rival fleet (likely French), without spending a single grain of gunpowder. This event perfectly encapsulates his strategic philosophy. While capable of overwhelming force, he preferred to outthink his opponents, using his skills to make the enemy lower their flags and surrender without a fight. He proved that the empire's greatest expansion could be achieved not just through cannon fire, but through unparalleled cunning.</p>
+                
+                <p>Bharath's mind was never confined to naval tactics. He was a genius inventor and a restless engineer, constantly seeing problems and designing solutions. He was the driving force behind the empire's technological advancement, constantly arguing with the traditionalist Emperor Daniel about the need for improvement. He designed pulley systems for faster cargo loading, hydraulic pumps, and primitive telegraphs. His workshops were chaotic, but his ideas worked. This created a unique cultural divide in the empire: Bharath's innovations revolutionized the navy and infrastructure, while the Imperial household clung to tradition, a testament to his stubborn but effective push for progress.</p>
+                
+                <p>Bharath's brilliance made him powerful enemies who orchestrated a vicious smear campaign against him. His salvation came from the very top: Emperor Daniel and his enigmatic friend, Lonee, personally started a rescue mission to extract Bharath and dismantle the conspiracy, proving the immense trust and value Daniel placed in him.</p>
+                
+                <p>This trust was echoed by the entire military. When Emperor Daniel later succumbed to an unknown illness (likely tuberculosis), the empire faced a succession crisis. In a testament to his universal respect, Admiral Bharath was chosen as the new ruler by the unanimous support of the army and the elite imperial guard, The Black Angels (TBA).</p>
+                
+                <p>His reign (1850-1855) was that of a military man struggling with governance. Recognizing his own limitations in politics, he made the startlingly humble decision to abdicate in 1855, prioritizing the empire's stability over his own power.</p>
+                
+                <p>He remains a symbol that true talent and stubborn determination cannot be contained, whether in a ship's galley, on the admiral's bridge, or even on the imperial throne.</p>
             </div>
+            
             <div class="hero-card">
-                <h3 class="hero-title">Def</h3>
-                <h4 class="hero-subtitle">High Inquisitor</h4>
-                <p>Keeper of the Empire's laws and traditions. Also an expert fisherman and naval tactician.</p>
-            </div>
-            <div class="hero-card">
-                <h3 class="hero-title">Pairo</h3>
-                <h4 class="hero-subtitle">Professor and Scientist</h4>
-                <p>Head of the Imperial Research Center. Pioneering marine biology and naval engineering.</p>
-            </div>
-            <div class="hero-card">
-                <h3 class="hero-title">Blue2</h3>
-                <h4 class="hero-subtitle">Noble Explorer</h4>
-                <p>Brother of Blue_The_Drak, charting unknown waters and discovering new lands for the Empire.</p>
+                <h3 class="hero-title">Lord Def – The Zealous Heart</h3>
+                <p class="hero-subtitle">Titles: Lord, Captain, City-Builder, High Inquisitor of the Legion of the Squid</p>
+                <p class="hero-subtitle">Era: 17th-18th Centuries</p>
+                <p class="hero-subtitle">Known For: A profound transformation from a charismatic nobleman to a fanatical zealot, driven by a core of innate kindness and formidable intellect</p>
+                
+                <p>Lord Def's life is a story of radical transformation, a journey where his core traits of kindness, responsiveness, and incredible intelligence were refined and redirected through extraordinary experiences.</p>
+                
+                <p>In his youth, he was the epitome of nobility, known for his charm and love for high society. He was a frequent guest at the philharmonic and every prestigious ball, and his sharp mind found a dangerous outlet in a passion for gambling. However, this was not the recklessness of a fool, but the calculated risk-taking of a brilliant man seeking stimulation.</p>
+                
+                <p>Beneath the surface of the gambler and socialite lay Def's true nature: he was fundamentally kind, responsive, and possessed of a formidable intellect. These were not traits he acquired, but ones that defined his every action. This innate goodness manifested in his role as a patient teacher, where he led merchant convoys not through intimidation, but by schooling raw recruits in seamanship through discipline and skill.</p>
+                
+                <p>His intelligence was both creative and strategic. He was a visionary builder who designed and overseen the construction of an entire fortified city called Fort Green, demonstrating not only architectural genius but also the foresight to terraform the land for sustainable agriculture. His mind was capable of grand designs, both for stone and for society.</p>
+                
+                <p>Def was a man who could seamlessly transition from the drawing room to the battlefield. He was courageous and hands-on, personally dueling one of the empire's most wanted assassins and throwing him into a dungeon. Yet, he also possessed a profound, almost spiritual need for solitude, finding peace in the unlikeliest of places: fishing in the heart of the treacherous Dark Sea, a testament to his unshakable calm and unique daring.</p>
+                
+                <p>In his later years, the same intensity that once drove him to gambling and city-building found a new, ultimate focus: religious fervor. He went completely to the Legion of the Squid. His kindness curdled into a brutal, unwavering fanaticism. His innate responsiveness became an intrusive need to police faith. His brilliant intellect was now a weapon for theological argument and the orchestration of purges. He ascended to the rank of high inquisitor, preaching the Kraken's will with fire and steel. The man who once built a city to sustain life now dedicated himself to reshaping souls through holy war.</p>
+                
+                <p>Lord Def is a tragic and compelling figure. He was not a man who changed his nature, but one whose profound inner qualities—his goodness, his sharp mind, his capacity for deep focus—were twisted and amplified by his experiences and his faith. His journey from the glittering ballrooms to the grim chambers of the inquisition is the story of a great soul seeking purpose, ultimately finding it in the service of a dark and demanding god. He remains the empire's most complex zealot: a man who built and nurtured, only to become its most relentless purifier.</p>
             </div>
         </div>
         
         <div id="science" class="page">
-            <h2>Science of the Empire</h2>
+            <h2>Imperial Science</h2>
+            
+            <!-- Основной текст об Исследовательском центре -->
             <div class="science-intro">
-                <p>The Empire is at the forefront of marine research and scientific discovery. Our scientists have made groundbreaking discoveries in marine biology, oceanography, and naval engineering.</p>
-                <img src="TBA-SITE/science_image.jpg" alt="Marine Research" class="page-image">
+                <h3>The Prophet Daniel Marine Life Research Center</h3>
+                <p><strong>Founded in 1876</strong></p>
+                <p><strong>Director:</strong> Pairo.P, citizen, high musketeer rank in the military.</p>
+                <p><strong>Notable Affiliation:</strong> serves as the primary field research arm for the State Scientific Institute of the lord Def, specifically for its Department of Biology and Ecology.</p>
+                
+                <p>Established in 1876, the Prophet Daniel Marine Life Research Center was envisioned as the Empire's first dedicated institution for the systematic study of oceanic fauna. Its founding director, the esteemed citizen Pairo.P, brought a unique blend of military discipline and scholarly curiosity to the role, ensuring expeditions were both meticulously organized and daring in scope.</p>
+                
+                <h4>The Foundational Expedition is the 1884 Octopus Study.</h4>
+                <p>The Center's first major published work, dated July 3, 1884, was a landmark study titled "A Comparative Analysis of Octopus Specimens from the Indian Ocean and the Dark Sea." This expedition set the standard for the Center's methodology. The research vessel, an expeditionary ketch, departed from the Capital and sailed to a known octopus habitat in the Indian Ocean. After completing initial observations and securing a live specimen, the ketch set sail for Fort Green, a crucial resupply point, before embarking on the perilous leg of the journey into the Dark Sea. The findings, meticulously recorded by Director Pairo.P, were revolutionary. He documented the colossal size of Dark Sea octopuses compared to their Indian Ocean counterparts, alongside a markedly heightened aggression directed specifically at ships. The expedition's log noted that the crew was forced to navigate around entire islands to approach the calmer specimens, highlighting the extreme behavioral adaptation of the local fauna.</p>
+                <p>This seminal 1884 paper provided the foundational data for subsequent research at the Def Institute's Department of Biology and Ecology. It established a critical comparative framework, pointing to a phenomenon later termed the "Dark Sea Anomaly."</p>
+                <p>Professor Vladislav.V of the Department of Biology and Ecology expanded upon this work in his treatise "Cartilaginous Fishes" Studying species like striped and ribbon sharks, as well as eagle rays, he confirmed a pattern: multiple, phylogenetically distinct species within the Dark Sea exhibited not only increased physical dimensions but also severe behavioral aberrations.</p>
+                <p>In a groundbreaking interdisciplinary hypothesis, Professor Vladislav.V proposed that the anomaly was not taxon-specific but environmental. He noted that the erratic, violent behavior of Dark Sea fauna bore a disturbing resemblance to the psychological profile of a madman as described in Lord Def's theological work, "Heretics as Madmen." This provocative comparison suggested that the same unknown forces that warped the minds of men might also be affecting the very instincts of its marine life, framing the Dark Sea as a zone of profound physiological and psychological distortion.</p>
+                
+                <!-- Основное изображение -->
+                <img src="TBA-SITE/Screenshot_2025-12-22-16-21-48-982_com.android.chrome-edit.jpg" alt="Prophet Daniel Marine Life Research Center" class="page-image">
             </div>
             
+            <!-- Система вкладок для научных работ -->
             <div class="tabs-container">
                 <div class="tabs-header">
-                    <button class="tab-button active" onclick="openTab(event, 'tab1')">Marine Biology</button>
-                    <button class="tab-button" onclick="openTab(event, 'tab2')">Oceanography</button>
-                    <button class="tab-button" onclick="openTab(event, 'tab3')">Naval Engineering</button>
+                    <button class="tab-button active" onclick="openTab(event, 'tab1')">1884: Giant Cephalopod Study</button>
+                    <button class="tab-button" onclick="openTab(event, 'tab2')">1888: Cartilaginous Fishes</button>
                 </div>
+                
+                <!-- Вкладка 1: Исследование головоногих -->
                 <div id="tab1" class="tab-content active">
-                    <h3>Marine Biology Research</h3>
                     <div class="research-paper">
-                        <h4>Prophet Daniel Marine Life Research Center</h4>
-                        <p>Our premier research facility dedicated to the study of marine ecosystems and deep-sea creatures.</p>
+                        <h3>Comparative Analysis of Giant Cephalopod Morphology and Ethology. The Dark Sea Anomaly</h3>
+                        <p><strong>Author:</strong> Pairo.P, director of the Prophet Daniel Marine Life Research Center.</p>
+                        <p><strong>Field Expedition Log:</strong> voyage of the Emperor's Book, Expeditionary Ketch.</p>
+                        <p><strong>Publication Date:</strong> July 3, 1884.</p>
+                        <p><strong>Subject Species:</strong> octopus vulgaris (Indian Ocean variant) & octopus horridus (proposed nomenclature for Dark Sea variant).</p>
                         
-                        <h5>Recent Discoveries:</h5>
+                        <h4>I. Expedition Overview & Methodology</h4>
+                        <h5>Phase 1: Indian Ocean baseline (April-May 1884)</h5>
+                        <p>The Emperor's Book embarked from the Capital, setting course for the coral atolls northeast of Madagascar, a documented habitat for large benthic octopuses. Using baited traps, the team successfully observed and measured seven (7) specimens.</p>
+                        <p><strong>Specimen Acquisition:</strong> one mature male, measuring 1.32 meters in total arm span, was carefully sedated using a tincture of opium and belladonna administered via a modified harpoon syringe. It was housed in a specially constructed, constantly circulated seawater tank on the aft deck.</p>
+                        <p><strong>Initial Findings (Indian Ocean).</strong></p>
                         <ul>
-                            <li>New species of bioluminescent cephalopods in the Dark Sea region</li>
-                            <li>Giant cartilaginous fishes with unique adaptive features</li>
-                            <li>Marine anomalies suggesting undiscovered evolutionary pathways</li>
+                            <li>Average Arm Span: 1.3 meters (range: 1.1m - 1.5m).</li>
+                            <li>Behavior: cryptic, primarily nocturnal. Exhibited standard escape responses (ink expulsion, jet propulsion, camouflage). Minimal interest in the ship's hull beyond using it for occasional shelter. Reactions to submersed lights were curious but non-aggressive.</li>
+                            <li>Coloration: typical dynamic camouflage; patterns correlated with substrate, not emotional state beyond baseline alertness.</li>
                         </ul>
                         
-                        <h5>Research Focus:</h5>
-                        <p>Behavioral ecology of deep-sea predators, adaptation mechanisms in extreme pressure environments, and the biological basis of oceanic gigantism.</p>
+                        <h5>Phase 2: Transit & Resupply</h5>
+                        <p>The Emperor's Book sailed to Fort Green, delivering initial reports and taking on reinforced equipment: thicker-gauge steel cables, heavier winches, and fortified specimen containment units, based on preliminary data telegrams.</p>
+                        
+                        <h5>Phase 3: the Dark Sea Incursion (June 1884).</h5>
+                        <p>Entering the perpetual overcast of the Dark Sea, the expedition faced immediate challenges of weather.</p>
+                        
+                        <h4>II. Dark Sea Encounter & Radical Adaptations.</h4>
+                        <p>The first visual confirmation occurred on June 12th. What was initially charted as a small, rocky islet approximately 200 meters off the starboard bow was, in fact, a colossal octopus resting in the shallows. Its true nature was revealed when the "island" shifted, and a gargantuan eye, the size of a ship's wheel, broke the surface.</p>
+                        
+                        <p><strong>Field Measurements & Observations.</strong></p>
+                        <ul>
+                            <li><strong>Size:</strong> the team managed to map three individuals from a distance using triangulation. Arm spans were consistently measured between 18 to 22 meters. The smallest confirmed specimen was 19.5 meters.</li>
+                            <li><strong>Aggression Protocol:</strong> the standard research approach proved impossible. Lowering a submersible or divers was deemed suicidal. The octopuses displayed active, targeted aggression.</li>
+                            <li>They would deliberately surface between the ship and its intended anchorage, a behavior never observed in any other cephalopod. On two occasions, individuals used their arms to hurl boulders (estimated 200-300 kg) in the general direction of the ship's hull. This was not feeding behavior; it was territorial bombardment. Their chromatophores did not just mimic surroundings. They flashed violent, pulsating patterns of deep crimson and black.</li>
+                        </ul>
+                        
+                        <p><strong>Specimen Acquisition (Dark Sea).</strong></p>
+                        <p>After eight days of failed approaches, Director Pairo.P ordered the Emperor's Book to sail a full 15 nautical miles around a volcanic ridge. In the lee of the ridge, in a deep, silt-filled basin, they located a single, slightly smaller specimen (approximately 17 meters) that exhibited marginally less immediate hostility. Using a launch, they deployed a fortified net of chain-link and tarred rope, baited with a entire side of salted beef. The creature was ensnared. The struggle was titanic. It took three hours and nearly parted the Emperor's Book's main winch cable before the beast was subdued via a massive dose of sedative (ten times the Indian Ocean dosage). It was secured against the ship's hull in a reinforced nylon and chain mesh sling, its immense weight causing a notable list.</p>
+                        
+                        <!-- Изображение для вкладки 1 -->
+                        <img src="TBA-SITE/Screenshot_2025-12-22-15-38-47-086_com.android.chrome-edit.jpg" alt="Dark Sea Octopus Specimen Acquisition" class="page-image">
+                        
+                        <h4>Director Pairo.P's Conclusion.</h4>
+                        <p>The creature we have termed as "octopus horridus" is not merely a larger version of its global cousins. It is a fundamentally different ecological entity. The scale of gigantism (a ~1500% increase in linear dimensions) defies all known models of deep-sea gigantism, which typically favor cooler, stable environments, not the volatile, storm-wracked Dark Sea.</p>
+                        <p>More alarming than its size is its behavioral pathology. It does not view our ships as neutral objects or potential predators, but as rivals or prey. Its actions are calculated, persistent, and shockingly weaponized. The parallel to the deranged, fixated aggression described in certain theological texts on madness is unsettling and warrants further interdisciplinary investigation.</p>
+                        <p>This expedition posits a terrifying hypothesis that the Dark Sea is not just a geographic location, but a transformative biosphere. It exerts a pressure that perverts the natural order, creating not just giants, but monsters. Our understanding of marine biology must now account for an environment that breeds insanity in the flesh.</p>
                     </div>
                 </div>
+                
+                <!-- Вкладка 2: Исследование хрящевых рыб -->
                 <div id="tab2" class="tab-content">
-                    <h3>Oceanographic Studies</h3>
                     <div class="research-paper">
-                        <h4>Dark Sea Anomaly Research</h4>
-                        <p>The Empire has been studying the mysterious Dark Sea region for decades, uncovering its secrets.</p>
+                        <h3>Cartilaginous Fishes of the Southern Seas.</h3>
+                        <h4>Section: the Dark Sea Anomaly.</h4>
+                        <p><strong>Author:</strong> professor Vladislav.V, Department of Biology and Ecology, lord Def's State Scientific Institute.</p>
+                        <p><strong>Field data provided by expedition brig "Shark", Prophet Daniel Marine Life Research Center.</strong></p>
+                        <p><strong>Publication Year:</strong> 1888.</p>
                         
-                        <h5>Key Findings:</h5>
-                        <ul>
-                            <li>Unusual thermal currents that defy conventional oceanographic models</li>
-                            <li>Magnetic anomalies affecting navigation equipment</li>
-                            <li>Unique water chemistry supporting previously unknown ecosystems</li>
-                        </ul>
+                        <h4>1. Introduction and Methodological Note.</h4>
+                        <p>This study expands upon the foundational work of the Prophet Daniel Center (Pairo.P, 1884) by applying its comparative framework to cartilaginous fishes, specifically the striped shark (Triakis scyllium) and the ribbon shark (Eridacnis radcliffei). The primary objective was to determine if the morphological and behavioral anomalies observed in cephalopods represent a basin-wide phenomenon. The research was conducted aboard the specially commissioned expedition brig "Shark" which conducted parallel trawling and observational operations in established habitats within the Indian Ocean and the perilous waters of the Dark Sea. All handling protocols were reinforced following the 1884 findings, utilizing hardened steel cages and external observation platforms.</p>
+                        <p>A critical theoretical lens for this analysis is drawn from the theological and psychological work of High Inquisitor Def, "Heretics as Madmen" (Def, 1742). Def posits that heresy is not mere doctrinal error but a form of spiritual insanity characterized by "a rupture with natural order, an excessive growth of base passions, and a directed, irrational hostility towards the structures of sacred authority." This framework provides a provocative analogy for interpreting the observed biotic deviations.</p>
                         
-                        <h5>Historical Expeditions:</h5>
-                        <p>Our 19th century marine expeditions documented numerous sea monster sightings that are now being re-examined through modern scientific lenses.</p>
-                    </div>
-                </div>
-                <div id="tab3" class="tab-content">
-                    <h3>Naval Engineering</h3>
-                    <div class="research-paper">
-                        <h4>Imperial Shipbuilding Innovations</h4>
-                        <p>The Empire combines traditional craftsmanship with cutting-edge technology to build the world's most advanced ships.</p>
+                        <h4>2. Comparative Data & Findings.</h4>
+                        <!-- Изображения таблиц для вкладки 2 -->
+                        <div class="comparative-images">
+                            <img src="TBA-SITE/Screenshot_2025-12-22-16-13-57-947_com.android.chrome-edit.jpg" alt="Comparative Data Table 1" class="page-image">
+                            <img src="TBA-SITE/Screenshot_2025-12-22-16-14-43-995_com.android.chrome-edit.jpg" alt="Comparative Data Table 2" class="page-image">
+                        </div>
                         
-                        <h5>Technological Advancements:</h5>
-                        <ul>
-                            <li>Pressure-resistant hull designs for deep-sea exploration</li>
-                            <li>Hybrid sail-engine propulsion systems for optimal efficiency</li>
-                            <li>Advanced sonar and detection systems based on marine biology research</li>
-                        </ul>
-                        
-                        <h5>Future Projects:</h5>
-                        <p>Development of submersible research vessels capable of reaching previously inaccessible depths of the Dark Sea.</p>
+                        <h4>3. Discussion & Conclusion.</h4>
+                        <p>The data confirm the "Dark Sea Anomaly" as a pervasive ecological syndrome affecting phylogenetically distant taxa. The observed deviations are not random but follow a disturbing pattern: gigantism, physiological corruption (bioluminescence, hue shift), and radical behavioral inversion towards directed aggression or obsession with human maritime activity.</p>
+                        <p>Professor Vladislav's central hypothesis is that these changes are not merely adaptive but pathological. The behavior of the Dark Sea sharks, their purposeless ramming of hulls, mobbing of gear, consumption of wreckage lacks rational predatory or survival logic. It mirrors, in the animal realm, the "directed, irrational hostility" that High Inquisitor Def attributes to the heretic whose mind has been unmoored from divine and natural law (Def, 1742, Ch. 3). The "rupture with natural order" is evident in the inverted day/night cycles and depth preferences.</p>
+                        <p><strong>Conclusion:</strong> the environment of the Dark Sea acts as a corrupting agent, producing what can be termed "zoological heresy" a state where creatures exceed their natural bounds in size and form while their instincts become skewed towards a frenzied, seemingly purposeless conflict with the symbols of order and exploration (ships). Further study is imperative, not only for marine biology but also for understanding the metaphysical contours of this region.</p>
+                        <p><strong>Cited Work:</strong> Def, High Inquisitor. (1742). Heretics as Madmen. Legion of the Squid Press.</p>
                     </div>
                 </div>
             </div>
         </div>
         
         <div id="codex" class="page">
-            <h2>Imperial Codex</h2>
-            <p>The laws and traditions that govern our Empire, passed down through generations of wise rulers.</p>
-            
-            <div class="hero-card">
-                <h3 class="hero-title">Fundamental Laws</h3>
-                <ol>
-                    <li>The Emperor's word is law, guided by wisdom and tradition</li>
-                    <li>All citizens must contribute to the Empire's maritime strength</li>
-                    <li>Respect for the sea and its creatures is paramount</li>
-                    <li>Knowledge and research are valued above all material wealth</li>
-                    <li>Loyalty to the Empire and its people is non-negotiable</li>
-                </ol>
-            </div>
-            
-            <div class="hero-card">
-                <h3 class="hero-title">Maritime Traditions</h3>
-                <ul>
-                    <li>The Blessing of the Fleet ceremony each spring</li>
-                    <li>Annual celebration of the Empire's founding (1700)</li>
-                    <li>Traditional sailing races between noble houses</li>
-                    <li>Storytelling nights preserving naval history and folklore</li>
-                    <li>Scientific symposiums to share new discoveries</li>
-                </ul>
-            </div>
-            
-            <div class="hero-card">
-                <h3 class="hero-title">Citizenship Rights</h3>
-                <ul>
-                    <li>Right to maritime education and training</li>
-                    <li>Access to Imperial research and discoveries</li>
-                    <li>Protection under the Emperor's law</li>
-                    <li>Participation in democratic advisory councils</li>
-                    <li>Right to pursue scientific inquiry</li>
-                </ul>
-            </div>
+            <h2>Our Codex</h2>
+            <p>Our country follow only one codex which describes all the matter things. <a href="https://docs.google.com/document/d/1qPyRhbWn7Z0yEtAarzPgJIiCiyuVShJeIUF90LDkKAY/edit?usp=drivesdk" target="_blank">Read the Codex</a></p>
         </div>
         
         <div id="government" class="page">
-            <h2>Government Structure</h2>
-            <p>The Empire operates under an absolute monarchy with advisory councils representing various interests.</p>
-            
-            <div class="hero-card">
-                <h3 class="hero-title">The Emperor</h3>
-                <p><strong>Daniel De Courno</strong> - Sacred Emperor and Supreme Commander</p>
-                <p>Final authority on all matters of state, law, and military command.</p>
-            </div>
-            
-            <div class="hero-card">
-                <h3 class="hero-title">Royal Council</h3>
-                <p>Advisory body consisting of the Empire's most trusted nobles and experts:</p>
-                <ul>
-                    <li><strong>Einar</strong> - Heir Apparent and Diplomatic Affairs</li>
-                    <li><strong>Def</strong> - High Inquisitor and Legal Affairs</li>
-                    <li><strong>Pairo</strong> - Scientific Research and Development</li>
-                    <li><strong>Otto</strong> - Naval Command and Defense</li>
-                    <li><strong>Blue_The_Drak & Blue2</strong> - Exploration and Intelligence</li>
-                </ul>
-            </div>
-            
-            <div class="hero-card">
-                <h3 class="hero-title">Government Departments</h3>
-                <ul>
-                    <li><strong>Imperial Navy</strong> - Defense and maritime security</li>
-                    <li><strong>Research Institute</strong> - Scientific discovery and innovation</li>
-                    <li><strong>Trade Commission</strong> - Economic affairs and commerce</li>
-                    <li><strong>Cultural Ministry</strong> - Preservation of traditions and history</li>
-                    <li><strong>Exploration Office</strong> - Charting new waters and territories</li>
-                </ul>
-            </div>
+            <h2>Government</h2>
+            <img src="TBA-SITE/image.webp" alt="Military Order" class="page-image">
+            <p>Our country is ruled by our sacred Emperor and our lovely religious-military order which has its own articles on the second part of the codex. <a href="https://docs.google.com/document/d/1jPr4N3k1AJTX8z73flbp39JR_ew-Jv3yZWvA5O3-N00/edit?usp=drivesdk" target="_blank">Learn about our government</a></p>
         </div>
         
         <div id="media" class="page">
-            <h2>Imperial Media</h2>
-            <p>Stay updated with the latest news, announcements, and scientific discoveries from the Empire.</p>
-            
-            <div class="hero-card">
-                <h3 class="hero-title">Recent Announcements</h3>
-                <ul>
-                    <li><strong>New Research Expedition:</strong> The Prophet Daniel Research Center is launching a new deep-sea exploration mission to the Dark Sea</li>
-                    <li><strong>Naval Exercises:</strong> Imperial Fleet conducting joint maneuvers with allied maritime nations</li>
-                    <li><strong>Scientific Breakthrough:</strong> Discovery of new marine species with potential medical applications</li>
-                    <li><strong>Cultural Event:</strong> Annual Sea Festival scheduled for next month</li>
-                </ul>
-            </div>
-            
-            <div class="hero-card">
-                <h3 class="hero-title">Imperial Decrees</h3>
-                <div class="citizenship-form">
-                    <h4>Decree #2024-001</h4>
-                    <p>All citizens are encouraged to participate in maritime conservation efforts. The Emperor declares the month of June as "Sea Protection Month."</p>
-                    
-                    <h4>Decree #2024-002</h4>
-                    <p>The Imperial Research Center is granted additional funding for Dark Sea anomaly studies. All findings to be shared with citizen scientists.</p>
-                    
-                    <h4>Decree #2024-003</h4>
-                    <p>New trade agreements established with neighboring maritime states. Imperial exports of naval technology and research to increase by 30%.</p>
-                </div>
-            </div>
-            
-            <div class="hero-card">
-                <h3 class="hero-title">Historical Archives</h3>
-                <p>Access to digital copies of historical documents, expedition logs, and scientific papers:</p>
-                <ul>
-                    <li><a href="https://docs.google.com/document/d/1iSz32g8wN5WH6trZ8I9tlJhcz8VL54w27zmrCDE2jCM/edit?usp=drivesdk" target="_blank">Complete History of the Empire</a></li>
-                    <li><a href="#" onclick="return false">19th Century Expedition Logs</a></li>
-                    <li><a href="#" onclick="return false">Marine Biology Research Papers</a></li>
-                    <li><a href="#" onclick="return false">Naval Battle Chronicles</a></li>
-                </ul>
-            </div>
+            <h2>Media</h2>
+            <p>Current news is published personally by the imperial house, and accordingly if you have reliable information that can attract the empire, send it to the mail forgamesandstuff2006@gmail.com</p>
         </div>
         
         <div id="contact" class="page">
-            <h2>Contact the Empire</h2>
-            <p>For official inquiries, research collaborations, or citizenship information.</p>
+            <h2>Empire contacts</h2>
             
-            <div class="contact-list">
-                <li>
-                    <strong>Imperial Office</strong><br>
-                    Official communications and state matters<br>
-                    Email: imperial.office@sacred-empire.dn
-                </li>
-                <li>
-                    <strong>Research Center</strong><br>
-                    Scientific inquiries and collaboration<br>
-                    Email: research@prophet-daniel-center.dn
-                </li>
-                <li>
-                    <strong>Naval Command</strong><br>
-                    Military and defense matters<br>
-                    Email: naval.command@imperial-fleet.dn
-                </li>
-                <li>
-                    <strong>Citizenship Bureau</strong><br>
-                    Applications and citizen services<br>
-                    Email: citizenship@imperial-services.dn
-                </li>
-            </div>
+            <ul class="contact-list">
+                <li><strong>Holy Emperor Daniel De Courno</strong><br>Contact methods: Discord - senioreugene</li>
+                <li><strong>High Advisor to the Emperor Arthur Bha</strong><br>Discord - arthurbha</li>
+                <li><strong>Heir to the throne and Daniel's son, Einar De Courno (skald)</strong><br>Contact is not possible at the moment, only for citizens.</li>
+            </ul>
             
             <div class="citizenship-form">
-                <h3>Apply for Imperial Citizenship</h3>
-                <p>The Empire welcomes dedicated individuals who share our values of knowledge, maritime tradition, and scientific pursuit.</p>
-                
-                <h4>Requirements:</h4>
+                <h3>Citizenship</h3>
+                <p>To obtain citizenship, write to this email: forgamesandstuff2006@gmail.com using the following form:</p>
                 <ol>
-                    <li>Commitment to the Empire's laws and traditions</li>
-                    <li>Willingness to contribute to maritime activities</li>
-                    <li>Respect for scientific inquiry and knowledge</li>
-                    <li>Clean record and good standing</li>
-                    <li>Basic understanding of naval traditions</li>
+                    <li>Your first and last name (you can choose completely different ones than in your previous country, but you are obliged to live by your chosen first and last name for the rest of your life in the empire).</li>
+                    <li>Your email for communication (the empire has other ways to communicate between citizens, email is for extremely important news).</li>
+                    <li>Are you ready to take an oath of allegiance to the society of freedom and honor? A "yes" answer is sufficient at this stage.</li>
+                    <li>Indicate here whether you will be able to apply for a passport that you will receive with dignity? (Print it out, protect it from possible damage). If you are unable to obtain a passport from ready-made materials yourself, contact the emperor asking him to send it to you (this operation may take more time).</li>
+                    <li>Tell us about yourself (who you are in this life, how you look at life, maybe you have goals in this life, your date of birth, your previous army experience, your class in society or your ancestors class, your detailed look - send us your picture or the drawing of yourself, strictly yourself, its gonna be used nowhere but in your passport which is available only for you).</li>
                 </ol>
-                
-                <p><em>Note: Current citizenship applications are being processed through the official channels listed above. The online application system is under development.</em></p>
             </div>
         </div>
-        
     </div>
     
     <footer>
@@ -1235,7 +1224,7 @@
     </footer>
     
     <script>
-        // Конфигурация Firebase (добавлено)
+        // Конфигурация Firebase (ДОБАВЛЕНО)
         const firebaseConfig = {
             apiKey: "AIzaSyCOXWodWpE4KdEW1zwryydQUjfxHPiS-3E",
             authDomain: "sacred-empire-chat.firebaseapp.com",
@@ -1246,14 +1235,14 @@
             appId: "1:131630929373:web:d4208575c65f0df4525234"
         };
         
-        // Переменные Firebase (добавлено)
+        // Переменные Firebase (ДОБАВЛЕНО)
         let firebaseApp;
         let database;
         let chatRef;
         let usersRef;
         let isFirebaseConnected = false;
-
-        // База данных пользователей (все аккаунты)
+        
+        // База данных пользователей (ДОБАВЛЕНО)
         const users = {
             'emp123dan': {
                 password: 'Lyusek2020',
@@ -1291,20 +1280,11 @@
                 bio: 'the brother of other Blue, nobleman, explorer'
             }
         };
-
-        // Текущий пользователь
+        
+        // Текущий пользователь (ДОБАВЛЕНО)
         let currentUser = null;
         
-        // Список онлайн пользователей (симуляция)
-        let onlineUsers = new Set();
-        
-        // Сообщения чата (симуляция общего хранилища)
-        let chatMessages = [];
-        
-        // ID текущей сессии (для отслеживания кто онлайн)
-        let sessionId = Math.random().toString(36).substring(2);
-
-        // Инициализация Firebase (добавлено)
+        // Инициализация Firebase (ДОБАВЛЕНО)
         function initFirebase() {
             try {
                 firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -1317,8 +1297,8 @@
                 return false;
             }
         }
-
-        // Подключение к чату Firebase (добавлено)
+        
+        // Подключение к чату Firebase (ДОБАВЛЕНО)
         function connectToFirebaseChat() {
             if (!isFirebaseConnected || !currentUser) return;
             
@@ -1332,28 +1312,14 @@
                     updateFirebaseChatDisplay(messages);
                 });
                 
-                // Добавляем пользователя в онлайн
-                const userOnlineRef = usersRef.child(currentUser.username);
-                userOnlineRef.set({
-                    name: currentUser.name,
-                    online: true,
-                    lastSeen: firebase.database.ServerValue.TIMESTAMP
-                });
-                
-                // Обработка отключения
-                userOnlineRef.onDisconnect().update({
-                    online: false,
-                    lastSeen: firebase.database.ServerValue.TIMESTAMP
-                });
-                
                 return true;
             } catch (error) {
                 console.error("Firebase chat connection error:", error);
                 return false;
             }
         }
-
-        // Обновление отображения чата Firebase (добавлено)
+        
+        // Обновление отображения чата Firebase (ДОБАВЛЕНО)
         function updateFirebaseChatDisplay(messages) {
             const chatMessagesElement = document.getElementById('chatMessages');
             if (!chatMessagesElement) return;
@@ -1396,8 +1362,8 @@
                 chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
             }, 100);
         }
-
-        // Отправка сообщения в Firebase (добавлено)
+        
+        // Отправка сообщения в Firebase (ДОБАВЛЕНО)
         function sendFirebaseMessage(messageText) {
             if (!isFirebaseConnected || !currentUser || !chatRef) return false;
             
@@ -1418,8 +1384,8 @@
                 return false;
             }
         }
-
-        // Отправка системного сообщения в Firebase (добавлено)
+        
+        // Отправка системного сообщения в Firebase (ДОБАВЛЕНО)
         function sendFirebaseSystemMessage(text) {
             if (!isFirebaseConnected || !chatRef) return;
             
@@ -1437,8 +1403,8 @@
                 console.error("Error sending Firebase system message:", error);
             }
         }
-
-        // Функция показа модального окна входа
+        
+        // Функции для системы входа/чата (ДОБАВЛЕНО)
         function showLoginModal() {
             document.getElementById('loginModal').classList.add('active');
             document.getElementById('loginError').style.display = 'none';
@@ -1448,36 +1414,25 @@
                 document.getElementById('username').focus();
             }, 100);
         }
-
-        // Функция закрытия окна входа
+        
         function closeLoginModal() {
             document.getElementById('loginModal').classList.remove('active');
         }
-
-        // Функция авторизации (обновлена для Firebase)
+        
         function login() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorElement = document.getElementById('loginError');
             
             if (users[username] && users[username].password === password) {
-                // Успешная авторизация
                 currentUser = {
                     username: username,
                     ...users[username]
                 };
                 
-                // Сохраняем в localStorage
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                localStorage.setItem('sessionId', sessionId);
-                
-                // Добавляем пользователя в онлайн
-                addUserToOnline();
-                
-                // Закрываем окно входа
                 closeLoginModal();
                 
-                // Меняем кнопку Log In на меню пользователя
                 document.getElementById('loginButtonContainer').style.display = 'none';
                 document.getElementById('userMenu').classList.add('active');
                 document.getElementById('userName').textContent = currentUser.name;
@@ -1486,168 +1441,22 @@
                 if (isFirebaseConnected) {
                     connectToFirebaseChat();
                     sendFirebaseSystemMessage(`${currentUser.name} has entered the Imperial Chat. Long live the Empire!`);
-                } else {
-                    // Используем локальный чат как fallback
-                    addSystemMessage(`${currentUser.name} has entered the Imperial Chat. Long live the Empire!`);
                 }
                 
-                // Обновляем счетчик онлайн
-                updateOnlineCount();
-                
-                // Показываем уведомление об успешном входе
-                showNotification(`Welcome to the Empire, ${currentUser.name}!`);
+                alert(`Welcome to the Empire, ${currentUser.name}!`);
             } else {
-                // Неправильные данные
                 errorElement.style.display = 'block';
                 document.getElementById('username').style.borderColor = '#ff4444';
                 document.getElementById('password').style.borderColor = '#ff4444';
             }
         }
-
-        // Функция добавления пользователя в онлайн
-        function addUserToOnline() {
-            if (currentUser) {
-                const userKey = `${currentUser.username}_${sessionId}`;
-                onlineUsers.add(userKey);
-                saveOnlineUsers();
-            }
-        }
-
-        // Функция удаления пользователя из онлайн
-        function removeUserFromOnline() {
-            if (currentUser) {
-                const userKey = `${currentUser.username}_${sessionId}`;
-                onlineUsers.delete(userKey);
-                saveOnlineUsers();
-            }
-        }
-
-        // Функция сохранения онлайн пользователей
-        function saveOnlineUsers() {
-            localStorage.setItem('onlineUsers', JSON.stringify(Array.from(onlineUsers)));
-            updateOnlineCount();
-        }
-
-        // Функция загрузки онлайн пользователей
-        function loadOnlineUsers() {
-            try {
-                const saved = localStorage.getItem('onlineUsers');
-                if (saved) {
-                    const usersArray = JSON.parse(saved);
-                    onlineUsers = new Set(usersArray);
-                    
-                    // Удаляем старые сессии (старше 5 минут)
-                    const now = Date.now();
-                    const fiveMinutesAgo = now - 5 * 60 * 1000;
-                    
-                    Array.from(onlineUsers).forEach(userKey => {
-                        const parts = userKey.split('_');
-                        if (parts.length > 1) {
-                            // Здесь можно добавить проверку времени сессии
-                            // Пока просто оставляем всех
-                        }
-                    });
-                }
-            } catch (e) {
-                console.log('Error loading online users:', e);
-            }
-        }
-
-        // Функция обновления счетчика онлайн
-        function updateOnlineCount() {
-            const onlineCount = document.getElementById('onlineCount');
-            if (onlineCount) {
-                const count = onlineUsers.size;
-                onlineCount.textContent = `Online: ${count}`;
-                
-                // Также обновляем в localStorage для других вкладок
-                localStorage.setItem('lastOnlineUpdate', Date.now().toString());
-            }
-        }
-
-        // Функция добавления системного сообщения
-        function addSystemMessage(text) {
-            const message = {
-                id: Date.now().toString(),
-                user: 'Imperial System',
-                text: text,
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                timestamp: Date.now(),
-                type: 'system'
-            };
-            
-            addMessageToChat(message);
-        }
-
-        // Функция добавления обычного сообщения
-        function addUserMessage(text, user) {
-            const message = {
-                id: Date.now().toString(),
-                user: user,
-                text: text,
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                timestamp: Date.now(),
-                type: 'user'
-            };
-            
-            addMessageToChat(message);
-        }
-
-        // Функция добавления сообщения в чат
-        function addMessageToChat(message) {
-            // Загружаем существующие сообщения
-            loadChatMessages();
-            
-            // Добавляем новое сообщение
-            chatMessages.push(message);
-            
-            // Сохраняем в localStorage
-            saveChatMessages();
-            
-            // Обновляем отображение, если чат открыт
-            if (document.getElementById('chatModal').classList.contains('active')) {
-                updateChatDisplay();
-            }
-        }
-
-        // Функция сохранения сообщений чата
-        function saveChatMessages() {
-            try {
-                // Сохраняем только последние 100 сообщений
-                const messagesToSave = chatMessages.slice(-100);
-                localStorage.setItem('chatMessages', JSON.stringify(messagesToSave));
-            } catch (e) {
-                console.log('Error saving chat messages:', e);
-            }
-        }
-
-        // Функция загрузки сообщений чата
-        function loadChatMessages() {
-            try {
-                const saved = localStorage.getItem('chatMessages');
-                if (saved) {
-                    chatMessages = JSON.parse(saved);
-                }
-            } catch (e) {
-                console.log('Error loading chat messages:', e);
-            }
-        }
-
-        // Функция проверки новых сообщений
-        function checkForNewMessages() {
-            if (currentUser && document.getElementById('chatModal').classList.contains('active')) {
-                loadChatMessages();
-                updateChatDisplay();
-            }
-        }
-
-        // Функция переключения меню пользователя
+        
         function toggleUserMenu() {
             const dropdown = document.getElementById('userDropdown');
             dropdown.classList.toggle('active');
         }
-
-        // Закрытие меню при клике вне его
+        
+        // Закрытие меню при клике вне его (ДОБАВЛЕНО)
         document.addEventListener('click', function(event) {
             const userMenu = document.getElementById('userMenu');
             const userButton = userMenu.querySelector('.user-button');
@@ -1659,8 +1468,7 @@
                 dropdown.classList.remove('active');
             }
         });
-
-        // Функция показа личного кабинета
+        
         function showPersonalCabinet() {
             document.getElementById('userDropdown').classList.remove('active');
             
@@ -1682,50 +1490,32 @@
             
             document.getElementById('personalCabinetModal').classList.add('active');
         }
-
-        // Функция закрытия личного кабинета
+        
         function closePersonalCabinet() {
             document.getElementById('personalCabinetModal').classList.remove('active');
         }
-
-        // Функция показа чата (обновлена для Firebase)
+        
         function showChat() {
             document.getElementById('userDropdown').classList.remove('active');
             
             if (currentUser) {
-                // Загружаем сообщения и пользователей онлайн
-                loadChatMessages();
-                loadOnlineUsers();
-                updateOnlineCount();
-                
-                // Открываем чат
                 document.getElementById('chatModal').classList.add('active');
                 
-                // Обновляем отображение
-                if (isFirebaseConnected && chatRef) {
-                    // Используем Firebase чат
-                    // Сообщения уже обновляются через слушатель
-                } else {
-                    // Используем локальный чат
-                    updateChatDisplay();
-                }
-                
-                // Фокусируемся на поле ввода
                 setTimeout(() => {
                     document.getElementById('chatInput').focus();
                     const chatMessagesElement = document.getElementById('chatMessages');
-                    chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
+                    if (chatMessagesElement) {
+                        chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
+                    }
                 }, 100);
             }
         }
-
-        // Функция закрытия чата
+        
         function closeChat() {
             document.getElementById('chatModal').classList.remove('active');
             document.getElementById('chatInput').value = '';
         }
-
-        // Функция отправки сообщения (обновлена для Firebase)
+        
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
@@ -1735,123 +1525,81 @@
                 if (isFirebaseConnected) {
                     const sent = sendFirebaseMessage(message);
                     if (!sent) {
-                        // Если Firebase не сработал, используем локальный чат
-                        addUserMessage(message, currentUser.name);
+                        alert("Failed to send message. Please try again.");
                     }
                 } else {
-                    // Используем локальный чат
-                    addUserMessage(message, currentUser.name);
+                    alert("Chat service is currently unavailable.");
                 }
                 
                 // Очищаем поле ввода
                 input.value = '';
-                
-                // Прокручиваем вниз
-                const chatMessagesElement = document.getElementById('chatMessages');
-                chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
-                
-                // Обновляем отображение (для локального чата)
-                if (!isFirebaseConnected) {
-                    updateChatDisplay();
-                }
             }
         }
-
-        // Функция обновления отображения чата
-        function updateChatDisplay() {
-            const chatMessagesElement = document.getElementById('chatMessages');
-            
-            // Очищаем и добавляем сообщения
-            chatMessagesElement.innerHTML = '';
-            
-            if (chatMessages.length === 0) {
-                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>';
-            } else {
-                chatMessages.forEach(msg => {
-                    const messageDiv = document.createElement('div');
-                    
-                    if (msg.type === 'system') {
-                        messageDiv.className = 'message system-message';
-                        messageDiv.innerHTML = `
-                            <div class="message-content">${msg.text}</div>
-                            <div class="message-time">${msg.time}</div>
-                        `;
-                    } else {
-                        messageDiv.className = 'message';
-                        messageDiv.innerHTML = `
-                            <div class="message-header">
-                                <span class="message-user">${msg.user}</span>
-                                <span class="message-time">${msg.time}</span>
-                            </div>
-                            <div class="message-content">${msg.text}</div>
-                        `;
-                    }
-                    
-                    chatMessagesElement.appendChild(messageDiv);
-                });
-            }
-            
-            // Прокручиваем вниз
-            chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
-        }
-
-        // Функция выхода (обновлена для Firebase)
+        
         function logout() {
             if (currentUser) {
                 // Добавляем сообщение о выходе
                 if (isFirebaseConnected) {
                     sendFirebaseSystemMessage(`${currentUser.name} has left the Imperial Chat.`);
-                } else {
-                    addSystemMessage(`${currentUser.name} has left the Imperial Chat.`);
                 }
-                
-                // Удаляем из онлайн
-                removeUserFromOnline();
             }
             
             currentUser = null;
             localStorage.removeItem('currentUser');
             
-            // Меняем меню пользователя на кнопку Log In
             document.getElementById('userMenu').classList.remove('active');
             document.getElementById('loginButtonContainer').style.display = 'block';
             document.getElementById('userDropdown').classList.remove('active');
             
-            // Закрываем модальные окна
             closePersonalCabinet();
             closeChat();
             
-            // Показываем уведомление о выходе
-            showNotification('You have left the Empire. Until we meet again!');
+            alert('You have left the Empire. Until we meet again!');
         }
-
-        // Функция показа уведомления
-        function showNotification(message) {
-            // Простое уведомление через alert
-            alert(message);
-        }
-
-        // Функция показа страницы
+        
+        // Обработка нажатия Enter в поле ввода чата (ДОБАВЛЕНО)
+        document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Обработка нажатия Enter в поле ввода логина (ДОБАВЛЕНО)
+        document.getElementById('password')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+        
+        // Закрытие модальных окон при клике вне их (ДОБАВЛЕНО)
+        document.addEventListener('DOMContentLoaded', function() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                        if (this.id === 'loginModal') {
+                            closeLoginModal();
+                        }
+                    }
+                });
+            });
+        });
+        
         function showPage(pageId) {
-            // Скрываем все страницы
+            // Hide all pages
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => {
                 page.classList.remove('active');
             });
             
-            // Показываем выбранную страницу
+            // Show the selected page
             document.getElementById(pageId).classList.add('active');
             
-            // Скрываем выпадающее меню
-            const dropdown = document.getElementById('userDropdown');
-            if (dropdown) dropdown.classList.remove('active');
-            
-            // Обновляем URL без перезагрузки страницы
-            history.pushState(null, null, `#${pageId}`);
-            
+            // Prevent default anchor behavior
             return false;
         }
-
+        
         // Функция для работы вкладок на странице науки
         function openTab(evt, tabName) {
             // Получаем все элементы с классом "tab-content" и скрываем их
@@ -1873,8 +1621,8 @@
             // Предотвращаем поведение по умолчанию
             evt.preventDefault();
         }
-
-        // Функция переключения темы
+        
+        // ДОБАВЛЕНО: Функция переключения темы
         function toggleTheme() {
             const body = document.body;
             const themeSwitcher = document.querySelector('.theme-switcher');
@@ -1883,35 +1631,24 @@
                 // Переключаем на светлую тему
                 body.classList.remove('dark-mode');
                 themeSwitcher.innerHTML = '<span>☀️</span><span>The Sun Scorching Sinners</span><span>|</span><span>The Night - the Outing of Werewolves</span><span>🌙</span>';
-                localStorage.setItem('theme', 'light');
             } else {
                 // Переключаем на темную тему
                 body.classList.add('dark-mode');
                 themeSwitcher.innerHTML = '<span>🌙</span><span>The Night - the Outing of Werewolves</span><span>|</span><span>The Sun Scorching Sinners</span><span>☀️</span>';
-                localStorage.setItem('theme', 'dark');
             }
+            
+            // Сохраняем выбор пользователя в localStorage
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
         }
-
-        // Обработка нажатия Enter в поле ввода чата
-        document.getElementById('chatInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        // Обработка нажатия Enter в поле ввода логина
-        document.getElementById('password').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                login();
-            }
-        });
-
-        // Инициализация при загрузке страницы (обновлена для Firebase)
+        
+        // Загружаем сохраненную тему при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
-            // Инициализируем Firebase
+            showPage('home');
+            
+            // Инициализируем Firebase (ДОБАВЛЕНО)
             initFirebase();
             
-            // Проверяем сохраненного пользователя
+            // Проверяем сохраненного пользователя (ДОБАВЛЕНО)
             const savedUser = localStorage.getItem('currentUser');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
@@ -1919,22 +1656,11 @@
                 document.getElementById('userMenu').classList.add('active');
                 document.getElementById('userName').textContent = currentUser.name;
                 
-                // Добавляем пользователя в онлайн
-                sessionId = localStorage.getItem('sessionId') || sessionId;
-                addUserToOnline();
-                
-                // Загружаем сообщения чата
-                loadChatMessages();
-                
                 // Подключаемся к Firebase чату если пользователь вошел
                 if (isFirebaseConnected) {
                     connectToFirebaseChat();
                 }
             }
-            
-            // Загружаем онлайн пользователей
-            loadOnlineUsers();
-            updateOnlineCount();
             
             // Проверяем сохраненную тему
             const savedTheme = localStorage.getItem('theme');
@@ -1942,68 +1668,6 @@
                 document.body.classList.add('dark-mode');
                 const themeSwitcher = document.querySelector('.theme-switcher');
                 themeSwitcher.innerHTML = '<span>🌙</span><span>The Night - the Outing of Werewolves</span><span>|</span><span>The Sun Scorching Sinners</span><span>☀️</span>';
-            }
-            
-            // Обработка хэша в URL для навигации
-            const hash = window.location.hash.substring(1);
-            if (hash && document.getElementById(hash)) {
-                showPage(hash);
-            } else {
-                showPage('home');
-            }
-            
-            // Инициализация вкладок на странице науки
-            if (document.getElementById('tab1')) {
-                document.getElementById('tab1').classList.add('active');
-            }
-            
-            // Закрытие модальных окон при клике вне их
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.remove('active');
-                        if (this.id === 'loginModal') {
-                            closeLoginModal();
-                        }
-                    }
-                });
-            });
-            
-            // Периодическая проверка новых сообщений и обновление онлайн статуса
-            setInterval(() => {
-                if (currentUser) {
-                    // Обновляем свой онлайн статус
-                    addUserToOnline();
-                    
-                    // Проверяем новые сообщения (для локального чата)
-                    if (!isFirebaseConnected) {
-                        checkForNewMessages();
-                    }
-                    
-                    // Обновляем счетчик онлайн
-                    updateOnlineCount();
-                    
-                    // Очищаем старые сессии
-                    loadOnlineUsers();
-                }
-            }, 30000); // Каждые 30 секунд
-        });
-
-        // Обработка навигации по истории браузера
-        window.addEventListener('popstate', function() {
-            const hash = window.location.hash.substring(1);
-            if (hash && document.getElementById(hash)) {
-                showPage(hash);
-            } else {
-                showPage('home');
-            }
-        });
-        
-        // Обработка закрытия окна/вкладки
-        window.addEventListener('beforeunload', function() {
-            if (currentUser) {
-                removeUserFromOnline();
             }
         });
     </script>
