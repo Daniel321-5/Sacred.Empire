@@ -57,10 +57,9 @@
     <meta name="robots" content="index, follow">
     <meta name="revisit-after" content="7 days">
 
-    <!-- ДОБАВЛЕН FIREBASE -->
+    <!-- ДОБАВЛЕН FIREBASE ТОЛЬКО ДЛЯ БАЗЫ ДАННЫХ (без Storage) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
     <style>
         * {
@@ -1086,7 +1085,7 @@
                 <p><strong>The Eternal Rival: Admiral James Norridon</strong></p>
                 <p>Daniel's character is further defined by his long-standing conflict with Admiral James Norridon of the Royal Navy. This was not a simple feud but a clash of philosophies. Norridon was a master of disciplined, honorable warfare, while Daniel fought as an unpredictable, ruthless privateer king. Despite the bloodshed, Daniel deeply admired Norridon for his honor and his profound understanding of the sea. Their battles were a "deadly dance" where neither could land a killing blow. In his old age, it is said that Daniel would toast his rival: "To Norridon. May the depths be kinder to him than I ever was." This relationship reveals a complex man who cherished a worthy enemy as a sharpening stone for his own mind and spirit.</p>
                 
-                <p>Lord Daniel's life laid the foundation for everything that followed: he provided the sacred relic: the Mini Angel, a ship that would be rebuilt over centuries but forever remain the soul of the empire. He founded the state religion: the Cult of the Kraken, which would later be formalized into the militant "Legion of the Squid" order. He established the core principles of honor, brotherhood, and naval supremacy. He instituted the imperial title, ensuring every ruler to follow would bear his name and the title Sacred, forever intertwining the destiny of the emperor with the legendary ship he first stole, and the God he first witnessed.</p>
+                <p>Lord Daniel's life laid the foundation for everything that follows: he provided the sacred relic: the Mini Angel, a ship that would be rebuilt over centuries but forever remain the soul of the empire. He founded the state religion: the Cult of the Kraken, which would later be formalized into the militant "Legion of the Squid" order. He established the core principles of honor, brotherhood, and naval supremacy. He instituted the imperial title, ensuring every ruler to follow would bear his name and the title Sacred, forever intertwining the destiny of the emperor with the legendary ship he first stole, and the God he first witnessed.</p>
             </div>
             
             <div class="hero-card">
@@ -1323,7 +1322,7 @@
     </footer>
     
     <script>
-        // Конфигурация Firebase (ДОБАВЛЕНО)
+        // Конфигурация Firebase (ТОЛЬКО ДЛЯ БАЗЫ ДАННЫХ - без Storage)
         const firebaseConfig = {
             apiKey: "AIzaSyCOXWodWpE4KdEW1zwryydQUjfxHPiS-3E",
             authDomain: "sacred-empire-chat.firebaseapp.com",
@@ -1334,15 +1333,14 @@
             appId: "1:131630929373:web:d4208575c65f0df4525234"
         };
         
-        // Переменные Firebase (ДОБАВЛЕНО)
+        // Переменные Firebase (ТОЛЬКО БАЗА ДАННЫХ)
         let firebaseApp;
         let database;
-        let storage;
         let chatRef;
         let usersRef;
         let isFirebaseConnected = false;
         
-        // База данных пользователей (ДОБАВЛЕНО)
+        // База данных пользователей
         const users = {
             'emp123dan': {
                 password: 'Lyusek2020',
@@ -1381,19 +1379,16 @@
             }
         };
         
-        // Текущий пользователь (ДОБАВЛЕНО)
+        // Текущий пользователь
         let currentUser = null;
-        // Дефолтная аватарка
-        const DEFAULT_AVATAR = 'e90e492da6e1d55a843f225dd8d50ca9.443x443x1.jpg';
         
-        // Инициализация Firebase (ДОБАВЛЕНО)
+        // Инициализация Firebase (ТОЛЬКО БАЗА ДАННЫХ)
         function initFirebase() {
             try {
                 firebaseApp = firebase.initializeApp(firebaseConfig);
                 database = firebase.database();
-                storage = firebase.storage();
                 isFirebaseConnected = true;
-                console.log("Firebase initialized successfully");
+                console.log("Firebase Database initialized successfully");
                 return true;
             } catch (error) {
                 console.error("Firebase initialization error:", error);
@@ -1401,125 +1396,17 @@
             }
         }
         
-        // Получение аватарки пользователя из Firebase Storage
-        async function getUserAvatar(userId) {
-            if (!isFirebaseConnected) return DEFAULT_AVATAR;
-            
-            try {
-                const storageRef = storage.ref();
-                const avatarRef = storageRef.child(`avatars/${userId}.jpg`);
-                
-                const url = await avatarRef.getDownloadURL();
-                return url;
-            } catch (error) {
-                console.log(`No avatar found for ${userId}, using default`);
-                return DEFAULT_AVATAR;
-            }
-        }
-        
-        // Сохранение аватарки в Firebase Storage
-        async function saveUserAvatar(userId, file) {
-            if (!isFirebaseConnected || !currentUser) return false;
-            
-            try {
-                const storageRef = storage.ref();
-                const avatarRef = storageRef.child(`avatars/${userId}.jpg`);
-                
-                await avatarRef.put(file);
-                
-                // Обновляем URL аватарки в базе данных
-                const avatarUrl = await avatarRef.getDownloadURL();
-                await database.ref(`userAvatars/${userId}`).set(avatarUrl);
-                
-                // Обновляем аватарку у текущего пользователя
-                currentUser.avatarUrl = avatarUrl;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                
-                return avatarUrl;
-            } catch (error) {
-                console.error("Error saving avatar:", error);
-                return false;
-            }
-        }
-        
-        // Загрузка аватарки пользователя
-        function uploadAvatar() {
-            const input = document.getElementById('avatarUpload');
-            const file = input.files[0];
-            
-            if (!file) {
-                alert('Please select an image file');
-                return;
-            }
-            
-            // Проверяем размер файла (максимум 2MB)
-            if (file.size > 2 * 1024 * 1024) {
-                alert('Image size should be less than 2MB');
-                return;
-            }
-            
-            // Проверяем тип файла
-            if (!file.type.match('image/jpeg') && !file.type.match('image/png') && !file.type.match('image/gif')) {
-                alert('Please select a valid image file (JPEG, PNG, or GIF)');
-                return;
-            }
-            
-            // Показываем превью
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('avatarPreview').src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-        
-        // Сохранение новой аватарки
-        async function saveNewAvatar() {
-            const input = document.getElementById('avatarUpload');
-            const file = input.files[0];
-            
-            if (!file) {
-                alert('Please select an image first');
-                return;
-            }
-            
-            const success = await saveUserAvatar(currentUser.username, file);
-            if (success) {
-                alert('Avatar updated successfully!');
-                updateAvatarInUI();
-            } else {
-                alert('Error updating avatar. Please try again.');
-            }
-        }
-        
-        // Обновление аватарки в интерфейсе
-        function updateAvatarInUI() {
-            if (currentUser && currentUser.avatarUrl) {
-                // Обновляем аватарку в меню пользователя
-                const avatarIcon = document.getElementById('userAvatarIcon');
-                if (avatarIcon) {
-                    avatarIcon.innerHTML = `<img src="${currentUser.avatarUrl}" style="width: 20px; height: 20px; border-radius: 50%; border: 1px solid gold;">`;
-                }
-                
-                // Обновляем превью в личном кабинете
-                const avatarPreview = document.getElementById('avatarPreview');
-                if (avatarPreview) {
-                    avatarPreview.src = currentUser.avatarUrl;
-                }
-            }
-        }
-        
-        // Подключение к чату Firebase (ДОБАВЛЕНО)
+        // Подключение к чату Firebase
         function connectToFirebaseChat() {
             if (!isFirebaseConnected || !currentUser) return;
             
             try {
                 chatRef = database.ref('chat/messages');
-                usersRef = database.ref('chat/users');
                 
                 // Слушаем новые сообщения
-                chatRef.limitToLast(100).on('value', async (snapshot) => {
+                chatRef.limitToLast(100).on('value', (snapshot) => {
                     const messages = snapshot.val() || {};
-                    await updateFirebaseChatDisplay(messages);
+                    updateFirebaseChatDisplay(messages);
                 });
                 
                 return true;
@@ -1529,8 +1416,8 @@
             }
         }
         
-        // Обновление отображения чата Firebase с аватарками
-        async function updateFirebaseChatDisplay(messages) {
+        // Обновление отображения чата Firebase
+        function updateFirebaseChatDisplay(messages) {
             const chatMessagesElement = document.getElementById('chatMessages');
             if (!chatMessagesElement) return;
             
@@ -1543,7 +1430,7 @@
             if (messagesArray.length === 0) {
                 chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>';
             } else {
-                for (const msg of messagesArray) {
+                messagesArray.forEach(msg => {
                     const messageDiv = document.createElement('div');
                     
                     if (msg.type === 'system') {
@@ -1553,13 +1440,14 @@
                             <div class="message-time">${msg.time}</div>
                         `;
                     } else {
-                        // Получаем аватарку пользователя
-                        let avatarUrl = DEFAULT_AVATAR;
+                        // Получаем аватарку пользователя из localStorage
+                        let avatarUrl = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMWExMjdlIi8+CjxwYXRoIGQ9Ik01MCAzMEM1Ny45NTU5IDMwIDY0IDM2LjA0NDEgNjQgNDRDNjQgNTEuOTU1OSA1Ny45NTU5IDU4IDUwIDU4QzQyLjA0NDEgNTggMzYgNTEuOTU1OSAzNiA0NEMzNiAzNi4wNDQxIDQyLjA0NDEgMzAgNTAgMzBaIiBmaWxsPSJncmF5Ii8+CjxwYXRoIGQ9Ik0yMCA4MEw4MCA4MEw4MCA5MEwyMCA5MEwyMCA4MFoiIGZpbGw9ImdyYXkiLz4KPC9zdmc+';
+                        
+                        // Пробуем получить аватарку пользователя
                         if (msg.userId) {
-                            try {
-                                avatarUrl = await getUserAvatar(msg.userId);
-                            } catch (error) {
-                                console.log(`Could not get avatar for ${msg.userId}`);
+                            const savedAvatar = localStorage.getItem(`avatar_${msg.userId}`);
+                            if (savedAvatar) {
+                                avatarUrl = savedAvatar;
                             }
                         }
                         
@@ -1577,7 +1465,7 @@
                     }
                     
                     chatMessagesElement.appendChild(messageDiv);
-                }
+                });
             }
             
             // Прокручиваем вниз
@@ -1586,7 +1474,7 @@
             }, 100);
         }
         
-        // Отправка сообщения в Firebase (ДОБАВЛЕНО)
+        // Отправка сообщения в Firebase
         function sendFirebaseMessage(messageText) {
             if (!isFirebaseConnected || !currentUser || !chatRef) return false;
             
@@ -1608,7 +1496,7 @@
             }
         }
         
-        // Отправка системного сообщения в Firebase (ДОБАВЛЕНО)
+        // Отправка системного сообщения в Firebase
         function sendFirebaseSystemMessage(text) {
             if (!isFirebaseConnected || !chatRef) return;
             
@@ -1627,7 +1515,7 @@
             }
         }
         
-        // Функции для системы входа/чата (ДОБАВЛЕНО)
+        // Функции для системы входа/чата
         function showLoginModal() {
             document.getElementById('loginModal').classList.add('active');
             document.getElementById('loginError').style.display = 'none';
@@ -1642,7 +1530,7 @@
             document.getElementById('loginModal').classList.remove('active');
         }
         
-        async function login() {
+        function login() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorElement = document.getElementById('loginError');
@@ -1653,11 +1541,10 @@
                     ...users[username]
                 };
                 
-                // Получаем аватарку пользователя
-                try {
-                    currentUser.avatarUrl = await getUserAvatar(username);
-                } catch (error) {
-                    currentUser.avatarUrl = DEFAULT_AVATAR;
+                // Получаем аватарку из localStorage
+                const savedAvatar = localStorage.getItem(`avatar_${username}`);
+                if (savedAvatar) {
+                    currentUser.avatarUrl = savedAvatar;
                 }
                 
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -1689,7 +1576,7 @@
             dropdown.classList.toggle('active');
         }
         
-        // Закрытие меню при клике вне его (ДОБАВЛЕНО)
+        // Закрытие меню при клике вне его
         document.addEventListener('click', function(event) {
             const userMenu = document.getElementById('userMenu');
             const userButton = userMenu.querySelector('.user-button');
@@ -1702,13 +1589,75 @@
             }
         });
         
-        async function showPersonalCabinet() {
+        // Функции для работы с аватаркой (через localStorage)
+        function uploadAvatar() {
+            const input = document.getElementById('avatarUpload');
+            const file = input.files[0];
+            
+            if (!file) {
+                alert('Please select an image file');
+                return;
+            }
+            
+            // Проверяем размер файла (максимум 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Image size should be less than 2MB');
+                return;
+            }
+            
+            // Проверяем тип файла
+            if (!file.type.match('image/jpeg') && !file.type.match('image/png') && !file.type.match('image/gif')) {
+                alert('Please select a valid image file (JPEG, PNG, or GIF)');
+                return;
+            }
+            
+            // Показываем превью
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('avatarPreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function saveNewAvatar() {
+            const input = document.getElementById('avatarUpload');
+            const file = input.files[0];
+            
+            if (!file) {
+                alert('Please select an image first');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Сохраняем аватарку в localStorage
+                localStorage.setItem(`avatar_${currentUser.username}`, e.target.result);
+                currentUser.avatarUrl = e.target.result;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                updateAvatarInUI();
+                alert('Avatar updated successfully!');
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function updateAvatarInUI() {
+            if (currentUser && currentUser.avatarUrl) {
+                // Обновляем иконку аватарки в меню пользователя
+                const avatarIcon = document.getElementById('userAvatarIcon');
+                if (avatarIcon) {
+                    avatarIcon.innerHTML = `<img src="${currentUser.avatarUrl}" style="width: 20px; height: 20px; border-radius: 50%; border: 1px solid gold;">`;
+                }
+            }
+        }
+        
+        function showPersonalCabinet() {
             document.getElementById('userDropdown').classList.remove('active');
             
             const cabinetContent = document.getElementById('cabinetContent');
             
             if (currentUser) {
-                const avatarUrl = currentUser.avatarUrl || DEFAULT_AVATAR;
+                const avatarUrl = currentUser.avatarUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMWExMjdlIi8+CjxwYXRoIGQ9Ik01MCAzMEM1Ny45NTU5IDMwIDY0IDM2LjA0NDEgNjQgNDRDNjQgNTEuOTU1OSA1Ny45NTU5IDU4IDUwIDU4QzQyLjA0NDEgNTggMzYgNTEuOTU1OSAzNiA0NEMzNiAzNi4wNDQxIDQyLjA0NDEgMzAgNTAgMzBaIiBmaWxsPSJncmF5Ii8+CjxwYXRoIGQ9Ik0yMCA4MEw4MCA4MEw4MCA5MEwyMCA5MEwyMCA4MFoiIGZpbGw9ImdyYXkiLz4KPC9zdmc+';
                 
                 cabinetContent.innerHTML = `
                     <div class="avatar-container">
@@ -1783,7 +1732,7 @@
             }
         }
         
-        async function logout() {
+        function logout() {
             if (currentUser) {
                 // Добавляем сообщение о выходе
                 if (isFirebaseConnected) {
@@ -1804,21 +1753,21 @@
             alert('You have left the Empire. Until we meet again!');
         }
         
-        // Обработка нажатия Enter в поле ввода чата (ДОБАВЛЕНО)
+        // Обработка нажатия Enter в поле ввода чата
         document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 sendMessage();
             }
         });
         
-        // Обработка нажатия Enter в поле ввода логина (ДОБАВЛЕНО)
+        // Обработка нажатия Enter в поле ввода логина
         document.getElementById('password')?.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 login();
             }
         });
         
-        // Закрытие модальных окон при клике вне их (ДОБАВЛЕНО)
+        // Закрытие модальных окон при клике вне их
         document.addEventListener('DOMContentLoaded', function() {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
@@ -1889,27 +1838,17 @@
         }
         
         // Загружаем сохраненную тему при загрузке страницы
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
             
-            // Инициализируем Firebase (ДОБАВЛЕНО)
+            // Инициализируем Firebase (ТОЛЬКО БАЗА ДАННЫХ)
             initFirebase();
             
-            // Проверяем сохраненного пользователя (ДОБАВЛЕНО)
+            // Проверяем сохраненного пользователя
             const savedUser = localStorage.getItem('currentUser');
             if (savedUser) {
                 try {
                     currentUser = JSON.parse(savedUser);
-                    
-                    // Получаем актуальную аватарку
-                    try {
-                        if (isFirebaseConnected) {
-                            currentUser.avatarUrl = await getUserAvatar(currentUser.username);
-                            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                        }
-                    } catch (error) {
-                        console.log("Could not get updated avatar:", error);
-                    }
                     
                     document.getElementById('loginButtonContainer').style.display = 'none';
                     document.getElementById('userMenu').classList.add('active');
