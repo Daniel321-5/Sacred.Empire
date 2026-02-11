@@ -1292,6 +1292,78 @@
         <div id="media" class="page">
             <h2>Media</h2>
             <p>Current news is published personally by the imperial house, and accordingly if you have reliable information that can attract the empire, send it to the mail forgamesandstuff2006@gmail.com</p>
+            
+            <!-- Система вкладок для медиа -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-button active" onclick="openMediaTab(event, 'mediaNews')">Imperial News</button>
+                    <button class="tab-button" onclick="openMediaTab(event, 'mediaCriminology')">Criminology & Forensic Psychology</button>
+                </div>
+                
+                <!-- Вкладка 1: Новости -->
+                <div id="mediaNews" class="tab-content active">
+                    <h3>Imperial News Bulletin</h3>
+                    <p>All official announcements, decrees, and news of state importance are published here by the Imperial Chancellery.</p>
+                    <div class="hero-card">
+                        <h4>Latest Announcement</h4>
+                        <p><strong>Date:</strong> Current</p>
+                        <p>The Empire continues its maritime research expeditions in the Dark Sea region. All citizens are advised to exercise caution when traveling through sector 7-Delta.</p>
+                        <p>The annual celebration of Emperor Daniel's coronation will be held next month. All citizens are invited to participate in the coastal festivities.</p>
+                    </div>
+                    <p>For submission of news or important information, contact: forgamesandstuff2006@gmail.com</p>
+                </div>
+                
+                <!-- Вкладка 2: Криминалистическая статья -->
+                <div id="mediaCriminology" class="tab-content">
+                    <div class="research-paper">
+                        <h3>State Imperial University - Department of Criminology & Forensic Psychology</h3>
+                        <p><strong>Publication Date:</strong> November 15, 1930</p>
+                        <p><strong>Title:</strong> Homo Necans Nobilis</p>
+                        <p><strong>Authors:</strong> Dr. Ron.B, Professor of Criminal Anthropology (pseudonym: Rombie). Research Assistant: Max.S, M.Sc. in Forensic Documentation</p>
+                        
+                        <h4>Abstract</h4>
+                        <p>This seminal work challenges the entrenched socio-legal axiom of inherent noble virtue. Through a meticulous, two-decade post-conviction analysis of the case of "Simon [last name redacted]," an aristocratic serial murderer active from 1845-1900, we establish a forensic framework for the "noble predator." The study dissects the offender's pathology, modus operandi, and the profound institutional blindness that facilitated his fifty-five-year campaign. It argues that privilege constructs not just a social barrier but a potent psychological camouflage, enabling pathologies to fester unseen.</p>
+                        
+                        <h4>I. Introduction</h4>
+                        <p>For centuries, Imperial jurisprudence and social doctrine have been underpinned by a tacit, yet powerful, presumption that blue blood inoculates against the basest criminal impulses. The nobleman, as pillar and patron of the state, was viewed through a lens of chivalric ideal and paternalistic duty. Crimes among the aristocracy were treated as affairs of honor, financial malfeasance, or political intrigue and never as the violent, atavistic predation common to the lower orders. This work, leveraging the unprecedented access to the closed case files of one of the Empire's most protracted and horrifying serial murder sprees, seeks to dismantle this fiction. We posit the existence of "Homo Necans Nobilis" - the noble killer.</p>
+                        <p>The case of the individual we will refer to as "Subject S." or, colloquially, the "Torden Street Butcher," provides a clinical rosetta stone. His confirmed activity spans fifty-five years (1845-1900), with a victimology that evolved in chilling symmetry with his own perceived invulnerability.</p>
+                        
+                        <h4>II. Pathology and Progression</h4>
+                        <p>Subject S.'s criminal career displays a clear, diagnostically significant progression, challenging the notion of impulsive noble vice.</p>
+                        
+                        <h5>Phase 1 (c. 1845-1855)</h5>
+                        <p>The initial decade of his activity targeted his own social circle: ten noble victims, both male and female. This phase suggests a deep-seated, intimate rage directed at the very fabric of his world. The murders were likely facilitated by access, trust, and the absolute lack of suspicion directed towards a peer. The removal of specific organs (kidney, lung) from these early victims, while grotesque, indicates a ritualistic or symbolic component beyond mere trophy-taking—a perverted consumption of the essence of his own class.</p>
+                        
+                        <h5>Phase 2 (c. 1855-1900)</h5>
+                        <p>With his appetites whetted and confidence fortified by undetected success, Subject S. expanded his hunting grounds. He moved to the West District, specifically Torden's Street, targeting four merchants and two workers. The methods remained consistent, blending genteel weaponry (sabre, revolver) with brutal, hands-on violence (hunting knife, manual strangulation), illustrating a fusion of aristocratic and savage traits.</p>
+                        
+                        <h5>Phase 3 (1909)</h5>
+                        <p>His final known acts, the murder of two peasants at the city's edge, represent either a reversion to a perceived easier target or a symbolic completion of a cycle that began with the high-born and ended with the lowly. The official count stands at eighteen, with strong evidence for fifteen additional rural victims. Subject S. himself, in his few coherent statements, claimed fifty, a number that, given the time frame and his mobility, is tragically plausible.</p>
+                        
+                        <h4>III. The Mechanics of Invisibility</h4>
+                        <p>Subject S.'s longevity is the most damning indictment of pre-1910 investigative protocols. His nobility granted him three critical shields:</p>
+                        
+                        <ol>
+                            <li><strong>Spatial Immunity:</strong> His movements between city residences, country estates, and hunting lodges were unremarkable, providing natural dispersal and concealment.</li>
+                            <li><strong>Procedural Immunity:</strong> Pre-1910, questioning a nobleman required labyrinthine permissions. A patrol could not simply detain a noble one for questioning based on circumstance or proximity. This created de facto safe zones around him.</li>
+                            <li><strong>Psychological Immunity:</strong> Local constabularies investigating the death of a merchant on Torden Street would never compile a list of suspects including visiting aristocrats. The gaze of authority stopped at the class barrier.</li>
+                        </ol>
+                        
+                        <p>His capture on August 21, 1910, was itself a product of fortuitous mundanity. He was apprehended not by a brilliant detective, but by a routine patrol, as he prepared to attack a night-shift cleaner at the Def State Scientific Institute.</p>
+                        
+                        <h4>IV. Trial and Legacy</h4>
+                        <p>The trial was a spectacle of legal dissonance. The initial sentence, confinement aboard a penal fishing vessel pending execution reflected the horror of his crimes. However, the intervention of state advocate named Eugene Novikov proved transformative. Novikov successfully framed Subject S. not as a calculating criminal, but as a profoundly disordered individual, his cannibalistic rituals and grandiose claims of fifty victims painted as symptoms of a shattered mind. The court, perhaps unwilling to officially hang a nobleman for such bestial acts, accepted this framing. One month later, the case was closed, and Subject S. (or Simon) was permanently committed to a state psychiatric hospital.</p>
+                        
+                        <p>From this conclusion, progress was born. The sheer, systemic failure exposed by the case led to the 1910 Imperial Judicial Reform. In 1910, Sacred Emperor Daniel promulgated the Decree on Noble Inquiry that stripped away the procedural immunity, allowing appointed investigators to question nobility of any rank without prior permission (excluding the Imperial family itself). Crucially, it balanced this new power with a prohibition on torture to extract confessions.</p>
+                        
+                        <div class="hero-card">
+                            <h5>Conclusion</h5>
+                            <p>The case of Subject S. stands as a permanent monument to the dangers of class-based presumptions in law enforcement. It demonstrates that pathology respects no social station and that privilege can serve as the perfect breeding ground for monstrosity when left unchecked by proper investigative scrutiny. The 1910 reforms represent the Empire's acknowledgment of this truth and its commitment to justice that sees beyond the trappings of nobility.</p>
+                            <p><em>Published with permission from the Imperial Archives, Case File #4472-A ("Torden Street Butcher").</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div id="contact" class="page">
@@ -1807,6 +1879,28 @@
             // Получаем все элементы с классом "tab-button" и удаляем класс "active"
             const tabButtons = document.querySelectorAll('.tab-button');
             tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Показываем текущую вкладку и добавляем класс "active" к кнопке
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+            
+            // Предотвращаем поведение по умолчанию
+            evt.preventDefault();
+        }
+        
+        // Функция для работы вкладок на странице Media
+        function openMediaTab(evt, tabName) {
+            // Получаем все элементы с классом "tab-content" внутри media и скрываем их
+            const mediaTabContents = document.querySelectorAll('#media .tab-content');
+            mediaTabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Получаем все элементы с классом "tab-button" внутри media и удаляем класс "active"
+            const mediaTabButtons = document.querySelectorAll('#media .tab-button');
+            mediaTabButtons.forEach(button => {
                 button.classList.remove('active');
             });
             
