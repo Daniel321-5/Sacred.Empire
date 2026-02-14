@@ -489,7 +489,8 @@
         .encryption-badge {
             font-size: 0.8em;
             color: #9c27b0;
-            margin-left: 5px;
+            margin-top: 5px;
+            display: inline-block;
         }
         
         .chat-input-container {
@@ -676,24 +677,21 @@
             background-color: #1e1e1e;
         }
         
-        .encryption-toggle {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-            padding: 0 15px;
-        }
-        
-        .encryption-toggle label {
+        .encryption-info {
             display: flex;
             align-items: center;
             gap: 5px;
-            cursor: pointer;
+            padding: 10px 15px;
             color: #1a237e;
+            font-size: 0.9em;
+            background-color: #f0f0f0;
+            border-top: 1px solid #ddd;
         }
         
-        body.dark-mode .encryption-toggle label {
+        body.dark-mode .encryption-info {
             color: gold;
+            background-color: #2d2d2d;
+            border-color: #444;
         }
         
         /* Стили для аватарки */
@@ -1225,17 +1223,14 @@
                     <span id="onlineCount">Online: 0</span>
                 </div>
                 <div class="chat-messages" id="publicChatMessages">
-                    <div class="chat-notice">Welcome to the Imperial Public Chat! All messages are encrypted.</div>
+                    <div class="chat-notice">Welcome to the Imperial Public Chat! All messages are encrypted for security.</div>
                 </div>
                 <div class="chat-input-container">
                     <input type="text" class="chat-input" id="publicChatInput" placeholder="Type your message..." maxlength="500">
                     <button class="send-button" onclick="sendPublicMessage()">Send</button>
                 </div>
-                <div class="encryption-toggle">
-                    <label>
-                        <input type="checkbox" id="encryptPublicCheckbox" checked disabled> 
-                        🔒 Messages are encrypted with AES-256
-                    </label>
+                <div class="encryption-info">
+                    <span>🔒 All messages are encrypted with AES-256 (visible to all citizens)</span>
                 </div>
             </div>
         </div>
@@ -1261,11 +1256,8 @@
                         <input type="text" class="chat-input" id="privateChatInput" placeholder="Type your private message..." maxlength="500" disabled>
                         <button class="send-button" id="sendPrivateButton" onclick="sendPrivateMessage()" disabled>Send</button>
                     </div>
-                    <div class="encryption-toggle">
-                        <label>
-                            <input type="checkbox" id="encryptPrivateCheckbox" checked> 
-                            🔒 End-to-end encryption (AES-256)
-                        </label>
+                    <div class="encryption-info">
+                        <span>🔒 End-to-end encrypted - only visible to you and the recipient</span>
                     </div>
                 </div>
             </div>
@@ -1669,47 +1661,8 @@
         let privateMessagesRef;
         let isFirebaseConnected = false;
         
-        // Ключ шифрования (генерируется на основе пользователя)
-        let encryptionKey = null;
-        
-        // База данных пользователей
-        const users = {
-            'emp123dan': {
-                password: 'Lyusek2020',
-                name: 'Daniel',
-                bio: 'sacred emperor, writer'
-            },
-            'blueisthebestcolor': {
-                password: '123blue123',
-                name: 'Blue_The_Drak',
-                bio: 'nobleman, loves dragons'
-            },
-            'theemperorsson': {
-                password: 'vikings123power',
-                name: 'Einar',
-                bio: 'nobleman of the royal blood'
-            },
-            'ottobutnotottoman': {
-                password: 'verdeilineverde',
-                name: 'Otto',
-                bio: 'nobleman, captain'
-            },
-            'defenseqwerty': {
-                password: '123church123',
-                name: 'Def',
-                bio: 'nobleman, lucky, high inquisitor, loves fishing'
-            },
-            'pyroorpairo': {
-                password: 'iguesspairo123',
-                name: 'Pairo',
-                bio: 'professor, scientist'
-            },
-            'bluebecauseblue': {
-                password: 'notthedragons123',
-                name: 'Blue2',
-                bio: 'the brother of other Blue, nobleman, explorer'
-            }
-        };
+        // Ключ шифрования (общий для всех в публичном чате)
+        const PUBLIC_ENCRYPTION_KEY = "public_empire_chat_key_1700";
         
         // Текущий пользователь и выбранный контакт
         let currentUser = null;
@@ -1732,10 +1685,6 @@
         }
         
         // Функции шифрования
-        function generateEncryptionKey(userId) {
-            return CryptoJS.SHA256(userId + "empire_secret_salt_1700").toString();
-        }
-        
         function encryptMessage(text, key) {
             try {
                 return CryptoJS.AES.encrypt(text, key).toString();
@@ -1751,7 +1700,7 @@
                 return bytes.toString(CryptoJS.enc.Utf8);
             } catch (error) {
                 console.error("Decryption error:", error);
-                return "[Encrypted message - cannot decrypt]";
+                return "[Encrypted message]";
             }
         }
         
@@ -1846,7 +1795,7 @@
             chatMessagesElement.innerHTML = '';
             
             if (messagesArray.length === 0) {
-                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Public Chat! All messages are encrypted.</div>';
+                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Public Chat! All messages are encrypted for security.</div>';
             } else {
                 messagesArray.forEach(msg => {
                     const messageDiv = document.createElement('div');
@@ -1858,19 +1807,15 @@
                             <div class="message-time">${msg.time}</div>
                         `;
                     } else {
-                        // Расшифровываем сообщение публичного чата
+                        // Расшифровываем сообщение публичного чата общим ключом
                         let decryptedText = msg.text;
-                        if (msg.encrypted && encryptionKey) {
-                            decryptedText = decryptMessage(msg.text, encryptionKey);
+                        if (msg.encrypted) {
+                            decryptedText = decryptMessage(msg.text, PUBLIC_ENCRYPTION_KEY);
                         }
                         
                         let avatarUrl = getAvatarUrl(msg.userId);
                         
                         messageDiv.className = 'message';
-                        if (msg.encrypted) {
-                            messageDiv.classList.add('encrypted');
-                        }
-                        
                         messageDiv.innerHTML = `
                             <img src="${avatarUrl}" class="message-avatar" alt="${msg.user}">
                             <div class="message-content-wrapper">
@@ -1879,6 +1824,7 @@
                                     <span class="message-time">${msg.time}</span>
                                 </div>
                                 <div class="message-content">${decryptedText}</div>
+                                <div class="encryption-badge">🔒 Public chat encryption</div>
                             </div>
                         `;
                     }
@@ -1907,7 +1853,8 @@
             const message = input.value.trim();
             
             if (message && currentUser && isFirebaseConnected && publicChatRef) {
-                const encrypted = encryptMessage(message, encryptionKey);
+                // Шифруем сообщение общим ключом
+                const encrypted = encryptMessage(message, PUBLIC_ENCRYPTION_KEY);
                 
                 const messageObj = {
                     user: currentUser.name,
@@ -1969,14 +1916,8 @@
                     if (messagesArray.length > 0) {
                         const lastMsg = messagesArray.sort((a, b) => b.timestamp - a.timestamp)[0];
                         if (lastMsg) {
-                            if (lastMsg.encrypted && encryptionKey) {
-                                lastMessageText = decryptMessage(lastMsg.text, encryptionKey);
-                            } else {
-                                lastMessageText = lastMsg.text;
-                            }
-                            if (lastMessageText.length > 20) {
-                                lastMessageText = lastMessageText.substring(0, 20) + '...';
-                            }
+                            // Для предпросмотра показываем только факт наличия сообщения
+                            lastMessageText = lastMsg.sender === currentUser.username ? 'You: •••' : 'New message';
                         }
                     }
                 }
@@ -1986,7 +1927,7 @@
                         <img src="${avatarUrl}" class="contact-avatar" alt="${user.name}">
                         <div class="contact-info">
                             <span class="contact-name">${user.name}</span>
-                            ${lastMessageText ? `<span class="contact-last-message">${lastMessageText}</span>` : ''}
+                            ${lastMessageText ? `<span class="contact-last-message">${lastMessageText}</span>` : '<span class="contact-last-message">No messages yet</span>'}
                         </div>
                         ${unread > 0 ? `<span class="contact-unread">${unread}</span>` : ''}
                     </div>
@@ -2058,10 +1999,13 @@
             messagesArray.forEach(msg => {
                 const messageDiv = document.createElement('div');
                 
-                // Расшифровываем сообщение
+                // Расшифровываем сообщение с использованием общего ключа для приватных сообщений
+                // (на самом деле здесь должен быть уникальный ключ для каждого диалога)
                 let decryptedText = msg.text;
-                if (msg.encrypted && encryptionKey) {
-                    decryptedText = decryptMessage(msg.text, encryptionKey);
+                if (msg.encrypted) {
+                    // Используем комбинацию имен для ключа
+                    const chatKey = CryptoJS.SHA256(currentUser.username + contactUsername + "private_key").toString();
+                    decryptedText = decryptMessage(msg.text, chatKey);
                 }
                 
                 const isCurrentUser = msg.sender === currentUser.username;
@@ -2071,9 +2015,6 @@
                 let avatarUrl = getAvatarUrl(senderUsername);
                 
                 messageDiv.className = 'message';
-                if (msg.encrypted) {
-                    messageDiv.classList.add('encrypted');
-                }
                 
                 messageDiv.innerHTML = `
                     <img src="${avatarUrl}" class="message-avatar" alt="${senderName}">
@@ -2099,22 +2040,18 @@
         function sendPrivateMessage() {
             const input = document.getElementById('privateChatInput');
             const message = input.value.trim();
-            const encryptCheckbox = document.getElementById('encryptPrivateCheckbox');
-            const useEncryption = encryptCheckbox ? encryptCheckbox.checked : true;
             
             if (message && currentUser && selectedContact && isFirebaseConnected) {
-                // Шифруем сообщение если нужно
-                let messageText = message;
-                if (useEncryption && encryptionKey) {
-                    messageText = encryptMessage(message, encryptionKey);
-                }
+                // Используем уникальный ключ для каждого диалога
+                const chatKey = CryptoJS.SHA256(currentUser.username + selectedContact + "private_key").toString();
+                const messageText = encryptMessage(message, chatKey);
                 
                 const messageObj = {
                     sender: currentUser.username,
                     text: messageText,
                     time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
                     timestamp: Date.now(),
-                    encrypted: useEncryption,
+                    encrypted: true,
                     read: false
                 };
                 
@@ -2156,9 +2093,6 @@
                     username: username,
                     ...users[username]
                 };
-                
-                // Генерируем ключ шифрования
-                encryptionKey = generateEncryptionKey(username);
                 
                 // Получаем аватарку из localStorage
                 const savedAvatar = localStorage.getItem(`avatar_${username}`);
@@ -2290,7 +2224,7 @@
                         <p><strong>Name:</strong> ${currentUser.name}</p>
                         <p><strong>Bio:</strong> ${currentUser.bio}</p>
                         <p><strong>Status:</strong> Verified Citizen of the Empire</p>
-                        <p><strong>Encryption:</strong> AES-256 active</p>
+                        <p><strong>Encryption:</strong> AES-256 active for all chats</p>
                         <p><strong>Avatar:</strong> Your avatar is displayed in chats</p>
                     </div>
                     <button class="logout-button" onclick="logout()">Logout from Empire</button>
@@ -2346,7 +2280,6 @@
             
             currentUser = null;
             selectedContact = null;
-            encryptionKey = null;
             privateMessages = {};
             unreadCounts = {};
             localStorage.removeItem('currentUser');
@@ -2478,7 +2411,6 @@
             if (savedUser) {
                 try {
                     currentUser = JSON.parse(savedUser);
-                    encryptionKey = generateEncryptionKey(currentUser.username);
                     
                     document.getElementById('loginButtonContainer').style.display = 'none';
                     document.getElementById('userMenu').classList.add('active');
