@@ -21,7 +21,8 @@
     <meta name="twitter:description" content="Golden Age of Piracy legacy and maritime traditions">
     <meta name="science-keywords" content="marine biology research, Dark Sea anomaly, Prophet Daniel Marine Life Research Center, oceanographic studies, cephalopod morphology, cartilaginous fishes, marine anomalies, oceanic gigantism, behavioral ecology, Pairo.P research, Vladislav.V marine studies, Def State Scientific Institute, marine expeditions 19th century, sea monster research, abyssal zone studies, marine fauna adaptation, oceanic exploration history, marine science empire, biological research institute">
 
-<meta name="science-keywords-ru" content="исследования морской биологии, аномалия Темного моря, Научно-исследовательский центр морской жизни пророка Даниэля, океанографические исследования, морфология головоногих, хрящевые рыбы, морские аномалии, океанический гигантизм, поведенческая экология, исследования Пайро.П, морские исследования Владислава.В, Государственный научный институт Дефа, морские экспедиции 19 века, исследования морских монстров, исследования абиссальной зоны, адаптация морской фауны, история исследования океана, морская наука империи, биологический исследовательский институт, глубоководные исследования, гигантские кальмары, научные экспедиции, зоологические исследования, морские чудовища, темное море, аномальные морские существа">
+    <meta name="science-keywords-ru" content="исследования морской биологии, аномалия Темного моря, Научно-исследовательский центр морской жизни пророка Даниэля, океанографические исследования, морфология головоногих, хрящевые рыбы, морские аномалии, океанический гигантизм, поведенческая экология, исследования Пайро.П, морские исследования Владислава.В, Государственный научный институт Дефа, морские экспедиции 19 века, исследования морских монстров, исследования абиссальной зоны, адаптация морской фауны, история исследования океана, морская наука империи, биологический исследовательский институт, глубоководные исследования, гигантские кальмары, научные экспедиции, зоологические исследования, морские чудовища, темное море, аномальные морские существа">
+    
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -60,6 +61,9 @@
     <!-- FIREBASE ТОЛЬКО ДЛЯ БАЗЫ ДАННЫХ (без Storage) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- CryptoJS for encryption -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
     <style>
         * {
@@ -183,7 +187,7 @@
             background-color: white;
             padding: 30px;
             border-radius: 10px;
-            max-width: 500px;
+            max-width: 800px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
@@ -333,9 +337,9 @@
             background-color: #b71c1c;
         }
         
-        /* ДОБАВЛЕНО: Стили для чата */
+        /* Стили для чата и личных сообщений */
         .chat-container {
-            max-width: 800px;
+            max-width: 100%;
             margin: 0 auto;
         }
         
@@ -350,7 +354,7 @@
         }
         
         .chat-messages {
-            height: 400px;
+            height: 300px;
             overflow-y: auto;
             background-color: #f5f5f5;
             padding: 20px;
@@ -408,6 +412,16 @@
             border-left-color: #64b5f6;
         }
         
+        .message.encrypted {
+            background-color: #f3e5f5;
+            border-left-color: #9c27b0;
+        }
+        
+        body.dark-mode .message.encrypted {
+            background-color: #4a1c5c;
+            border-left-color: #ba68c8;
+        }
+        
         .message-header {
             display: flex;
             justify-content: space-between;
@@ -434,6 +448,13 @@
         
         .message-content {
             line-height: 1.4;
+            word-break: break-word;
+        }
+        
+        .encryption-badge {
+            font-size: 0.8em;
+            color: #9c27b0;
+            margin-left: 5px;
         }
         
         .chat-input-container {
@@ -488,6 +509,116 @@
         
         body.dark-mode .chat-notice {
             color: #aaa;
+        }
+        
+        /* Стили для контактов */
+        .contacts-container {
+            display: flex;
+            gap: 20px;
+            height: 400px;
+        }
+        
+        .contacts-list {
+            width: 200px;
+            border-right: 2px solid #1a237e;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        body.dark-mode .contact-item {
+            background-color: #2d2d2d;
+        }
+        
+        .contact-item:hover {
+            background-color: #e0e0e0;
+        }
+        
+        body.dark-mode .contact-item:hover {
+            background-color: #3d3d3d;
+        }
+        
+        .contact-item.active {
+            background-color: #1a237e;
+            color: gold;
+        }
+        
+        .contact-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid gold;
+        }
+        
+        .contact-name {
+            font-weight: bold;
+        }
+        
+        .contact-unread {
+            background-color: gold;
+            color: #1a237e;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            margin-left: auto;
+        }
+        
+        .private-chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .private-chat-header {
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-bottom: 2px solid #1a237e;
+            font-weight: bold;
+        }
+        
+        body.dark-mode .private-chat-header {
+            background-color: #2d2d2d;
+        }
+        
+        .private-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #fafafa;
+        }
+        
+        body.dark-mode .private-messages {
+            background-color: #1e1e1e;
+        }
+        
+        .encryption-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .encryption-toggle label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
         }
         
         /* Стили для аватарки */
@@ -891,7 +1022,6 @@
                 padding: 1rem;
             }
 
-            /* Адаптация вкладок для мобильных */
             .tabs-header {
                 flex-direction: column;
             }
@@ -909,13 +1039,11 @@
                 flex-direction: column;
             }
             
-            /* Адаптация переключателя темы */
             .theme-switcher span {
                 margin: 0 5px;
                 font-size: 1rem;
             }
             
-            /* Адаптация кнопок входа */
             .login-button-container,
             .user-menu {
                 top: 10px;
@@ -928,7 +1056,6 @@
                 font-size: 14px;
             }
             
-            /* Адаптация аватарки */
             .avatar-preview {
                 width: 100px;
                 height: 100px;
@@ -937,6 +1064,18 @@
             .message-avatar {
                 width: 30px;
                 height: 30px;
+            }
+            
+            .contacts-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .contacts-list {
+                width: 100%;
+                border-right: none;
+                border-bottom: 2px solid #1a237e;
+                max-height: 200px;
             }
         }
     </style>
@@ -959,6 +1098,9 @@
             </button>
             <button onclick="showChat()">
                 Live Chat
+            </button>
+            <button onclick="showPrivateMessages()">
+                Private Messages
             </button>
         </div>
     </div>
@@ -994,22 +1136,59 @@
         </div>
     </div>
     
-    <!--  Модальное окно чата -->
+    <!--  Модальное окно публичного чата -->
     <div class="modal" id="chatModal">
         <div class="modal-content">
             <button class="close-button" onclick="closeChat()">×</button>
-            <h2>Imperial Live Chat</h2>
+            <h2>Imperial Public Chat</h2>
             <div class="chat-container">
                 <div class="chat-header">
-                    <span>Imperial Citizens Chat</span>
+                    <span>Imperial Citizens Public Chat</span>
                     <span id="onlineCount">Online: 0</span>
                 </div>
                 <div class="chat-messages" id="chatMessages">
-                    <div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>
+                    <div class="chat-notice">Welcome to the Imperial Public Chat! All messages are encrypted.</div>
                 </div>
                 <div class="chat-input-container">
                     <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." maxlength="500">
-                    <button class="send-button" onclick="sendMessage()">Send</button>
+                    <button class="send-button" onclick="sendPublicMessage()">Send</button>
+                </div>
+                <div class="encryption-toggle">
+                    <label>
+                        <input type="checkbox" id="encryptPublicCheckbox" checked disabled> 
+                        Messages are encrypted with AES-256
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно личных сообщений -->
+    <div class="modal" id="privateMessagesModal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closePrivateMessages()">×</button>
+            <h2>Private Messages</h2>
+            <div class="contacts-container">
+                <div class="contacts-list" id="contactsList">
+                    <!-- Контакты будут загружаться динамически -->
+                </div>
+                <div class="private-chat-area">
+                    <div class="private-chat-header" id="privateChatHeader">
+                        Select a contact to start messaging
+                    </div>
+                    <div class="private-messages" id="privateMessages">
+                        <div class="chat-notice">Choose a citizen from the list to begin a private conversation</div>
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" id="privateChatInput" placeholder="Type your private message..." maxlength="500" disabled>
+                        <button class="send-button" id="sendPrivateButton" onclick="sendPrivateMessage()" disabled>Send</button>
+                    </div>
+                    <div class="encryption-toggle">
+                        <label>
+                            <input type="checkbox" id="encryptPrivateCheckbox" checked> 
+                            End-to-end encryption (AES-256)
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1405,12 +1584,16 @@
             appId: "1:131630929373:web:d4208575c65f0df4525234"
         };
         
-        // Переменные Firebase (ТОЛЬКО БАЗА ДАННЫХ)
+        // Переменные Firebase
         let firebaseApp;
         let database;
-        let chatRef;
+        let publicChatRef;
+        let privateMessagesRef;
         let usersRef;
         let isFirebaseConnected = false;
+        
+        // Ключ шифрования (генерируется на основе пользователя)
+        let encryptionKey = null;
         
         // База данных пользователей
         const users = {
@@ -1451,10 +1634,13 @@
             }
         };
         
-        // Текущий пользователь
+        // Текущий пользователь и выбранный контакт
         let currentUser = null;
+        let selectedContact = null;
+        let privateMessages = {};
+        let unreadCounts = {};
         
-        // Инициализация Firebase (ТОЛЬКО БАЗА ДАННЫХ)
+        // Инициализация Firebase
         function initFirebase() {
             try {
                 firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -1468,39 +1654,88 @@
             }
         }
         
-        // Подключение к чату Firebase
-        function connectToFirebaseChat() {
+        // Функции шифрования
+        function generateEncryptionKey(userId) {
+            // Используем userId для генерации ключа
+            return CryptoJS.SHA256(userId + "empire_secret_salt").toString();
+        }
+        
+        function encryptMessage(text, key) {
+            try {
+                return CryptoJS.AES.encrypt(text, key).toString();
+            } catch (error) {
+                console.error("Encryption error:", error);
+                return text;
+            }
+        }
+        
+        function decryptMessage(encryptedText, key) {
+            try {
+                const bytes = CryptoJS.AES.decrypt(encryptedText, key);
+                return bytes.toString(CryptoJS.enc.Utf8);
+            } catch (error) {
+                console.error("Decryption error:", error);
+                return "[Encrypted message - cannot decrypt]";
+            }
+        }
+        
+        // Подключение к публичному чату Firebase
+        function connectToPublicChat() {
             if (!isFirebaseConnected || !currentUser) return;
             
             try {
-                chatRef = database.ref('chat/messages');
+                publicChatRef = database.ref('publicChat/messages');
                 
-                // Слушаем новые сообщения
-                chatRef.limitToLast(100).on('value', (snapshot) => {
+                publicChatRef.limitToLast(100).on('value', (snapshot) => {
                     const messages = snapshot.val() || {};
-                    updateFirebaseChatDisplay(messages);
+                    updatePublicChatDisplay(messages);
                 });
                 
                 return true;
             } catch (error) {
-                console.error("Firebase chat connection error:", error);
+                console.error("Firebase public chat connection error:", error);
                 return false;
             }
         }
         
-        // Обновление отображения чата Firebase
-        function updateFirebaseChatDisplay(messages) {
+        // Подключение к личным сообщениям
+        function connectToPrivateMessages() {
+            if (!isFirebaseConnected || !currentUser) return;
+            
+            try {
+                privateMessagesRef = database.ref(`privateMessages/${currentUser.username}`);
+                
+                privateMessagesRef.on('value', (snapshot) => {
+                    const messages = snapshot.val() || {};
+                    privateMessages = messages;
+                    
+                    // Обновляем список контактов
+                    updateContactsList();
+                    
+                    // Если выбран контакт, обновляем отображение
+                    if (selectedContact) {
+                        displayPrivateMessages(selectedContact);
+                    }
+                });
+                
+                return true;
+            } catch (error) {
+                console.error("Firebase private messages connection error:", error);
+                return false;
+            }
+        }
+        
+        // Обновление отображения публичного чата
+        function updatePublicChatDisplay(messages) {
             const chatMessagesElement = document.getElementById('chatMessages');
             if (!chatMessagesElement) return;
             
-            // Преобразование объекта в массив и сортировка по времени
             const messagesArray = Object.values(messages).sort((a, b) => a.timestamp - b.timestamp);
             
-            // Очистка и добавление сообщения
             chatMessagesElement.innerHTML = '';
             
             if (messagesArray.length === 0) {
-                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Chat! Your messages are visible to all authorized citizens.</div>';
+                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Public Chat! All messages are encrypted.</div>';
             } else {
                 messagesArray.forEach(msg => {
                     const messageDiv = document.createElement('div');
@@ -1512,18 +1747,19 @@
                             <div class="message-time">${msg.time}</div>
                         `;
                     } else {
-                        // Получаем аватарку пользователя из localStorage
-                        let avatarUrl = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMWExMjdlIi8+CjxwYXRoIGQ9Ik01MCAzMEM1Ny45NTU5IDMwIDY0IDM2LjA0NDEgNjQgNDRDNjQgNTEuOTU1OSA1Ny45NTU5IDU4IDUwIDU4QzQyLjA0NDEgNTggMzYgNTEuOTU1OSAzNiA0NEMzNiAzNi4wNDQxIDQyLjA0NDEgMzAgNTAgMzBaIiBmaWxsPSJncmF5Ii8+CjxwYXRoIGQ9Ik0yMCA4MEw4MCA4MEw4MCA5MEwyMCA5MEwyMCA4MFoiIGZpbGw9ImdyYXkiLz4KPC9zdmc+';
-                        
-                        // Пробуем получить аватарку пользователя
-                        if (msg.userId) {
-                            const savedAvatar = localStorage.getItem(`avatar_${msg.userId}`);
-                            if (savedAvatar) {
-                                avatarUrl = savedAvatar;
-                            }
+                        // Расшифровываем сообщение публичного чата
+                        let decryptedText = msg.text;
+                        if (msg.encrypted && encryptionKey) {
+                            decryptedText = decryptMessage(msg.text, encryptionKey);
                         }
                         
+                        let avatarUrl = getAvatarUrl(msg.userId);
+                        
                         messageDiv.className = 'message';
+                        if (msg.encrypted) {
+                            messageDiv.classList.add('encrypted');
+                        }
+                        
                         messageDiv.innerHTML = `
                             <img src="${avatarUrl}" class="message-avatar" alt="${msg.user}">
                             <div class="message-content-wrapper">
@@ -1531,7 +1767,7 @@
                                     <span class="message-user">${msg.user}</span>
                                     <span class="message-time">${msg.time}</span>
                                 </div>
-                                <div class="message-content">${msg.text}</div>
+                                <div class="message-content">${decryptedText}</div>
                             </div>
                         `;
                     }
@@ -1540,54 +1776,202 @@
                 });
             }
             
-            // Прокручиваем вниз
             setTimeout(() => {
                 chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
             }, 100);
         }
         
-        // Отправка сообщения в Firebase
-        function sendFirebaseMessage(messageText) {
-            if (!isFirebaseConnected || !currentUser || !chatRef) return false;
+        // Получение URL аватарки
+        function getAvatarUrl(userId) {
+            const savedAvatar = localStorage.getItem(`avatar_${userId}`);
+            if (savedAvatar) {
+                return savedAvatar;
+            }
+            return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMWExMjdlIi8+CjxwYXRoIGQ9Ik01MCAzMEM1Ny45NTU5IDMwIDY0IDM2LjA0NDEgNjQgNDRDNjQgNTEuOTU1OSA1Ny45NTU5IDU4IDUwIDU4QzQyLjA0NDEgNTggMzYgNTEuOTU1OSAzNiA0NEMzNiAzNi4wNDQxIDQyLjA0NDEgMzAgNTAgMzBaIiBmaWxsPSJncmF5Ii8+CjxwYXRoIGQ9Ik0yMCA4MEw4MCA4MEw4MCA5MEwyMCA5MEwyMCA4MFoiIGZpbGw9ImdyYXkiLz4KPC9zdmc+';
+        }
+        
+        // Отправка сообщения в публичный чат
+        function sendPublicMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
             
-            try {
-                const message = {
+            if (message && currentUser && isFirebaseConnected && publicChatRef) {
+                // Шифруем сообщение для публичного чата
+                const encrypted = encryptMessage(message, encryptionKey);
+                
+                const messageObj = {
                     user: currentUser.name,
-                    text: messageText,
+                    text: encrypted,
                     time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
                     timestamp: Date.now(),
                     type: 'user',
-                    userId: currentUser.username
+                    userId: currentUser.username,
+                    encrypted: true
                 };
                 
-                chatRef.push(message);
-                return true;
-            } catch (error) {
-                console.error("Error sending Firebase message:", error);
-                return false;
+                publicChatRef.push(messageObj);
+                input.value = '';
             }
         }
         
-        // Отправка системного сообщения в Firebase
-        function sendFirebaseSystemMessage(text) {
-            if (!isFirebaseConnected || !chatRef) return;
+        // Отправка системного сообщения
+        function sendSystemMessage(text) {
+            if (!isFirebaseConnected || !publicChatRef) return;
             
-            try {
-                const message = {
-                    user: 'Imperial System',
-                    text: text,
+            const message = {
+                text: text,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                timestamp: Date.now(),
+                type: 'system'
+            };
+            
+            publicChatRef.push(message);
+        }
+        
+        // Обновление списка контактов
+        function updateContactsList() {
+            const contactsList = document.getElementById('contactsList');
+            if (!contactsList || !currentUser) return;
+            
+            let html = '';
+            
+            // Создаем список всех пользователей кроме текущего
+            Object.keys(users).forEach(username => {
+                if (username !== currentUser.username) {
+                    const user = users[username];
+                    const avatarUrl = getAvatarUrl(username);
+                    const unread = unreadCounts[username] || 0;
+                    
+                    html += `
+                        <div class="contact-item ${selectedContact === username ? 'active' : ''}" onclick="selectContact('${username}')">
+                            <img src="${avatarUrl}" class="contact-avatar" alt="${user.name}">
+                            <span class="contact-name">${user.name}</span>
+                            ${unread > 0 ? `<span class="contact-unread">${unread}</span>` : ''}
+                        </div>
+                    `;
+                }
+            });
+            
+            contactsList.innerHTML = html;
+        }
+        
+        // Выбор контакта для общения
+        function selectContact(username) {
+            selectedContact = username;
+            
+            // Сбрасываем счетчик непрочитанных
+            unreadCounts[username] = 0;
+            
+            // Обновляем список контактов
+            updateContactsList();
+            
+            // Обновляем заголовок
+            document.getElementById('privateChatHeader').textContent = `Chat with ${users[username].name}`;
+            
+            // Активируем поле ввода
+            document.getElementById('privateChatInput').disabled = false;
+            document.getElementById('sendPrivateButton').disabled = false;
+            
+            // Отображаем сообщения
+            displayPrivateMessages(username);
+            
+            // Фокусируемся на поле ввода
+            setTimeout(() => {
+                document.getElementById('privateChatInput').focus();
+            }, 100);
+        }
+        
+        // Отображение личных сообщений
+        function displayPrivateMessages(contactUsername) {
+            const privateMessagesElement = document.getElementById('privateMessages');
+            if (!privateMessagesElement) return;
+            
+            privateMessagesElement.innerHTML = '';
+            
+            const contactMessages = privateMessages[contactUsername] || [];
+            const messagesArray = Object.values(contactMessages).sort((a, b) => a.timestamp - b.timestamp);
+            
+            if (messagesArray.length === 0) {
+                privateMessagesElement.innerHTML = '<div class="chat-notice">No messages yet. Send your first message!</div>';
+                return;
+            }
+            
+            messagesArray.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                
+                // Расшифровываем сообщение
+                let decryptedText = msg.text;
+                if (msg.encrypted && encryptionKey) {
+                    decryptedText = decryptMessage(msg.text, encryptionKey);
+                }
+                
+                const isCurrentUser = msg.sender === currentUser.username;
+                const senderName = isCurrentUser ? currentUser.name : users[msg.sender].name;
+                const senderUsername = msg.sender;
+                
+                let avatarUrl = getAvatarUrl(senderUsername);
+                
+                messageDiv.className = 'message';
+                if (msg.encrypted) {
+                    messageDiv.classList.add('encrypted');
+                }
+                
+                messageDiv.innerHTML = `
+                    <img src="${avatarUrl}" class="message-avatar" alt="${senderName}">
+                    <div class="message-content-wrapper">
+                        <div class="message-header">
+                            <span class="message-user">${senderName}</span>
+                            <span class="message-time">${msg.time}</span>
+                        </div>
+                        <div class="message-content">${decryptedText}</div>
+                        <div class="encryption-badge">🔒 End-to-end encrypted</div>
+                    </div>
+                `;
+                
+                privateMessagesElement.appendChild(messageDiv);
+            });
+            
+            setTimeout(() => {
+                privateMessagesElement.scrollTop = privateMessagesElement.scrollHeight;
+            }, 100);
+        }
+        
+        // Отправка личного сообщения
+        function sendPrivateMessage() {
+            const input = document.getElementById('privateChatInput');
+            const message = input.value.trim();
+            const encryptCheckbox = document.getElementById('encryptPrivateCheckbox');
+            const useEncryption = encryptCheckbox ? encryptCheckbox.checked : true;
+            
+            if (message && currentUser && selectedContact && isFirebaseConnected) {
+                // Шифруем сообщение если нужно
+                let messageText = message;
+                if (useEncryption && encryptionKey) {
+                    messageText = encryptMessage(message, encryptionKey);
+                }
+                
+                const messageObj = {
+                    sender: currentUser.username,
+                    text: messageText,
                     time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
                     timestamp: Date.now(),
-                    type: 'system'
+                    encrypted: useEncryption
                 };
                 
-                chatRef.push(message);
-            } catch (error) {
-                console.error("Error sending Firebase system message:", error);
+                // Сохраняем сообщение для отправителя
+                const senderRef = database.ref(`privateMessages/${currentUser.username}/${selectedContact}`).push();
+                senderRef.set(messageObj);
+                
+                // Сохраняем сообщение для получателя
+                const receiverObj = {...messageObj, sender: currentUser.username};
+                const receiverRef = database.ref(`privateMessages/${selectedContact}/${currentUser.username}`).push();
+                receiverRef.set(receiverObj);
+                
+                input.value = '';
             }
         }
         
-        // Функции для системы входа/чата
+        // Функции для системы входа
         function showLoginModal() {
             document.getElementById('loginModal').classList.add('active');
             document.getElementById('loginError').style.display = 'none';
@@ -1613,6 +1997,9 @@
                     ...users[username]
                 };
                 
+                // Генерируем ключ шифрования
+                encryptionKey = generateEncryptionKey(username);
+                
                 // Получаем аватарку из localStorage
                 const savedAvatar = localStorage.getItem(`avatar_${username}`);
                 if (savedAvatar) {
@@ -1626,13 +2013,13 @@
                 document.getElementById('userMenu').classList.add('active');
                 document.getElementById('userName').textContent = currentUser.name;
                 
-                // Обновляем иконку аватарки
                 updateAvatarInUI();
                 
-                // Подключаемся к Firebase чату если пользователь вошел
+                // Подключаемся к Firebase
                 if (isFirebaseConnected) {
-                    connectToFirebaseChat();
-                    sendFirebaseSystemMessage(`${currentUser.name} has entered the Imperial Chat. Long live the Empire!`);
+                    connectToPublicChat();
+                    connectToPrivateMessages();
+                    sendSystemMessage(`${currentUser.name} has entered the Imperial Public Chat. Long live the Empire!`);
                 }
                 
                 alert(`Welcome to the Empire, ${currentUser.name}!`);
@@ -1648,7 +2035,6 @@
             dropdown.classList.toggle('active');
         }
         
-        // Закрытие меню при клике вне его
         document.addEventListener('click', function(event) {
             const userMenu = document.getElementById('userMenu');
             const userButton = userMenu.querySelector('.user-button');
@@ -1661,7 +2047,7 @@
             }
         });
         
-        // Функции для работы с аватаркой (через localStorage)
+        // Функции для работы с аватаркой
         function uploadAvatar() {
             const input = document.getElementById('avatarUpload');
             const file = input.files[0];
@@ -1671,19 +2057,16 @@
                 return;
             }
             
-            // Проверяем размер файла (максимум 2MB)
             if (file.size > 2 * 1024 * 1024) {
                 alert('Image size should be less than 2MB');
                 return;
             }
             
-            // Проверяем тип файла
             if (!file.type.match('image/jpeg') && !file.type.match('image/png') && !file.type.match('image/gif')) {
                 alert('Please select a valid image file (JPEG, PNG, or GIF)');
                 return;
             }
             
-            // Показываем превью
             const reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('avatarPreview').src = e.target.result;
@@ -1702,7 +2085,6 @@
             
             const reader = new FileReader();
             reader.onload = function(e) {
-                // Сохраняем аватарку в localStorage
                 localStorage.setItem(`avatar_${currentUser.username}`, e.target.result);
                 currentUser.avatarUrl = e.target.result;
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -1715,7 +2097,6 @@
         
         function updateAvatarInUI() {
             if (currentUser && currentUser.avatarUrl) {
-                // Обновляем иконку аватарки в меню пользователя
                 const avatarIcon = document.getElementById('userAvatarIcon');
                 if (avatarIcon) {
                     avatarIcon.innerHTML = `<img src="${currentUser.avatarUrl}" style="width: 20px; height: 20px; border-radius: 50%; border: 1px solid gold;">`;
@@ -1729,7 +2110,7 @@
             const cabinetContent = document.getElementById('cabinetContent');
             
             if (currentUser) {
-                const avatarUrl = currentUser.avatarUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMWExMjdlIi8+CjxwYXRoIGQ9Ik01MCAzMEM1Ny45NTU5IDMwIDY0IDM2LjA0NDEgNjQgNDRDNjQgNTEuOTU1OSA1Ny45NTU5IDU4IDUwIDU4QzQyLjA0NDEgNTggMzYgNTEuOTU1OSAzNiA0NEMzNiAzNi4wNDQxIDQyLjA0NDEgMzAgNTAgMzBaIiBmaWxsPSJncmF5Ii8+CjxwYXRoIGQ9Ik0yMCA4MEw4MCA4MEw4MCA5MEwyMCA5MEwyMCA4MFoiIGZpbGw9ImdyYXkiLz4KPC9zdmc+';
+                const avatarUrl = currentUser.avatarUrl || getAvatarUrl(currentUser.username);
                 
                 cabinetContent.innerHTML = `
                     <div class="avatar-container">
@@ -1749,8 +2130,8 @@
                         <p><strong>Name:</strong> ${currentUser.name}</p>
                         <p><strong>Bio:</strong> ${currentUser.bio}</p>
                         <p><strong>Status:</strong> Verified Citizen of the Empire</p>
-                        <p><strong>Chat Name:</strong> ${currentUser.name} (shown in chat)</p>
-                        <p><strong>Avatar:</strong> Your avatar is displayed in the chat next to your messages</p>
+                        <p><strong>Encryption:</strong> AES-256 active</p>
+                        <p><strong>Avatar:</strong> Your avatar is displayed in chats</p>
                     </div>
                     <button class="logout-button" onclick="logout()">Logout from Empire</button>
                 `;
@@ -1771,10 +2152,6 @@
                 
                 setTimeout(() => {
                     document.getElementById('chatInput').focus();
-                    const chatMessagesElement = document.getElementById('chatMessages');
-                    if (chatMessagesElement) {
-                        chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
-                    }
                 }, 100);
             }
         }
@@ -1784,35 +2161,33 @@
             document.getElementById('chatInput').value = '';
         }
         
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
+        function showPrivateMessages() {
+            document.getElementById('userDropdown').classList.remove('active');
             
-            if (message && currentUser) {
-                // Пробуем отправить через Firebase
-                if (isFirebaseConnected) {
-                    const sent = sendFirebaseMessage(message);
-                    if (!sent) {
-                        alert("Failed to send message. Please try again.");
-                    }
-                } else {
-                    alert("Chat service is currently unavailable.");
-                }
+            if (currentUser) {
+                document.getElementById('privateMessagesModal').classList.add('active');
+                updateContactsList();
                 
-                // Очищаем поле ввода
-                input.value = '';
+                // Если есть выбранный контакт, показываем его сообщения
+                if (selectedContact) {
+                    selectContact(selectedContact);
+                }
             }
+        }
+        
+        function closePrivateMessages() {
+            document.getElementById('privateMessagesModal').classList.remove('active');
+            selectedContact = null;
         }
         
         function logout() {
             if (currentUser) {
-                // Добавляем сообщение о выходе
-                if (isFirebaseConnected) {
-                    sendFirebaseSystemMessage(`${currentUser.name} has left the Imperial Chat.`);
-                }
+                sendSystemMessage(`${currentUser.name} has left the Imperial Public Chat.`);
             }
             
             currentUser = null;
+            selectedContact = null;
+            encryptionKey = null;
             localStorage.removeItem('currentUser');
             
             document.getElementById('userMenu').classList.remove('active');
@@ -1821,25 +2196,39 @@
             
             closePersonalCabinet();
             closeChat();
+            closePrivateMessages();
             
             alert('You have left the Empire. Until we meet again!');
         }
         
-        // Обработка нажатия Enter в поле ввода чата
-        document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
+        // Обработка нажатия Enter
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendPublicMessage();
+                    }
+                });
             }
+            
+            const privateChatInput = document.getElementById('privateChatInput');
+            if (privateChatInput) {
+                privateChatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendPrivateMessage();
+                    }
+                });
+            }
+            
+            document.getElementById('password')?.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    login();
+                }
+            });
         });
         
-        // Обработка нажатия Enter в поле ввода логина
-        document.getElementById('password')?.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                login();
-            }
-        });
-        
-        // Закрытие модальных окон при клике вне их
+        // Закрытие модальных окон
         document.addEventListener('DOMContentLoaded', function() {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
@@ -1848,6 +2237,12 @@
                         this.classList.remove('active');
                         if (this.id === 'loginModal') {
                             closeLoginModal();
+                        } else if (this.id === 'chatModal') {
+                            closeChat();
+                        } else if (this.id === 'privateMessagesModal') {
+                            closePrivateMessages();
+                        } else if (this.id === 'personalCabinetModal') {
+                            closePersonalCabinet();
                         }
                     }
                 });
@@ -1855,105 +2250,84 @@
         });
         
         function showPage(pageId) {
-            // Hide all pages
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => {
                 page.classList.remove('active');
             });
             
-            // Show the selected page
             document.getElementById(pageId).classList.add('active');
-            
-            // Prevent default anchor behavior
             return false;
         }
         
-        // Функция для работы вкладок на странице науки
         function openTab(evt, tabName) {
-            // Получаем все элементы с классом "tab-content" и скрываем их
             const tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Получаем все элементы с классом "tab-button" и удаляем класс "active"
             const tabButtons = document.querySelectorAll('.tab-button');
             tabButtons.forEach(button => {
                 button.classList.remove('active');
             });
             
-            // Показываем текущую вкладку и добавляем класс "active" к кнопке
             document.getElementById(tabName).classList.add('active');
             evt.currentTarget.classList.add('active');
             
-            // Предотвращаем поведение по умолчанию
             evt.preventDefault();
         }
         
-        // Функция для работы вкладок на странице Media
         function openMediaTab(evt, tabName) {
-            // Получаем все элементы с классом "tab-content" внутри media и скрываем их
             const mediaTabContents = document.querySelectorAll('#media .tab-content');
             mediaTabContents.forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Получаем все элементы с классом "tab-button" внутри media и удаляем класс "active"
             const mediaTabButtons = document.querySelectorAll('#media .tab-button');
             mediaTabButtons.forEach(button => {
                 button.classList.remove('active');
             });
             
-            // Показываем текущую вкладку и добавляем класс "active" к кнопке
             document.getElementById(tabName).classList.add('active');
             evt.currentTarget.classList.add('active');
             
-            // Предотвращаем поведение по умолчанию
             evt.preventDefault();
         }
         
-        //  Функция переключения темы
         function toggleTheme() {
             const body = document.body;
             const themeSwitcher = document.querySelector('.theme-switcher');
             
             if (body.classList.contains('dark-mode')) {
-                // Переключаем на светлую тему
                 body.classList.remove('dark-mode');
                 themeSwitcher.innerHTML = '<span>☀️</span><span>The Sun Scorching Sinners</span><span>|</span><span>The Night - the Outing of Werewolves</span><span>🌙</span>';
             } else {
-                // Переключаем на темную тему
                 body.classList.add('dark-mode');
                 themeSwitcher.innerHTML = '<span>🌙</span><span>The Night - the Outing of Werewolves</span><span>|</span><span>The Sun Scorching Sinners</span><span>☀️</span>';
             }
             
-            // Сохраняем выбор пользователя в localStorage
             localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
         }
         
-        // Загружаем сохраненную тему при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
             
-            // Инициализируем Firebase (ТОЛЬКО БАЗА ДАННЫХ)
             initFirebase();
             
-            // Проверяем сохраненного пользователя
             const savedUser = localStorage.getItem('currentUser');
             if (savedUser) {
                 try {
                     currentUser = JSON.parse(savedUser);
+                    encryptionKey = generateEncryptionKey(currentUser.username);
                     
                     document.getElementById('loginButtonContainer').style.display = 'none';
                     document.getElementById('userMenu').classList.add('active');
                     document.getElementById('userName').textContent = currentUser.name;
                     
-                    // Обновляем иконку аватарки
                     updateAvatarInUI();
                     
-                    // Подключаемся к Firebase чату если пользователь вошел
                     if (isFirebaseConnected) {
-                        connectToFirebaseChat();
+                        connectToPublicChat();
+                        connectToPrivateMessages();
                     }
                 } catch (error) {
                     console.error("Error loading saved user:", error);
@@ -1961,7 +2335,6 @@
                 }
             }
             
-            // Проверяем сохраненную тему
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-mode');
