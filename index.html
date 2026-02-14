@@ -165,6 +165,41 @@
             background-color: #303f9f;
         }
         
+        .chat-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .chat-buttons button {
+            width: 100%;
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: gold;
+            text-align: left;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .chat-buttons button:hover {
+            background-color: #303f9f;
+            border-left-color: gold;
+        }
+        
+        .chat-buttons .unread-badge {
+            float: right;
+            background-color: gold;
+            color: #1a237e;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
         /*  Стили для модальных окон */
         .modal {
             display: none;
@@ -519,7 +554,7 @@
         }
         
         .contacts-list {
-            width: 200px;
+            width: 250px;
             border-right: 2px solid #1a237e;
             overflow-y: auto;
             padding-right: 10px;
@@ -529,12 +564,13 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px;
-            margin-bottom: 5px;
+            padding: 12px;
+            margin-bottom: 8px;
             background-color: #f5f5f5;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            border: 1px solid transparent;
         }
         
         body.dark-mode .contact-item {
@@ -543,6 +579,7 @@
         
         .contact-item:hover {
             background-color: #e0e0e0;
+            border-color: #1a237e;
         }
         
         body.dark-mode .contact-item:hover {
@@ -552,31 +589,61 @@
         .contact-item.active {
             background-color: #1a237e;
             color: gold;
+            border-color: gold;
+        }
+        
+        .contact-item.active .contact-name {
+            color: gold;
         }
         
         .contact-avatar {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            border: 1px solid gold;
+            border: 2px solid gold;
+        }
+        
+        .contact-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .contact-name {
             font-weight: bold;
+            color: #1a237e;
+        }
+        
+        body.dark-mode .contact-name {
+            color: gold;
+        }
+        
+        .contact-last-message {
+            font-size: 0.8em;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 120px;
+        }
+        
+        body.dark-mode .contact-last-message {
+            color: #aaa;
         }
         
         .contact-unread {
             background-color: gold;
             color: #1a237e;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            min-width: 22px;
+            height: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.8em;
-            margin-left: auto;
+            font-weight: bold;
+            padding: 0 4px;
         }
         
         .private-chat-area {
@@ -586,20 +653,22 @@
         }
         
         .private-chat-header {
-            padding: 10px;
+            padding: 15px;
             background-color: #f0f0f0;
             border-bottom: 2px solid #1a237e;
             font-weight: bold;
+            color: #1a237e;
         }
         
         body.dark-mode .private-chat-header {
             background-color: #2d2d2d;
+            color: gold;
         }
         
         .private-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 10px;
+            padding: 15px;
             background-color: #fafafa;
         }
         
@@ -612,6 +681,7 @@
             align-items: center;
             gap: 10px;
             margin-top: 10px;
+            padding: 0 15px;
         }
         
         .encryption-toggle label {
@@ -619,6 +689,11 @@
             align-items: center;
             gap: 5px;
             cursor: pointer;
+            color: #1a237e;
+        }
+        
+        body.dark-mode .encryption-toggle label {
+            color: gold;
         }
         
         /* Стили для аватарки */
@@ -1094,14 +1169,17 @@
         </button>
         <div class="dropdown-menu" id="userDropdown">
             <button onclick="showPersonalCabinet()">
-                Personal Cabinet
+                👤 Personal Cabinet
             </button>
-            <button onclick="showChat()">
-                Live Chat
-            </button>
-            <button onclick="showPrivateMessages()">
-                Private Messages
-            </button>
+            <div class="chat-buttons">
+                <button onclick="showPublicChat()">
+                    💬 Live Chat
+                </button>
+                <button onclick="showPrivateMessages()" id="privateMessagesButton">
+                    ✉️ Personal Chats
+                    <span class="unread-badge" id="totalUnreadBadge" style="display: none;">0</span>
+                </button>
+            </div>
         </div>
     </div>
     
@@ -1137,26 +1215,26 @@
     </div>
     
     <!--  Модальное окно публичного чата -->
-    <div class="modal" id="chatModal">
+    <div class="modal" id="publicChatModal">
         <div class="modal-content">
-            <button class="close-button" onclick="closeChat()">×</button>
-            <h2>Imperial Public Chat</h2>
+            <button class="close-button" onclick="closePublicChat()">×</button>
+            <h2>Imperial Live Chat</h2>
             <div class="chat-container">
                 <div class="chat-header">
-                    <span>Imperial Citizens Public Chat</span>
+                    <span>💬 Imperial Citizens Public Chat</span>
                     <span id="onlineCount">Online: 0</span>
                 </div>
-                <div class="chat-messages" id="chatMessages">
+                <div class="chat-messages" id="publicChatMessages">
                     <div class="chat-notice">Welcome to the Imperial Public Chat! All messages are encrypted.</div>
                 </div>
                 <div class="chat-input-container">
-                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." maxlength="500">
+                    <input type="text" class="chat-input" id="publicChatInput" placeholder="Type your message..." maxlength="500">
                     <button class="send-button" onclick="sendPublicMessage()">Send</button>
                 </div>
                 <div class="encryption-toggle">
                     <label>
                         <input type="checkbox" id="encryptPublicCheckbox" checked disabled> 
-                        Messages are encrypted with AES-256
+                        🔒 Messages are encrypted with AES-256
                     </label>
                 </div>
             </div>
@@ -1167,14 +1245,14 @@
     <div class="modal" id="privateMessagesModal">
         <div class="modal-content">
             <button class="close-button" onclick="closePrivateMessages()">×</button>
-            <h2>Private Messages</h2>
+            <h2>Personal Chats</h2>
             <div class="contacts-container">
                 <div class="contacts-list" id="contactsList">
                     <!-- Контакты будут загружаться динамически -->
                 </div>
                 <div class="private-chat-area">
                     <div class="private-chat-header" id="privateChatHeader">
-                        Select a contact to start messaging
+                        ✉️ Select a citizen to start messaging
                     </div>
                     <div class="private-messages" id="privateMessages">
                         <div class="chat-notice">Choose a citizen from the list to begin a private conversation</div>
@@ -1186,7 +1264,7 @@
                     <div class="encryption-toggle">
                         <label>
                             <input type="checkbox" id="encryptPrivateCheckbox" checked> 
-                            End-to-end encryption (AES-256)
+                            🔒 End-to-end encryption (AES-256)
                         </label>
                     </div>
                 </div>
@@ -1589,7 +1667,6 @@
         let database;
         let publicChatRef;
         let privateMessagesRef;
-        let usersRef;
         let isFirebaseConnected = false;
         
         // Ключ шифрования (генерируется на основе пользователя)
@@ -1656,8 +1733,7 @@
         
         // Функции шифрования
         function generateEncryptionKey(userId) {
-            // Используем userId для генерации ключа
-            return CryptoJS.SHA256(userId + "empire_secret_salt").toString();
+            return CryptoJS.SHA256(userId + "empire_secret_salt_1700").toString();
         }
         
         function encryptMessage(text, key) {
@@ -1709,6 +1785,9 @@
                     const messages = snapshot.val() || {};
                     privateMessages = messages;
                     
+                    // Подсчитываем непрочитанные сообщения
+                    calculateUnreadCounts();
+                    
                     // Обновляем список контактов
                     updateContactsList();
                     
@@ -1725,9 +1804,41 @@
             }
         }
         
+        // Подсчет непрочитанных сообщений
+        function calculateUnreadCounts() {
+            unreadCounts = {};
+            let totalUnread = 0;
+            
+            Object.keys(privateMessages).forEach(contact => {
+                const messages = privateMessages[contact] || {};
+                const messagesArray = Object.values(messages);
+                
+                // Считаем сообщения от контакта, которые еще не прочитаны
+                const unread = messagesArray.filter(msg => 
+                    msg.sender === contact && !msg.read
+                ).length;
+                
+                if (unread > 0) {
+                    unreadCounts[contact] = unread;
+                    totalUnread += unread;
+                }
+            });
+            
+            // Обновляем общий счетчик непрочитанных
+            const totalUnreadBadge = document.getElementById('totalUnreadBadge');
+            if (totalUnreadBadge) {
+                if (totalUnread > 0) {
+                    totalUnreadBadge.style.display = 'inline';
+                    totalUnreadBadge.textContent = totalUnread;
+                } else {
+                    totalUnreadBadge.style.display = 'none';
+                }
+            }
+        }
+        
         // Обновление отображения публичного чата
         function updatePublicChatDisplay(messages) {
-            const chatMessagesElement = document.getElementById('chatMessages');
+            const chatMessagesElement = document.getElementById('publicChatMessages');
             if (!chatMessagesElement) return;
             
             const messagesArray = Object.values(messages).sort((a, b) => a.timestamp - b.timestamp);
@@ -1792,11 +1903,10 @@
         
         // Отправка сообщения в публичный чат
         function sendPublicMessage() {
-            const input = document.getElementById('chatInput');
+            const input = document.getElementById('publicChatInput');
             const message = input.value.trim();
             
             if (message && currentUser && isFirebaseConnected && publicChatRef) {
-                // Шифруем сообщение для публичного чата
                 const encrypted = encryptMessage(message, encryptionKey);
                 
                 const messageObj = {
@@ -1835,21 +1945,52 @@
             
             let html = '';
             
-            // Создаем список всех пользователей кроме текущего
-            Object.keys(users).forEach(username => {
-                if (username !== currentUser.username) {
-                    const user = users[username];
-                    const avatarUrl = getAvatarUrl(username);
-                    const unread = unreadCounts[username] || 0;
-                    
-                    html += `
-                        <div class="contact-item ${selectedContact === username ? 'active' : ''}" onclick="selectContact('${username}')">
-                            <img src="${avatarUrl}" class="contact-avatar" alt="${user.name}">
-                            <span class="contact-name">${user.name}</span>
-                            ${unread > 0 ? `<span class="contact-unread">${unread}</span>` : ''}
-                        </div>
-                    `;
+            // Сортируем контакты: сначала те, у кого есть непрочитанные сообщения
+            const contacts = Object.keys(users).filter(username => username !== currentUser.username);
+            contacts.sort((a, b) => {
+                const unreadA = unreadCounts[a] || 0;
+                const unreadB = unreadCounts[b] || 0;
+                if (unreadA !== unreadB) {
+                    return unreadB - unreadA;
                 }
+                return users[a].name.localeCompare(users[b].name);
+            });
+            
+            contacts.forEach(username => {
+                const user = users[username];
+                const avatarUrl = getAvatarUrl(username);
+                const unread = unreadCounts[username] || 0;
+                
+                // Получаем последнее сообщение для предпросмотра
+                let lastMessageText = '';
+                const contactMessages = privateMessages[username];
+                if (contactMessages) {
+                    const messagesArray = Object.values(contactMessages);
+                    if (messagesArray.length > 0) {
+                        const lastMsg = messagesArray.sort((a, b) => b.timestamp - a.timestamp)[0];
+                        if (lastMsg) {
+                            if (lastMsg.encrypted && encryptionKey) {
+                                lastMessageText = decryptMessage(lastMsg.text, encryptionKey);
+                            } else {
+                                lastMessageText = lastMsg.text;
+                            }
+                            if (lastMessageText.length > 20) {
+                                lastMessageText = lastMessageText.substring(0, 20) + '...';
+                            }
+                        }
+                    }
+                }
+                
+                html += `
+                    <div class="contact-item ${selectedContact === username ? 'active' : ''}" onclick="selectContact('${username}')">
+                        <img src="${avatarUrl}" class="contact-avatar" alt="${user.name}">
+                        <div class="contact-info">
+                            <span class="contact-name">${user.name}</span>
+                            ${lastMessageText ? `<span class="contact-last-message">${lastMessageText}</span>` : ''}
+                        </div>
+                        ${unread > 0 ? `<span class="contact-unread">${unread}</span>` : ''}
+                    </div>
+                `;
             });
             
             contactsList.innerHTML = html;
@@ -1859,14 +2000,14 @@
         function selectContact(username) {
             selectedContact = username;
             
-            // Сбрасываем счетчик непрочитанных
-            unreadCounts[username] = 0;
+            // Помечаем сообщения как прочитанные
+            markMessagesAsRead(username);
             
             // Обновляем список контактов
             updateContactsList();
             
             // Обновляем заголовок
-            document.getElementById('privateChatHeader').textContent = `Chat with ${users[username].name}`;
+            document.getElementById('privateChatHeader').textContent = `✉️ Chat with ${users[username].name}`;
             
             // Активируем поле ввода
             document.getElementById('privateChatInput').disabled = false;
@@ -1881,6 +2022,24 @@
             }, 100);
         }
         
+        // Помечаем сообщения как прочитанные
+        function markMessagesAsRead(contactUsername) {
+            if (!isFirebaseConnected || !currentUser) return;
+            
+            const messages = privateMessages[contactUsername];
+            if (!messages) return;
+            
+            Object.keys(messages).forEach(msgKey => {
+                const msg = messages[msgKey];
+                if (msg.sender === contactUsername && !msg.read) {
+                    // Обновляем статус прочтения в Firebase
+                    database.ref(`privateMessages/${currentUser.username}/${contactUsername}/${msgKey}`).update({
+                        read: true
+                    });
+                }
+            });
+        }
+        
         // Отображение личных сообщений
         function displayPrivateMessages(contactUsername) {
             const privateMessagesElement = document.getElementById('privateMessages');
@@ -1888,7 +2047,7 @@
             
             privateMessagesElement.innerHTML = '';
             
-            const contactMessages = privateMessages[contactUsername] || [];
+            const contactMessages = privateMessages[contactUsername] || {};
             const messagesArray = Object.values(contactMessages).sort((a, b) => a.timestamp - b.timestamp);
             
             if (messagesArray.length === 0) {
@@ -1955,15 +2114,16 @@
                     text: messageText,
                     time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
                     timestamp: Date.now(),
-                    encrypted: useEncryption
+                    encrypted: useEncryption,
+                    read: false
                 };
                 
                 // Сохраняем сообщение для отправителя
                 const senderRef = database.ref(`privateMessages/${currentUser.username}/${selectedContact}`).push();
-                senderRef.set(messageObj);
+                senderRef.set({...messageObj, read: true}); // Свои сообщения сразу помечаем как прочитанные
                 
                 // Сохраняем сообщение для получателя
-                const receiverObj = {...messageObj, sender: currentUser.username};
+                const receiverObj = {...messageObj, read: false};
                 const receiverRef = database.ref(`privateMessages/${selectedContact}/${currentUser.username}`).push();
                 receiverRef.set(receiverObj);
                 
@@ -2144,21 +2304,21 @@
             document.getElementById('personalCabinetModal').classList.remove('active');
         }
         
-        function showChat() {
+        function showPublicChat() {
             document.getElementById('userDropdown').classList.remove('active');
             
             if (currentUser) {
-                document.getElementById('chatModal').classList.add('active');
+                document.getElementById('publicChatModal').classList.add('active');
                 
                 setTimeout(() => {
-                    document.getElementById('chatInput').focus();
+                    document.getElementById('publicChatInput').focus();
                 }, 100);
             }
         }
         
-        function closeChat() {
-            document.getElementById('chatModal').classList.remove('active');
-            document.getElementById('chatInput').value = '';
+        function closePublicChat() {
+            document.getElementById('publicChatModal').classList.remove('active');
+            document.getElementById('publicChatInput').value = '';
         }
         
         function showPrivateMessages() {
@@ -2177,7 +2337,6 @@
         
         function closePrivateMessages() {
             document.getElementById('privateMessagesModal').classList.remove('active');
-            selectedContact = null;
         }
         
         function logout() {
@@ -2188,6 +2347,8 @@
             currentUser = null;
             selectedContact = null;
             encryptionKey = null;
+            privateMessages = {};
+            unreadCounts = {};
             localStorage.removeItem('currentUser');
             
             document.getElementById('userMenu').classList.remove('active');
@@ -2195,7 +2356,7 @@
             document.getElementById('userDropdown').classList.remove('active');
             
             closePersonalCabinet();
-            closeChat();
+            closePublicChat();
             closePrivateMessages();
             
             alert('You have left the Empire. Until we meet again!');
@@ -2203,9 +2364,9 @@
         
         // Обработка нажатия Enter
         document.addEventListener('DOMContentLoaded', function() {
-            const chatInput = document.getElementById('chatInput');
-            if (chatInput) {
-                chatInput.addEventListener('keypress', function(e) {
+            const publicChatInput = document.getElementById('publicChatInput');
+            if (publicChatInput) {
+                publicChatInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         sendPublicMessage();
                     }
@@ -2237,8 +2398,8 @@
                         this.classList.remove('active');
                         if (this.id === 'loginModal') {
                             closeLoginModal();
-                        } else if (this.id === 'chatModal') {
-                            closeChat();
+                        } else if (this.id === 'publicChatModal') {
+                            closePublicChat();
                         } else if (this.id === 'privateMessagesModal') {
                             closePrivateMessages();
                         } else if (this.id === 'personalCabinetModal') {
