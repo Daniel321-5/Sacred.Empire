@@ -1661,8 +1661,47 @@
         let privateMessagesRef;
         let isFirebaseConnected = false;
         
-        // Ключ шифрования (общий для всех в публичном чате)
+        // Ключ шифрования для публичного чата (общий для всех)
         const PUBLIC_ENCRYPTION_KEY = "public_empire_chat_key_1700";
+        
+        // База данных пользователей
+        const users = {
+            'emp123dan': {
+                password: 'Lyusek2020',
+                name: 'Daniel',
+                bio: 'sacred emperor, writer'
+            },
+            'blueisthebestcolor': {
+                password: '123blue123',
+                name: 'Blue_The_Drak',
+                bio: 'nobleman, loves dragons'
+            },
+            'theemperorsson': {
+                password: 'vikings123power',
+                name: 'Einar',
+                bio: 'nobleman of the royal blood'
+            },
+            'ottobutnotottoman': {
+                password: 'verdeilineverde',
+                name: 'Otto',
+                bio: 'nobleman, captain'
+            },
+            'defenseqwerty': {
+                password: '123church123',
+                name: 'Def',
+                bio: 'nobleman, lucky, high inquisitor, loves fishing'
+            },
+            'pyroorpairo': {
+                password: 'iguesspairo123',
+                name: 'Pairo',
+                bio: 'professor, scientist'
+            },
+            'bluebecauseblue': {
+                password: 'notthedragons123',
+                name: 'Blue2',
+                bio: 'the brother of other Blue, nobleman, explorer'
+            }
+        };
         
         // Текущий пользователь и выбранный контакт
         let currentUser = null;
@@ -1702,6 +1741,13 @@
                 console.error("Decryption error:", error);
                 return "[Encrypted message]";
             }
+        }
+        
+        // Получение ключа для приватного чата между двумя пользователями
+        function getPrivateChatKey(user1, user2) {
+            // Сортируем имена для консистентности ключа
+            const users = [user1, user2].sort();
+            return CryptoJS.SHA256(users[0] + users[1] + "private_empire_key").toString();
         }
         
         // Подключение к публичному чату Firebase
@@ -1757,6 +1803,8 @@
         function calculateUnreadCounts() {
             unreadCounts = {};
             let totalUnread = 0;
+            
+            if (!privateMessages) return;
             
             Object.keys(privateMessages).forEach(contact => {
                 const messages = privateMessages[contact] || {};
@@ -1892,47 +1940,56 @@
             
             let html = '';
             
-            // Сортируем контакты: сначала те, у кого есть непрочитанные сообщения
+            // Получаем список всех пользователей кроме текущего
             const contacts = Object.keys(users).filter(username => username !== currentUser.username);
-            contacts.sort((a, b) => {
-                const unreadA = unreadCounts[a] || 0;
-                const unreadB = unreadCounts[b] || 0;
-                if (unreadA !== unreadB) {
-                    return unreadB - unreadA;
-                }
-                return users[a].name.localeCompare(users[b].name);
-            });
             
-            contacts.forEach(username => {
-                const user = users[username];
-                const avatarUrl = getAvatarUrl(username);
-                const unread = unreadCounts[username] || 0;
+            if (contacts.length === 0) {
+                html = '<div class="chat-notice">No other citizens found</div>';
+            } else {
+                // Сортируем контакты: сначала те, у кого есть непрочитанные сообщения
+                contacts.sort((a, b) => {
+                    const unreadA = unreadCounts[a] || 0;
+                    const unreadB = unreadCounts[b] || 0;
+                    if (unreadA !== unreadB) {
+                        return unreadB - unreadA;
+                    }
+                    return users[a].name.localeCompare(users[b].name);
+                });
                 
-                // Получаем последнее сообщение для предпросмотра
-                let lastMessageText = '';
-                const contactMessages = privateMessages[username];
-                if (contactMessages) {
-                    const messagesArray = Object.values(contactMessages);
-                    if (messagesArray.length > 0) {
-                        const lastMsg = messagesArray.sort((a, b) => b.timestamp - a.timestamp)[0];
-                        if (lastMsg) {
-                            // Для предпросмотра показываем только факт наличия сообщения
-                            lastMessageText = lastMsg.sender === currentUser.username ? 'You: •••' : 'New message';
+                contacts.forEach(username => {
+                    const user = users[username];
+                    const avatarUrl = getAvatarUrl(username);
+                    const unread = unreadCounts[username] || 0;
+                    
+                    // Получаем последнее сообщение для предпросмотра
+                    let lastMessageText = '';
+                    const contactMessages = privateMessages[username];
+                    if (contactMessages) {
+                        const messagesArray = Object.values(contactMessages);
+                        if (messagesArray.length > 0) {
+                            const lastMsg = messagesArray.sort((a, b) => b.timestamp - a.timestamp)[0];
+                            if (lastMsg) {
+                                if (lastMsg.sender === currentUser.username) {
+                                    lastMessageText = 'You: •••';
+                                } else {
+                                    lastMessageText = 'New message';
+                                }
+                            }
                         }
                     }
-                }
-                
-                html += `
-                    <div class="contact-item ${selectedContact === username ? 'active' : ''}" onclick="selectContact('${username}')">
-                        <img src="${avatarUrl}" class="contact-avatar" alt="${user.name}">
-                        <div class="contact-info">
-                            <span class="contact-name">${user.name}</span>
-                            ${lastMessageText ? `<span class="contact-last-message">${lastMessageText}</span>` : '<span class="contact-last-message">No messages yet</span>'}
+                    
+                    html += `
+                        <div class="contact-item ${selectedContact === username ? 'active' : ''}" onclick="selectContact('${username}')">
+                            <img src="${avatarUrl}" class="contact-avatar" alt="${user.name}">
+                            <div class="contact-info">
+                                <span class="contact-name">${user.name}</span>
+                                <span class="contact-last-message">${lastMessageText || 'No messages yet'}</span>
+                            </div>
+                            ${unread > 0 ? `<span class="contact-unread">${unread}</span>` : ''}
                         </div>
-                        ${unread > 0 ? `<span class="contact-unread">${unread}</span>` : ''}
-                    </div>
-                `;
-            });
+                    `;
+                });
+            }
             
             contactsList.innerHTML = html;
         }
@@ -1999,12 +2056,12 @@
             messagesArray.forEach(msg => {
                 const messageDiv = document.createElement('div');
                 
-                // Расшифровываем сообщение с использованием общего ключа для приватных сообщений
-                // (на самом деле здесь должен быть уникальный ключ для каждого диалога)
+                // Получаем ключ для расшифровки приватного чата
+                const chatKey = getPrivateChatKey(msg.sender, msg.sender === currentUser.username ? contactUsername : currentUser.username);
+                
+                // Расшифровываем сообщение
                 let decryptedText = msg.text;
                 if (msg.encrypted) {
-                    // Используем комбинацию имен для ключа
-                    const chatKey = CryptoJS.SHA256(currentUser.username + contactUsername + "private_key").toString();
                     decryptedText = decryptMessage(msg.text, chatKey);
                 }
                 
@@ -2042,8 +2099,8 @@
             const message = input.value.trim();
             
             if (message && currentUser && selectedContact && isFirebaseConnected) {
-                // Используем уникальный ключ для каждого диалога
-                const chatKey = CryptoJS.SHA256(currentUser.username + selectedContact + "private_key").toString();
+                // Получаем ключ для шифрования приватного чата
+                const chatKey = getPrivateChatKey(currentUser.username, selectedContact);
                 const messageText = encryptMessage(message, chatKey);
                 
                 const messageObj = {
@@ -2271,6 +2328,7 @@
         
         function closePrivateMessages() {
             document.getElementById('privateMessagesModal').classList.remove('active');
+            selectedContact = null;
         }
         
         function logout() {
