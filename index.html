@@ -424,10 +424,12 @@
             object-fit: cover;
             border: 2px solid #1a237e;
             flex-shrink: 0;
+            background-color: #f0f0f0;
         }
         
         body.dark-mode .message-avatar {
             border-color: gold;
+            background-color: #2d2d2d;
         }
         
         .message-content-wrapper {
@@ -603,6 +605,11 @@
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid gold;
+            background-color: #f0f0f0;
+        }
+        
+        body.dark-mode .contact-avatar {
+            background-color: #2d2d2d;
         }
         
         .contact-info {
@@ -759,6 +766,12 @@
         
         body.dark-mode .avatar-message {
             color: #aaa;
+        }
+        
+        /* Стили для индикатора загрузки аватарки */
+        .avatar-loading {
+            opacity: 0.5;
+            filter: grayscale(50%);
         }
         
         /* Стили для переключателя темы */
@@ -1659,7 +1672,13 @@
         let database;
         let publicChatRef;
         let privateMessagesRef;
+        let avatarsRef;
         let isFirebaseConnected = false;
+        
+        // Кэш для аватарок
+        let avatarCache = {};
+        let avatarLoadQueue = [];
+        let isAvatarLoading = false;
         
         // Ключ шифрования для публичного чата (общий для всех)
         const PUBLIC_ENCRYPTION_KEY = "public_empire_chat_key_1700";
@@ -1714,11 +1733,132 @@
             try {
                 firebaseApp = firebase.initializeApp(firebaseConfig);
                 database = firebase.database();
+                avatarsRef = database.ref('avatars');
                 isFirebaseConnected = true;
                 console.log("Firebase Database initialized successfully");
+                
+                // Загружаем все аватарки при инициализации
+                loadAllAvatars();
+                
                 return true;
             } catch (error) {
                 console.error("Firebase initialization error:", error);
+                return false;
+            }
+        }
+        
+        // Загрузка всех аватарок (ленивая загрузка)
+        function loadAllAvatars() {
+            if (!isFirebaseConnected) return;
+            
+            avatarsRef.once('value', (snapshot) => {
+                const avatars = snapshot.val() || {};
+                
+                // Сохраняем в кэш
+                Object.keys(avatars).forEach(userId => {
+                    if (avatars[userId] && avatars[userId].data) {
+                        avatarCache[userId] = avatars[userId].data;
+                    }
+                });
+                
+                console.log("Avatars loaded:", Object.keys(avatarCache).length);
+                
+                // Обновляем UI если нужно
+                updateAllAvatars();
+            });
+        }
+        
+        // Обновление всех аватарок в UI
+        function updateAllAvatars() {
+            // Обновляем аватарки в публичном чате
+            const publicMessages = document.getElementById('publicChatMessages');
+            if (publicMessages) {
+                const avatars = publicMessages.querySelectorAll('.message-avatar');
+                avatars.forEach(img => {
+                    const userId = img.getAttribute('data-user-id');
+                    if (userId && avatarCache[userId]) {
+                        img.src = avatarCache[userId];
+                    }
+                });
+            }
+            
+            // Обновляем список контактов
+            updateContactsList();
+        }
+        
+        // Получение аватарки пользователя
+        function getAvatarUrl(userId, callback) {
+            // Сначала проверяем кэш
+            if (avatarCache[userId]) {
+                if (callback) callback(avatarCache[userId]);
+                return avatarCache[userId];
+            }
+            
+            // Возвращаем заглушку и загружаем асинхронно
+            if (isFirebaseConnected) {
+                avatarsRef.child(userId).once('value', (snapshot) => {
+                    const avatarData = snapshot.val();
+                    if (avatarData && avatarData.data) {
+                        avatarCache[userId] = avatarData.data;
+                        if (callback) callback(avatarData.data);
+                        
+                        // Обновляем все элементы с этим userId
+                        updateAvatarElements(userId, avatarData.data);
+                    } else {
+                        // Используем заглушку по умолчанию
+                        const defaultAvatar = getDefaultAvatar();
+                        avatarCache[userId] = defaultAvatar;
+                        if (callback) callback(defaultAvatar);
+                    }
+                });
+            }
+            
+            return getDefaultAvatar();
+        }
+        
+        // Обновление всех элементов с определенным userId
+        function updateAvatarElements(userId, avatarUrl) {
+            // Обновляем в публичном чате
+            const publicAvatars = document.querySelectorAll(`.message-avatar[data-user-id="${userId}"]`);
+            publicAvatars.forEach(img => {
+                img.src = avatarUrl;
+            });
+            
+            // Обновляем в списке контактов
+            const contactAvatars = document.querySelectorAll(`.contact-avatar[data-user-id="${userId}"]`);
+            contactAvatars.forEach(img => {
+                img.src = avatarUrl;
+            });
+            
+            // Обновляем в приватных сообщениях
+            const privateAvatars = document.querySelectorAll(`.private-message-avatar[data-user-id="${userId}"]`);
+            privateAvatars.forEach(img => {
+                img.src = avatarUrl;
+            });
+        }
+        
+        // Получение аватарки по умолчанию
+        function getDefaultAvatar() {
+            return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMWExMjdlIi8+CjxwYXRoIGQ9Ik01MCAzMEM1Ny45NTU5IDMwIDY0IDM2LjA0NDEgNjQgNDRDNjQgNTEuOTU1OSA1Ny45NTU5IDU4IDUwIDU4QzQyLjA0NDEgNTggMzYgNTEuOTU1OSAzNiA0NEMzNiAzNi4wNDQxIDQyLjA0NDEgMzAgNTAgMzBaIiBmaWxsPSJncmF5Ii8+CjxwYXRoIGQ9Ik0yMCA4MEw4MCA4MEw4MCA5MEwyMCA5MEwyMCA4MFoiIGZpbGw9ImdyYXkiLz4KPC9zdmc+';
+        }
+        
+        // Сохранение аватарки в Firebase
+        function saveAvatarToFirebase(userId, avatarData) {
+            if (!isFirebaseConnected) return false;
+            
+            try {
+                // Сохраняем в Firebase
+                avatarsRef.child(userId).set({
+                    data: avatarData,
+                    updatedAt: Date.now()
+                });
+                
+                // Обновляем кэш
+                avatarCache[userId] = avatarData;
+                
+                return true;
+            } catch (error) {
+                console.error("Error saving avatar:", error);
                 return false;
             }
         }
@@ -1745,7 +1885,6 @@
         
         // Получение ключа для приватного чата между двумя пользователями
         function getPrivateChatKey(user1, user2) {
-            // Сортируем имена для консистентности ключа
             const users = [user1, user2].sort();
             return CryptoJS.SHA256(users[0] + users[1] + "private_empire_key").toString();
         }
@@ -1780,13 +1919,9 @@
                     const messages = snapshot.val() || {};
                     privateMessages = messages;
                     
-                    // Подсчитываем непрочитанные сообщения
                     calculateUnreadCounts();
-                    
-                    // Обновляем список контактов
                     updateContactsList();
                     
-                    // Если выбран контакт, обновляем отображение
                     if (selectedContact) {
                         displayPrivateMessages(selectedContact);
                     }
@@ -1810,7 +1945,6 @@
                 const messages = privateMessages[contact] || {};
                 const messagesArray = Object.values(messages);
                 
-                // Считаем сообщения от контакта, которые еще не прочитаны
                 const unread = messagesArray.filter(msg => 
                     msg.sender === contact && !msg.read
                 ).length;
@@ -1821,7 +1955,6 @@
                 }
             });
             
-            // Обновляем общий счетчик непрочитанных
             const totalUnreadBadge = document.getElementById('totalUnreadBadge');
             if (totalUnreadBadge) {
                 if (totalUnread > 0) {
@@ -1855,17 +1988,17 @@
                             <div class="message-time">${msg.time}</div>
                         `;
                     } else {
-                        // Расшифровываем сообщение публичного чата общим ключом
                         let decryptedText = msg.text;
                         if (msg.encrypted) {
                             decryptedText = decryptMessage(msg.text, PUBLIC_ENCRYPTION_KEY);
                         }
                         
-                        let avatarUrl = getAvatarUrl(msg.userId);
+                        // Получаем аватарку асинхронно
+                        const avatarUrl = getAvatarUrl(msg.userId);
                         
                         messageDiv.className = 'message';
                         messageDiv.innerHTML = `
-                            <img src="${avatarUrl}" class="message-avatar" alt="${msg.user}">
+                            <img src="${avatarUrl}" class="message-avatar" data-user-id="${msg.userId}" alt="${msg.user}">
                             <div class="message-content-wrapper">
                                 <div class="message-header">
                                     <span class="message-user">${msg.user}</span>
@@ -1886,22 +2019,12 @@
             }, 100);
         }
         
-        // Получение URL аватарки
-        function getAvatarUrl(userId) {
-            const savedAvatar = localStorage.getItem(`avatar_${userId}`);
-            if (savedAvatar) {
-                return savedAvatar;
-            }
-            return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMWExMjdlIi8+CjxwYXRoIGQ9Ik01MCAzMEM1Ny45NTU5IDMwIDY0IDM2LjA0NDEgNjQgNDRDNjQgNTEuOTU1OSA1Ny45NTU5IDU4IDUwIDU4QzQyLjA0NDEgNTggMzYgNTEuOTU1OSAzNiA0NEMzNiAzNi4wNDQxIDQyLjA0NDEgMzAgNTAgMzBaIiBmaWxsPSJncmF5Ii8+CjxwYXRoIGQ9Ik0yMCA4MEw4MCA4MEw4MCA5MEwyMCA5MEwyMCA4MFoiIGZpbGw9ImdyYXkiLz4KPC9zdmc+';
-        }
-        
         // Отправка сообщения в публичный чат
         function sendPublicMessage() {
             const input = document.getElementById('publicChatInput');
             const message = input.value.trim();
             
             if (message && currentUser && isFirebaseConnected && publicChatRef) {
-                // Шифруем сообщение общим ключом
                 const encrypted = encryptMessage(message, PUBLIC_ENCRYPTION_KEY);
                 
                 const messageObj = {
@@ -1940,13 +2063,11 @@
             
             let html = '';
             
-            // Получаем список всех пользователей кроме текущего
             const contacts = Object.keys(users).filter(username => username !== currentUser.username);
             
             if (contacts.length === 0) {
                 html = '<div class="chat-notice">No other citizens found</div>';
             } else {
-                // Сортируем контакты: сначала те, у кого есть непрочитанные сообщения
                 contacts.sort((a, b) => {
                     const unreadA = unreadCounts[a] || 0;
                     const unreadB = unreadCounts[b] || 0;
@@ -1961,7 +2082,6 @@
                     const avatarUrl = getAvatarUrl(username);
                     const unread = unreadCounts[username] || 0;
                     
-                    // Получаем последнее сообщение для предпросмотра
                     let lastMessageText = '';
                     const contactMessages = privateMessages[username];
                     if (contactMessages) {
@@ -1980,7 +2100,7 @@
                     
                     html += `
                         <div class="contact-item ${selectedContact === username ? 'active' : ''}" onclick="selectContact('${username}')">
-                            <img src="${avatarUrl}" class="contact-avatar" alt="${user.name}">
+                            <img src="${avatarUrl}" class="contact-avatar" data-user-id="${username}" alt="${user.name}">
                             <div class="contact-info">
                                 <span class="contact-name">${user.name}</span>
                                 <span class="contact-last-message">${lastMessageText || 'No messages yet'}</span>
@@ -1998,23 +2118,16 @@
         function selectContact(username) {
             selectedContact = username;
             
-            // Помечаем сообщения как прочитанные
             markMessagesAsRead(username);
-            
-            // Обновляем список контактов
             updateContactsList();
             
-            // Обновляем заголовок
             document.getElementById('privateChatHeader').textContent = `✉️ Chat with ${users[username].name}`;
             
-            // Активируем поле ввода
             document.getElementById('privateChatInput').disabled = false;
             document.getElementById('sendPrivateButton').disabled = false;
             
-            // Отображаем сообщения
             displayPrivateMessages(username);
             
-            // Фокусируемся на поле ввода
             setTimeout(() => {
                 document.getElementById('privateChatInput').focus();
             }, 100);
@@ -2030,7 +2143,6 @@
             Object.keys(messages).forEach(msgKey => {
                 const msg = messages[msgKey];
                 if (msg.sender === contactUsername && !msg.read) {
-                    // Обновляем статус прочтения в Firebase
                     database.ref(`privateMessages/${currentUser.username}/${contactUsername}/${msgKey}`).update({
                         read: true
                     });
@@ -2056,10 +2168,8 @@
             messagesArray.forEach(msg => {
                 const messageDiv = document.createElement('div');
                 
-                // Получаем ключ для расшифровки приватного чата
                 const chatKey = getPrivateChatKey(msg.sender, msg.sender === currentUser.username ? contactUsername : currentUser.username);
                 
-                // Расшифровываем сообщение
                 let decryptedText = msg.text;
                 if (msg.encrypted) {
                     decryptedText = decryptMessage(msg.text, chatKey);
@@ -2069,12 +2179,11 @@
                 const senderName = isCurrentUser ? currentUser.name : users[msg.sender].name;
                 const senderUsername = msg.sender;
                 
-                let avatarUrl = getAvatarUrl(senderUsername);
+                const avatarUrl = getAvatarUrl(senderUsername);
                 
                 messageDiv.className = 'message';
-                
                 messageDiv.innerHTML = `
-                    <img src="${avatarUrl}" class="message-avatar" alt="${senderName}">
+                    <img src="${avatarUrl}" class="message-avatar private-message-avatar" data-user-id="${senderUsername}" alt="${senderName}">
                     <div class="message-content-wrapper">
                         <div class="message-header">
                             <span class="message-user">${senderName}</span>
@@ -2099,7 +2208,6 @@
             const message = input.value.trim();
             
             if (message && currentUser && selectedContact && isFirebaseConnected) {
-                // Получаем ключ для шифрования приватного чата
                 const chatKey = getPrivateChatKey(currentUser.username, selectedContact);
                 const messageText = encryptMessage(message, chatKey);
                 
@@ -2112,11 +2220,9 @@
                     read: false
                 };
                 
-                // Сохраняем сообщение для отправителя
                 const senderRef = database.ref(`privateMessages/${currentUser.username}/${selectedContact}`).push();
-                senderRef.set({...messageObj, read: true}); // Свои сообщения сразу помечаем как прочитанные
+                senderRef.set({...messageObj, read: true});
                 
-                // Сохраняем сообщение для получателя
                 const receiverObj = {...messageObj, read: false};
                 const receiverRef = database.ref(`privateMessages/${selectedContact}/${currentUser.username}`).push();
                 receiverRef.set(receiverObj);
@@ -2151,11 +2257,11 @@
                     ...users[username]
                 };
                 
-                // Получаем аватарку из localStorage
-                const savedAvatar = localStorage.getItem(`avatar_${username}`);
-                if (savedAvatar) {
-                    currentUser.avatarUrl = savedAvatar;
-                }
+                // Получаем аватарку из Firebase
+                getAvatarUrl(username, (avatarUrl) => {
+                    currentUser.avatarUrl = avatarUrl;
+                    updateAvatarInUI();
+                });
                 
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 closeLoginModal();
@@ -2164,9 +2270,6 @@
                 document.getElementById('userMenu').classList.add('active');
                 document.getElementById('userName').textContent = currentUser.name;
                 
-                updateAvatarInUI();
-                
-                // Подключаемся к Firebase
                 if (isFirebaseConnected) {
                     connectToPublicChat();
                     connectToPrivateMessages();
@@ -2236,12 +2339,23 @@
             
             const reader = new FileReader();
             reader.onload = function(e) {
-                localStorage.setItem(`avatar_${currentUser.username}`, e.target.result);
-                currentUser.avatarUrl = e.target.result;
+                const avatarData = e.target.result;
+                
+                // Сохраняем в Firebase
+                if (isFirebaseConnected) {
+                    saveAvatarToFirebase(currentUser.username, avatarData);
+                }
+                
+                // Сохраняем локально для текущей сессии
+                currentUser.avatarUrl = avatarData;
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 
                 updateAvatarInUI();
-                alert('Avatar updated successfully!');
+                
+                // Обновляем все аватарки этого пользователя в UI
+                updateAvatarElements(currentUser.username, avatarData);
+                
+                alert('Avatar updated successfully! It is now visible to all citizens.');
             };
             reader.readAsDataURL(file);
         }
@@ -2261,31 +2375,32 @@
             const cabinetContent = document.getElementById('cabinetContent');
             
             if (currentUser) {
-                const avatarUrl = currentUser.avatarUrl || getAvatarUrl(currentUser.username);
-                
-                cabinetContent.innerHTML = `
-                    <div class="avatar-container">
-                        <img src="${avatarUrl}" id="avatarPreview" class="avatar-preview" alt="Your Avatar">
-                        <div>
-                            <label for="avatarUpload" class="avatar-upload-label">
-                                Choose New Avatar
-                            </label>
-                            <input type="file" id="avatarUpload" class="avatar-upload-input" accept="image/jpeg,image/png,image/gif" onchange="uploadAvatar()">
+                getAvatarUrl(currentUser.username, (avatarUrl) => {
+                    cabinetContent.innerHTML = `
+                        <div class="avatar-container">
+                            <img src="${avatarUrl}" id="avatarPreview" class="avatar-preview" alt="Your Avatar">
+                            <div>
+                                <label for="avatarUpload" class="avatar-upload-label">
+                                    Choose New Avatar
+                                </label>
+                                <input type="file" id="avatarUpload" class="avatar-upload-input" accept="image/jpeg,image/png,image/gif" onchange="uploadAvatar()">
+                            </div>
+                            <button class="change-avatar-button" onclick="saveNewAvatar()">Save Avatar</button>
+                            <div class="avatar-message">Maximum size: 2MB. Formats: JPG, PNG, GIF</div>
+                            <div class="avatar-message">✅ Your avatar will be visible to all citizens</div>
                         </div>
-                        <button class="change-avatar-button" onclick="saveNewAvatar()">Save Avatar</button>
-                        <div class="avatar-message">Maximum size: 2MB. Formats: JPG, PNG, GIF</div>
-                    </div>
-                    <div class="profile-info">
-                        <h3>Imperial Citizen Profile</h3>
-                        <p><strong>Login:</strong> ${currentUser.username}</p>
-                        <p><strong>Name:</strong> ${currentUser.name}</p>
-                        <p><strong>Bio:</strong> ${currentUser.bio}</p>
-                        <p><strong>Status:</strong> Verified Citizen of the Empire</p>
-                        <p><strong>Encryption:</strong> AES-256 active for all chats</p>
-                        <p><strong>Avatar:</strong> Your avatar is displayed in chats</p>
-                    </div>
-                    <button class="logout-button" onclick="logout()">Logout from Empire</button>
-                `;
+                        <div class="profile-info">
+                            <h3>Imperial Citizen Profile</h3>
+                            <p><strong>Login:</strong> ${currentUser.username}</p>
+                            <p><strong>Name:</strong> ${currentUser.name}</p>
+                            <p><strong>Bio:</strong> ${currentUser.bio}</p>
+                            <p><strong>Status:</strong> Verified Citizen of the Empire</p>
+                            <p><strong>Encryption:</strong> AES-256 active for all chats</p>
+                            <p><strong>Avatar:</strong> Shared with all citizens</p>
+                        </div>
+                        <button class="logout-button" onclick="logout()">Logout from Empire</button>
+                    `;
+                });
             }
             
             document.getElementById('personalCabinetModal').classList.add('active');
@@ -2319,7 +2434,6 @@
                 document.getElementById('privateMessagesModal').classList.add('active');
                 updateContactsList();
                 
-                // Если есть выбранный контакт, показываем его сообщения
                 if (selectedContact) {
                     selectContact(selectedContact);
                 }
@@ -2473,8 +2587,6 @@
                     document.getElementById('loginButtonContainer').style.display = 'none';
                     document.getElementById('userMenu').classList.add('active');
                     document.getElementById('userName').textContent = currentUser.name;
-                    
-                    updateAvatarInUI();
                     
                     if (isFirebaseConnected) {
                         connectToPublicChat();
