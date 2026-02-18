@@ -58,7 +58,7 @@
     <meta name="robots" content="index, follow">
     <meta name="revisit-after" content="7 days">
 
-    <!-- FIREBASE ТОЛЬКО ДЛЯ БАЗЫ ДАННЫХ (без Storage) -->
+    <!-- FIREBASE без Storage -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
@@ -98,7 +98,7 @@
             transform: scale(1.05);
         }
         
-        /*  Стили для меню пользователя */
+        /*  Стили для меню */
         .user-menu {
             position: fixed;
             top: 20px;
@@ -321,7 +321,7 @@
             color: #ff6b6b;
         }
         
-        /*  Стили для личного кабинета */
+        /*   личный кабинет */
         .profile-info {
             background-color: #f8f8f8;
             padding: 20px;
@@ -372,7 +372,7 @@
             background-color: #b71c1c;
         }
         
-        /* Стили для чата и личных сообщений */
+        /*  чат и личные сообщения */
         .chat-container {
             max-width: 100%;
             margin: 0 auto;
@@ -701,7 +701,7 @@
             border-color: #444;
         }
         
-        /* Стили для аватарки */
+        /* Аватарки */
         .avatar-container {
             text-align: center;
             margin-bottom: 20px;
@@ -768,7 +768,7 @@
             color: #aaa;
         }
         
-        /* Стили для индикатора загрузки аватарки */
+        /* Ииндикаторы загрузки аватарки */
         .avatar-loading {
             opacity: 0.5;
             filter: grayscale(50%);
@@ -987,7 +987,7 @@
             margin-bottom: 1rem;
         }
 
-        /* Стили для системы вкладок */
+        /* Системы вкладок */
         .tabs-container {
             margin-top: 2rem;
             border: 1px solid #ddd;
@@ -1072,7 +1072,7 @@
             margin: 1.5rem 0;
         }
 
-        /* Улучшенные стили для изображений на странице науки */
+        /* Стили для изображений на странице науки */
         #science .page-image {
             max-width: 100%;
             height: auto;
@@ -1167,12 +1167,12 @@
     </style>
 </head>
 <body>
-    <!--  Кнопка Log In (показывается когда пользователь не авторизован) -->
+    <!--  Кнопка Log In -->
     <div class="login-button-container" id="loginButtonContainer">
         <button class="login-button" onclick="showLoginModal()">Log In</button>
     </div>
     
-    <!--  Меню пользователя (показывается после входа) -->
+    <!--  Меню пользователя после совершения входа -->
     <div class="user-menu" id="userMenu">
         <button class="user-button" onclick="toggleUserMenu()">
             <span id="userAvatarIcon">👤</span>
@@ -1220,12 +1220,12 @@
             <button class="close-button" onclick="closePersonalCabinet()">×</button>
             <h2>Imperial Personal Cabinet</h2>
             <div id="cabinetContent">
-                <!-- Здесь будет отображаться информация о пользователе -->
+                <!-- информация о пользователе -->
             </div>
         </div>
     </div>
     
-    <!--  Модальное окно публичного чата -->
+    <!--  Модальное окно общего чата -->
     <div class="modal" id="publicChatModal">
         <div class="modal-content">
             <button class="close-button" onclick="closePublicChat()">×</button>
@@ -1256,7 +1256,7 @@
             <h2>Personal Chats</h2>
             <div class="contacts-container">
                 <div class="contacts-list" id="contactsList">
-                    <!-- Контакты будут загружаться динамически -->
+                    <!-- динамическая загрузка контактов -->
                 </div>
                 <div class="private-chat-area">
                     <div class="private-chat-header" id="privateChatHeader">
@@ -1435,7 +1435,7 @@
         <div id="science" class="page">
             <h2>Imperial Science</h2>
             
-            <!-- Основной текст об Исследовательском центре -->
+            <!-- Основной текст об исследовательском центре -->
             <div class="science-intro">
                 <h3>The Prophet Daniel Marine Life Research Center</h3>
                 <p><strong>Founded in 1876</strong></p>
@@ -1555,7 +1555,7 @@
             <h2>Media</h2>
             <p>Current news is published personally by the imperial house, and accordingly if you have reliable information that can attract the empire, send it to the mail forgamesandstuff2006@gmail.com</p>
             
-            <!-- Система вкладок для медиа -->
+            <!-- Система вкладок для страницы медиа -->
             <div class="tabs-container">
                 <div class="tabs-header">
                     <button class="tab-button active" onclick="openMediaTab(event, 'mediaNews')">Imperial News</button>
@@ -1569,8 +1569,8 @@
                     <div class="hero-card">
                         <h4>Latest Announcement</h4>
                         <p><strong>Date:</strong> Current</p>
-                        <p>The Empire continues its maritime research expeditions in the Dark Sea region. All citizens are advised to exercise caution when traveling through sector 7-Delta.</p>
-                        <p>The annual celebration of Emperor Daniel's coronation will be held next month. All citizens are invited to participate in the coastal festivities.</p>
+                        <p>The Empire continues its maritime research expeditions in the Dark Sea region.</p>
+                        <p>Current emperor is fighting his own demons and lucky for him pretty succesful. Wish him luck.</p>
                     </div>
                     <p>For submission of news or important information, contact: forgamesandstuff2006@gmail.com</p>
                 </div>
@@ -1656,7 +1656,7 @@
     </footer>
     
     <script>
-        // Конфигурация Firebase (ТОЛЬКО ДЛЯ БАЗЫ ДАННЫХ - без Storage)
+        // Конфигурация Firebase или база данных без Storage
         const firebaseConfig = {
             apiKey: "AIzaSyCOXWodWpE4KdEW1zwryydQUjfxHPiS-3E",
             authDomain: "sacred-empire-chat.firebaseapp.com",
@@ -1680,7 +1680,7 @@
         let avatarLoadQueue = [];
         let isAvatarLoading = false;
         
-        // Ключ шифрования для публичного чата (общий для всех)
+        // Ключ шифрования для публичного чата общий для всех
         const PUBLIC_ENCRYPTION_KEY = "public_empire_chat_key_1700";
         
         // База данных пользователей
@@ -1737,7 +1737,7 @@
                 isFirebaseConnected = true;
                 console.log("Firebase Database initialized successfully");
                 
-                // Загружаем все аватарки при инициализации
+                // загрузка всех аватарок при инициализации
                 loadAllAvatars();
                 
                 return true;
@@ -1747,14 +1747,14 @@
             }
         }
         
-        // Загрузка всех аватарок (ленивая загрузка)
+        // Ленивая загрузка всех аватарок для избежания задержек
         function loadAllAvatars() {
             if (!isFirebaseConnected) return;
             
             avatarsRef.once('value', (snapshot) => {
                 const avatars = snapshot.val() || {};
                 
-                // Сохраняем в кэш
+                // Сохранение в кэш
                 Object.keys(avatars).forEach(userId => {
                     if (avatars[userId] && avatars[userId].data) {
                         avatarCache[userId] = avatars[userId].data;
@@ -1763,14 +1763,14 @@
                 
                 console.log("Avatars loaded:", Object.keys(avatarCache).length);
                 
-                // Обновляем UI если нужно
+                // Обновление UI по нужде
                 updateAllAvatars();
             });
         }
         
         // Обновление всех аватарок в UI
         function updateAllAvatars() {
-            // Обновляем аватарки в публичном чате
+            // Обновление аватарки в публичном чате
             const publicMessages = document.getElementById('publicChatMessages');
             if (publicMessages) {
                 const avatars = publicMessages.querySelectorAll('.message-avatar');
@@ -1782,19 +1782,19 @@
                 });
             }
             
-            // Обновляем список контактов
+            // Обновление списка контактов
             updateContactsList();
         }
         
         // Получение аватарки пользователя
         function getAvatarUrl(userId, callback) {
-            // Сначала проверяем кэш
+            // проверка кэша в начале
             if (avatarCache[userId]) {
                 if (callback) callback(avatarCache[userId]);
                 return avatarCache[userId];
             }
             
-            // Возвращаем заглушку и загружаем асинхронно
+            // Возвращение заглушки и загрузка асинхронно
             if (isFirebaseConnected) {
                 avatarsRef.child(userId).once('value', (snapshot) => {
                     const avatarData = snapshot.val();
@@ -1802,10 +1802,10 @@
                         avatarCache[userId] = avatarData.data;
                         if (callback) callback(avatarData.data);
                         
-                        // Обновляем все элементы с этим userId
+                        // Обновление всех элементов с этим userId
                         updateAvatarElements(userId, avatarData.data);
                     } else {
-                        // Используем заглушку по умолчанию
+                        // Использование заглушки по умолчанию
                         const defaultAvatar = getDefaultAvatar();
                         avatarCache[userId] = defaultAvatar;
                         if (callback) callback(defaultAvatar);
@@ -1818,19 +1818,19 @@
         
         // Обновление всех элементов с определенным userId
         function updateAvatarElements(userId, avatarUrl) {
-            // Обновляем в публичном чате
+            // Обновление в публичном чате
             const publicAvatars = document.querySelectorAll(`.message-avatar[data-user-id="${userId}"]`);
             publicAvatars.forEach(img => {
                 img.src = avatarUrl;
             });
             
-            // Обновляем в списке контактов
+            // Обновление в списке контактов
             const contactAvatars = document.querySelectorAll(`.contact-avatar[data-user-id="${userId}"]`);
             contactAvatars.forEach(img => {
                 img.src = avatarUrl;
             });
             
-            // Обновляем в приватных сообщениях
+            // Обновление в приватных сообщениях
             const privateAvatars = document.querySelectorAll(`.private-message-avatar[data-user-id="${userId}"]`);
             privateAvatars.forEach(img => {
                 img.src = avatarUrl;
@@ -1847,13 +1847,13 @@
             if (!isFirebaseConnected) return false;
             
             try {
-                // Сохраняем в Firebase
+                // Сохранение в Firebase
                 avatarsRef.child(userId).set({
                     data: avatarData,
                     updatedAt: Date.now()
                 });
                 
-                // Обновляем кэш
+                // Обновление кэш
                 avatarCache[userId] = avatarData;
                 
                 return true;
@@ -1993,7 +1993,7 @@
                             decryptedText = decryptMessage(msg.text, PUBLIC_ENCRYPTION_KEY);
                         }
                         
-                        // Получаем аватарку асинхронно
+                        // Получение аватарки асинхронно
                         const avatarUrl = getAvatarUrl(msg.userId);
                         
                         messageDiv.className = 'message';
@@ -2133,7 +2133,7 @@
             }, 100);
         }
         
-        // Помечаем сообщения как прочитанные
+        // Пометка сообщения как прочитанное
         function markMessagesAsRead(contactUsername) {
             if (!isFirebaseConnected || !currentUser) return;
             
@@ -2257,7 +2257,7 @@
                     ...users[username]
                 };
                 
-                // Получаем аватарку из Firebase
+                // Получение аватарки из Firebase
                 getAvatarUrl(username, (avatarUrl) => {
                     currentUser.avatarUrl = avatarUrl;
                     updateAvatarInUI();
@@ -2341,18 +2341,18 @@
             reader.onload = function(e) {
                 const avatarData = e.target.result;
                 
-                // Сохраняем в Firebase
+                // Сохранение в Firebase
                 if (isFirebaseConnected) {
                     saveAvatarToFirebase(currentUser.username, avatarData);
                 }
                 
-                // Сохраняем локально для текущей сессии
+                // Сохранение локально для текущей сессии
                 currentUser.avatarUrl = avatarData;
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 
                 updateAvatarInUI();
                 
-                // Обновляем все аватарки этого пользователя в UI
+                // Обновление всех аватарок пользователя в UI
                 updateAvatarElements(currentUser.username, avatarData);
                 
                 alert('Avatar updated successfully! It is now visible to all citizens.');
