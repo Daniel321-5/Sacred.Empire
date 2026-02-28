@@ -425,6 +425,13 @@
             border: 2px solid #1a237e;
             flex-shrink: 0;
             background-color: #f0f0f0;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .message-avatar:hover {
+            transform: scale(1.1);
+            border-color: gold;
         }
         
         body.dark-mode .message-avatar {
@@ -468,10 +475,21 @@
         .message-user {
             font-weight: bold;
             color: #1a237e;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: underline dotted;
+        }
+        
+        .message-user:hover {
+            color: gold;
         }
         
         body.dark-mode .message-user {
             color: gold;
+        }
+        
+        body.dark-mode .message-user:hover {
+            color: #bb86fc;
         }
         
         .message-time {
@@ -606,6 +624,13 @@
             object-fit: cover;
             border: 2px solid gold;
             background-color: #f0f0f0;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .contact-avatar:hover {
+            transform: scale(1.1);
+            border-color: #1a237e;
         }
         
         body.dark-mode .contact-avatar {
@@ -621,10 +646,21 @@
         .contact-name {
             font-weight: bold;
             color: #1a237e;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: underline dotted;
+        }
+        
+        .contact-name:hover {
+            color: gold;
         }
         
         body.dark-mode .contact-name {
             color: gold;
+        }
+        
+        body.dark-mode .contact-name:hover {
+            color: #bb86fc;
         }
         
         .contact-last-message {
@@ -1262,6 +1298,92 @@
             background-color: #d32f2f;
         }
         
+        /* Стили для модального окна информации о пользователе */
+        .user-info-modal .modal-content {
+            max-width: 500px;
+        }
+        
+        .user-info-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #1a237e;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        body.dark-mode .user-info-avatar {
+            border-color: gold;
+        }
+        
+        .user-info-detail {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            border-left: 4px solid gold;
+        }
+        
+        body.dark-mode .user-info-detail {
+            background-color: #2d2d2d;
+        }
+        
+        .user-info-detail h3 {
+            color: #1a237e;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        body.dark-mode .user-info-detail h3 {
+            color: gold;
+        }
+        
+        .user-info-detail p {
+            line-height: 1.6;
+            color: #333;
+            white-space: pre-wrap;
+        }
+        
+        body.dark-mode .user-info-detail p {
+            color: #e0e0e0;
+        }
+        
+        .user-info-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .user-info-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        .message-user-button {
+            background-color: #1a237e;
+            color: gold;
+        }
+        
+        .message-user-button:hover {
+            background-color: #303f9f;
+        }
+        
+        .close-info-button {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .close-info-button:hover {
+            background-color: #d32f2f;
+        }
+        
         /* Скрываем видео контейнер - он больше не нужен */
         .video-container {
             display: none !important;
@@ -1338,7 +1460,7 @@
                     <span id="onlineCount">Online: 0</span>
                 </div>
                 <div class="chat-messages" id="publicChatMessages">
-                    <div class="chat-notice">Welcome to the Imperial Public Chat! All messages are encrypted for security.</div>
+                    <div class="chat-notice">Welcome to the Imperial Public Chat! Click on usernames or avatars to view citizen information. All messages are encrypted for security.</div>
                 </div>
                 <div class="chat-input-container">
                     <input type="text" class="chat-input" id="publicChatInput" placeholder="Type your message..." maxlength="500">
@@ -1406,6 +1528,17 @@
                 <div class="call-actions">
                     <button class="call-reject" onclick="closeMobileWarning()">OK</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно информации о пользователе -->
+    <div class="modal user-info-modal" id="userInfoModal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeUserInfoModal()">×</button>
+            <h2 id="userInfoTitle">Citizen Information</h2>
+            <div id="userInfoContent">
+                <!-- информация о пользователе будет загружаться динамически -->
             </div>
         </div>
     </div>
@@ -1815,7 +1948,7 @@
         // Ключ шифрования для публичного чата общий для всех
         const PUBLIC_ENCRYPTION_KEY = "public_empire_chat_key_1700";
         
-        // База данных пользователей - ИСПРАВЛЕНО!
+        // База данных пользователей - ТОЛЬКО ИСХОДНЫЕ ДАННЫЕ
         const users = {
             'emp123dan': {
                 password: 'Lyusek2020',
@@ -2133,7 +2266,7 @@
             chatMessagesElement.innerHTML = '';
             
             if (messagesArray.length === 0) {
-                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Public Chat! All messages are encrypted for security.</div>';
+                chatMessagesElement.innerHTML = '<div class="chat-notice">Welcome to the Imperial Public Chat! Click on usernames or avatars to view citizen information. All messages are encrypted for security.</div>';
             } else {
                 messagesArray.forEach(msg => {
                     const messageDiv = document.createElement('div');
@@ -2155,10 +2288,10 @@
                         
                         messageDiv.className = 'message';
                         messageDiv.innerHTML = `
-                            <img src="${avatarUrl}" class="message-avatar" data-user-id="${msg.userId}" alt="${msg.user}">
+                            <img src="${avatarUrl}" class="message-avatar" data-user-id="${msg.userId}" alt="${msg.user}" onclick="showUserInfo('${msg.userId}')">
                             <div class="message-content-wrapper">
                                 <div class="message-header">
-                                    <span class="message-user">${msg.user}</span>
+                                    <span class="message-user" onclick="showUserInfo('${msg.userId}')">${msg.user}</span>
                                     <span class="message-time">${msg.time}</span>
                                 </div>
                                 <div class="message-content">${decryptedText}</div>
@@ -2257,9 +2390,9 @@
                     
                     html += `
                         <div class="contact-item ${selectedContact === username ? 'active' : ''}" onclick="selectContact('${username}')">
-                            <img src="${avatarUrl}" class="contact-avatar" data-user-id="${username}" alt="${user.name}">
+                            <img src="${avatarUrl}" class="contact-avatar" data-user-id="${username}" alt="${user.name}" onclick="event.stopPropagation(); showUserInfo('${username}')">
                             <div class="contact-info">
-                                <span class="contact-name">${user.name}</span>
+                                <span class="contact-name" onclick="event.stopPropagation(); showUserInfo('${username}')">${user.name}</span>
                                 <span class="contact-last-message">${lastMessageText || 'No messages yet'}</span>
                             </div>
                             ${unread > 0 ? `<span class="contact-unread">${unread}</span>` : ''}
@@ -2341,10 +2474,10 @@
                 
                 messageDiv.className = 'message';
                 messageDiv.innerHTML = `
-                    <img src="${avatarUrl}" class="message-avatar private-message-avatar" data-user-id="${senderUsername}" alt="${senderName}">
+                    <img src="${avatarUrl}" class="message-avatar private-message-avatar" data-user-id="${senderUsername}" alt="${senderName}" onclick="showUserInfo('${senderUsername}')">
                     <div class="message-content-wrapper">
                         <div class="message-header">
-                            <span class="message-user">${senderName}</span>
+                            <span class="message-user" onclick="showUserInfo('${senderUsername}')">${senderName}</span>
                             <span class="message-time">${msg.time}</span>
                         </div>
                         <div class="message-content">${decryptedText}</div>
@@ -2386,6 +2519,63 @@
                 receiverRef.set(receiverObj);
                 
                 input.value = '';
+            }
+        }
+        
+        // Функция для показа информации о пользователе (ТОЛЬКО ТО, ЧТО В BIO)
+        function showUserInfo(username) {
+            if (!currentUser) {
+                alert('Please log in to view citizen information');
+                return;
+            }
+            
+            const user = users[username];
+            if (!user) return;
+            
+            const modal = document.getElementById('userInfoModal');
+            const title = document.getElementById('userInfoTitle');
+            const content = document.getElementById('userInfoContent');
+            
+            title.textContent = `Citizen Information: ${user.name}`;
+            
+            getAvatarUrl(username, (avatarUrl) => {
+                content.innerHTML = `
+                    <img src="${avatarUrl}" class="user-info-avatar" alt="${user.name}">
+                    <div class="user-info-detail">
+                        <h3>About ${user.name}</h3>
+                        <p>${user.bio || 'No additional information available.'}</p>
+                    </div>
+                    <div class="user-info-actions">
+                        ${username !== currentUser.username ? `
+                            <button class="message-user-button" onclick="messageUser('${username}')">✉️ Send Message</button>
+                        ` : ''}
+                        <button class="close-info-button" onclick="closeUserInfoModal()">Close</button>
+                    </div>
+                `;
+            });
+            
+            modal.classList.add('active');
+        }
+        
+        // Функция для закрытия модального окна информации о пользователе
+        function closeUserInfoModal() {
+            document.getElementById('userInfoModal').classList.remove('active');
+        }
+        
+        // Функция для начала личного сообщения пользователю
+        function messageUser(username) {
+            closeUserInfoModal();
+            
+            // Если окно личных сообщений уже открыто, просто выбираем контакт
+            const privateModal = document.getElementById('privateMessagesModal');
+            if (privateModal.classList.contains('active')) {
+                selectContact(username);
+            } else {
+                // Иначе открываем личные сообщения и выбираем контакт
+                showPrivateMessages();
+                setTimeout(() => {
+                    selectContact(username);
+                }, 500);
             }
         }
         
@@ -2933,6 +3123,8 @@
                             endCall();
                         } else if (this.id === 'mobileWarningModal') {
                             closeMobileWarning();
+                        } else if (this.id === 'userInfoModal') {
+                            closeUserInfoModal();
                         }
                     }
                 });
