@@ -1070,6 +1070,112 @@
             display: block;
         }
 
+        /* Стили для страницы кораблей */
+        .ships-layout {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .ships-sidebar {
+            flex: 0 0 220px;
+            border-right: 2px solid #1a237e;
+            padding-right: 20px;
+        }
+        .ships-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .ships-sidebar li {
+            margin-bottom: 12px;
+        }
+        .ship-nav-item {
+            background: none;
+            border: none;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a237e;
+            cursor: pointer;
+            padding: 8px 12px;
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        body.dark-mode .ship-nav-item {
+            color: gold;
+        }
+        .ship-nav-item:hover {
+            background-color: rgba(26,35,126,0.1);
+            border-left-color: gold;
+        }
+        .ship-nav-item.active {
+            background-color: #1a237e;
+            color: gold;
+            border-left-color: gold;
+        }
+        body.dark-mode .ship-nav-item.active {
+            background-color: #303f9f;
+        }
+        .ships-detail {
+            flex: 1;
+            min-width: 250px;
+        }
+        .ship-card {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+        body.dark-mode .ship-card {
+            background: #2a2a2a;
+            border-color: #444;
+        }
+        .ship-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 0.5rem;
+        }
+        body.dark-mode .ship-name {
+            color: gold;
+        }
+        .ship-prefix {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+        .ship-details-list {
+            margin: 1rem 0;
+            padding-left: 1rem;
+        }
+        .ship-details-list li {
+            margin-bottom: 0.4rem;
+        }
+        .ship-image {
+            max-width: 100%;
+            margin: 20px 0;
+            border: 2px solid #1a237e;
+            border-radius: 6px;
+        }
+        .plan-image {
+            max-width: 100%;
+            margin: 15px 0;
+            border: 1px dashed #1a237e;
+            border-radius: 4px;
+        }
+        @media (max-width: 768px) {
+            .ships-layout {
+                flex-direction: column;
+            }
+            .ships-sidebar {
+                border-right: none;
+                border-bottom: 2px solid #1a237e;
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
+        }
+
         /* Стили для научных работ */
         .science-intro {
             margin-bottom: 2rem;
@@ -1570,6 +1676,7 @@
         <a href="#" onclick="showPage('codex')">Codex</a>
         <a href="#" onclick="showPage('government')">Government</a>
         <a href="#" onclick="showPage('media')">Media</a>
+        <a href="#" onclick="showPage('ships')">Ships</a>
         <a href="#" onclick="showPage('contact')">Contact</a>
     </nav>
     
@@ -1894,6 +2001,23 @@
             </div>
         </div>
         
+        <!-- Новая страница: Корабли империи -->
+        <div id="ships" class="page">
+            <h2>Imperial Ships</h2>
+            <div class="ships-layout">
+                <div class="ships-sidebar">
+                    <ul>
+                        <li><button class="ship-nav-item active" onclick="showShip('miniAngel')">𝓜𝓲𝓷𝓲 𝓐𝓷𝓰𝓮𝓵</button></li>
+                        <li><button class="ship-nav-item" onclick="showShip('apollo')">𝓐𝓹𝓸𝓵𝓵𝓸</button></li>
+                        <li><button class="ship-nav-item" onclick="showShip('knyaz')">𝒦𝓃𝓎𝒶𝓏</button></li>
+                    </ul>
+                </div>
+                <div class="ships-detail" id="shipsDetail">
+                    <!-- динамически заполняется через JS -->
+                </div>
+            </div>
+        </div>
+
         <div id="contact" class="page">
             <h2>Empire contacts</h2>
             
@@ -1948,54 +2072,64 @@
         // Ключ шифрования для публичного чата общий для всех
         const PUBLIC_ENCRYPTION_KEY = "public_empire_chat_key_1700";
         
-   // База данных пользователей - ТОЛЬКО ИСХОДНЫЕ ДАННЫЕ
-const users = {
-    'emp123dan': {
-        password: 'Lyusek2020',
-        name: 'Daniel',
-        bio: 'sacred emperor, writer'
-    },
-    'blueisthebestcolor': {
-        password: '123blue123',
-        name: 'Blue_The_Drak',
-        bio: 'nobleman, loves dragons'
-    },
-    'theemperorsson': {
-        password: 'vikings123power',
-        name: 'Einar',
-        bio: 'nobleman of the royal blood'
-    },
-    'ottobutnotottoman': {
-        password: 'verdeilineverde',
-        name: 'Otto',
-        bio: 'nobleman, captain'
-    },
-    'defenseqwerty': {
-        password: '123church123',
-        name: 'Def',
-        bio: 'nobleman, lucky, high inquisitor, loves fishing'
-    },
-    'pyroorpairo': {
-        password: 'iguesspairo123',
-        name: 'Pairo',
-        bio: 'professor, scientist'
-    },
-    'bluebecauseblue': {
-        password: 'notthedragons123',
-        name: 'Blue2',
-        bio: 'the brother of other Blue, nobleman, explorer'
-    },
-    'Russell': {
-        password: '123emperorsfriend$',
-        name: 'Russel.A',
-        bio: 'businessman, nobleman, a dangerous man in the Empire, have a good relationship with emperor'
-    },
-    'Alex': {
-        password: 'bespontoviy_pirozhok123',
-        name: 'Alex',
-        bio: 'admiral and inquisitor in the church. Theres a tower named after him in the fort Green. Hates the water that he has but still use it'
-    }
-};
+        // База данных пользователей - добавлены AdmBharath и Vtoroiverde
+        const users = {
+            'emp123dan': {
+                password: 'Lyusek2020',
+                name: 'Daniel',
+                bio: 'sacred emperor, writer'
+            },
+            'blueisthebestcolor': {
+                password: '123blue123',
+                name: 'Blue_The_Drak',
+                bio: 'nobleman, loves dragons'
+            },
+            'theemperorsson': {
+                password: 'vikings123power',
+                name: 'Einar',
+                bio: 'nobleman of the royal blood'
+            },
+            'ottobutnotottoman': {
+                password: 'verdeilineverde',
+                name: 'Otto',
+                bio: 'nobleman, captain'
+            },
+            'defenseqwerty': {
+                password: '123church123',
+                name: 'Def',
+                bio: 'nobleman, lucky, high inquisitor, loves fishing'
+            },
+            'pyroorpairo': {
+                password: 'iguesspairo123',
+                name: 'Pairo',
+                bio: 'professor, scientist'
+            },
+            'bluebecauseblue': {
+                password: 'notthedragons123',
+                name: 'Blue2',
+                bio: 'the brother of other Blue, nobleman, explorer'
+            },
+            'Russell': {
+                password: '123emperorsfriend$',
+                name: 'Russel.A',
+                bio: 'businessman, nobleman, a dangerous man in the Empire, have a good relationship with emperor'
+            },
+            'Alex': {
+                password: 'bespontoviy_pirozhok123',
+                name: 'Alex',
+                bio: 'admiral and inquisitor in the church. Theres a tower named after him in the fort Green. Hates the water that he has but still use it'
+            },
+            'AdmBharath': {
+                password: 'BharathVortex123321',
+                name: 'Bharath',
+                bio: 'nobleman, engineer, admiral, loves cooking'
+            },
+            'Vtoroiverde': {
+                password: 'quartermaster123321',
+                name: 'Roger',
+                bio: 'fearless, nobleman'
+            }
+        };
         
         // Текущий пользователь и выбранный контакт
         let currentUser = null;
@@ -3195,10 +3329,83 @@ const users = {
             localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
         }
         
+        // Функция для отображения информации о кораблях
+        function showShip(shipId) {
+            const detailContainer = document.getElementById('shipsDetail');
+            if (!detailContainer) return;
+            
+            // Обновляем активный класс в боковом меню
+            document.querySelectorAll('.ship-nav-item').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            let shipHtml = '';
+            if (shipId === 'miniAngel') {
+                shipHtml = `
+                    <div class="ship-card">
+                        <div class="ship-name">𝓜𝓲𝓷𝓲 𝓐𝓷𝓰𝓮𝓵</div>
+                        <div class="ship-prefix">BAES Mini Angel</div>
+                        <ul class="ship-details-list">
+                            <li><strong>Type:</strong> brig</li>
+                            <li><strong>Purpose:</strong> warship, diplomatic, emperor's personal ship</li>
+                            <li><strong>Version's year:</strong> 1745 - current days</li>
+                            <li><strong>Crew amount:</strong> 97 souls + space for emperor and his family</li>
+                            <li><strong>Guns:</strong> 46 in total. 21 on side (9 carronades, 12 longs); 2 bow cannons, 2 stern cannons.</li>
+                            <li><strong>Masts:</strong> 2</li>
+                        </ul>
+                        <p>It was built under the personal supervision of the emperor himself. Initially, the vessel was an old Roman trireme, repeatedly modified over time. When corrosion made further refits impossible, the decision was made to construct an entirely new ship, using the blueprints of a brig as its foundation. The ship’s ultimate purpose is to lead the fleet into battle, undertake diplomatic missions, and serve as the personal transport of His Majesty the Emperor.</p>
+                        <img src="17813354954935.png" alt="Mini Angel Main" class="ship-image" onerror="this.style.display='none'">
+                        <img src="Polish_20260613_151942803.png" alt="Mini Angel Blueprint" class="plan-image" onerror="this.style.display='none'">
+                    </div>
+                `;
+            } else if (shipId === 'apollo') {
+                shipHtml = `
+                    <div class="ship-card">
+                        <div class="ship-name">𝓐𝓹𝓸𝓵𝓵𝓸</div>
+                        <div class="ship-prefix">BAES Apollo</div>
+                        <ul class="ship-details-list">
+                            <li><strong>Type:</strong> war schooner</li>
+                            <li><strong>Purpose:</strong> warship, small fast deliveries</li>
+                            <li><strong>Year of build:</strong> 1785</li>
+                            <li><strong>Crew amount:</strong> 70 souls</li>
+                            <li><strong>Guns:</strong> 11 in total. 5 on side where 2 are carronades. One long cannon on bow.</li>
+                            <li><strong>Masts:</strong> 2</li>
+                            <li><strong>Owner:</strong> cpt. Otto Verde</li>
+                        </ul>
+                        <p>Apollo, a sleek schooner built under the emperor’s direct supervision as a gift for Otto. This was no ordinary warship, it was a raider’s masterpiece, fast enough to outrun anything and armed just enough to ruin any merchant foolish enough to resist.</p>
+                        <img src="1781341608e9c3.png" alt="Apollo Main" class="ship-image" onerror="this.style.display='none'">
+                        <img src="IMG_20260613_163217.png" alt="Apollo Blueprint" class="plan-image" onerror="this.style.display='none'">
+                    </div>
+                `;
+            } else if (shipId === 'knyaz') {
+                shipHtml = `
+                    <div class="ship-card">
+                        <div class="ship-name">𝒦𝓃𝓎𝒶𝓏</div>
+                        <div class="ship-prefix">BAES Knyaz</div>
+                        <ul class="ship-details-list">
+                            <li><strong>Type:</strong> brig</li>
+                            <li><strong>Purpose:</strong> warship, delivering</li>
+                            <li><strong>Year of build:</strong> 1800</li>
+                            <li><strong>Crew amount:</strong> 84 souls</li>
+                            <li><strong>Guns:</strong> 32 in total. 12 on side where 4 are carronades. 2 bow cannons. 6 long cannons on upper deck</li>
+                            <li><strong>Owner:</strong> ex-emperor, admiral Aidar</li>
+                        </ul>
+                        <p>Aidar bought this ship in Caracas, completely unaware of the future importance it would have for the empire. Initially, the purchase was intended solely for the purpose of transporting cargo and collecting profit. The ship initially had only eight cannons. Later, when Aidar ascended the throne, he ordered the ship to be outfitted for war, making it his flagship.</p>
+                        <img src="IMG_20260614_032352.png" alt="Knyaz Main" class="ship-image" onerror="this.style.display='none'">
+                        <img src="IMG_20260614_033318.jpg" alt="Knyaz Blueprint" class="plan-image" onerror="this.style.display='none'">
+                    </div>
+                `;
+            }
+            detailContainer.innerHTML = shipHtml;
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
-            
             initFirebase();
+            
+            // Инициализация страницы кораблей (по умолчанию Mini Angel)
+            if (document.getElementById('shipsDetail')) {
+                showShip('miniAngel');
+            }
             
             const savedUser = localStorage.getItem('currentUser');
             if (savedUser) {
