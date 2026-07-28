@@ -1709,6 +1709,44 @@
             .book-title { font-size: 1.6rem; }
             .book-section h3 { font-size: 1.2rem; }
         }
+
+        /* Additional styles for Codex and Government content */
+        .book-codex-article {
+            background-color: #fcf9f2;
+            padding: 1.2rem;
+            border-radius: 6px;
+            border: 1px solid #ddd0c0;
+            margin: 1rem 0;
+        }
+        body.dark-mode .book-codex-article {
+            background-color: #2f281f;
+            border-color: #5b4d3a;
+        }
+        .book-codex-article h5 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 0.3rem;
+        }
+        body.dark-mode .book-codex-article h5 {
+            color: #d4af37;
+        }
+        .book-codex-article p {
+            margin-bottom: 0.4rem;
+        }
+        .book-article-number {
+            font-weight: bold;
+            color: #1a237e;
+            margin-right: 0.5rem;
+        }
+        body.dark-mode .book-article-number {
+            color: #d4af37;
+        }
+        .book-article-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
     </style>
 </head>
 <body>
@@ -1913,18 +1951,18 @@
             </p>
         </div>
         
-        <!-- HISTORY PAGE - Book style with embedded HTML content -->
+        <!-- HISTORY PAGE - Book style with embedded HTML content from History of Empire.html -->
         <div id="history" class="page">
             <div class="book-page">
                 <div class="book-title" data-en="History of the Empire" data-ru="Исторiя Имперiи">History of the Empire</div>
                 
                 <div class="book-section">
                     <h3 data-en="The Founding Era" data-ru="Эпоха Основанiя">The Founding Era</h3>
-                    <p class="book-text" data-en="The Sacred Daniel's Empire was founded in 1700, though its roots trace back to the 1st century A.D. with the prophetic figure of Lord Daniel. The empire emerged from the ashes of colonial conflicts, forged by pirates, merchants, and visionaries who sought freedom on the high seas." data-ru="Священная Имперiя Данiила была основана въ 1700 году, хотя ея корни уходятъ въ I вѣкъ н.э. съ пророческой фигурой Лорда Данiила. Имперiя возникла изъ пепла колонiальныхъ конфликтовъ, созданная пиратами, купцами и визионерами, искавшими свободу въ открытомъ море.">
-                        The Sacred Daniel's Empire was founded in 1700, though its roots trace back to the 1st century A.D. with the prophetic figure of Lord Daniel. The empire emerged from the ashes of colonial conflicts, forged by pirates, merchants, and visionaries who sought freedom on the high seas.
+                    <p class="book-text" data-en="In the annals of maritime history, few tales are as storied as that of the Empire of Sacred Daniel, a realm born from defiance, bound by loyalty, and forged upon the waves. It began with a man who, in the shadow of Christ's crucifixion, cast off the chains of fear and rallied a band of outcasts to seize a Spanish ship. This audacious act marked the birth of 'The Black Angels', their first vessel christened 'Mini Angel'. For generations, they sailed under the flag of Spain, their true allegiance hidden beneath borrowed colors as they grew from a ragged crew into a formidable brotherhood." data-ru="Въ лѣтописяхъ морскихъ немного найдется повѣстей столь же прославленныхъ, какъ исторія Имперіи Священнаго Даніила — державы, рожденной изъ непокорства, скрѣпленной вѣрностью и выкованной на волнахъ. Начало положилъ мужъ, который, въ тѣни распятія Христова, свергнувъ съ себя оковы страха и собралъ отщепенцевъ, дабы захватить испанскій корабль. Дерзость сія ознаменовала рожденіе «Черныхъ Ангеловъ»; ихъ первое судно нарекли «Малымъ Ангеломъ». Изъ поколѣнія въ поколѣніе плавали они подъ флагомъ Испаніи, скрывая истинную свою принадлежность подъ чужими цвѣтами, пока изъ разношерстной команды не выросло грозное братство.">
+                        In the annals of maritime history, few tales are as storied as that of the Empire of Sacred Daniel, a realm born from defiance, bound by loyalty, and forged upon the waves. It began with a man who, in the shadow of Christ's crucifixion, cast off the chains of fear and rallied a band of outcasts to seize a Spanish ship. This audacious act marked the birth of 'The Black Angels', their first vessel christened 'Mini Angel'. For generations, they sailed under the flag of Spain, their true allegiance hidden beneath borrowed colors as they grew from a ragged crew into a formidable brotherhood.
                     </p>
-                    <p class="book-text" data-en="The first emperor, Daniel de Courno, united the scattered pirate clans under a single banner. His flagship, the Mini Angel, became the symbol of imperial might and maritime sovereignty." data-ru="Первый императоръ, Данiилъ де Курно, объединилъ разрозненные пиратские кланы подъ единымъ знаменемъ. Его флагманъ, Минi Ангелъ, сталъ символомъ имперской мощи и морского суверенитета.">
-                        The first emperor, Daniel de Courno, united the scattered pirate clans under a single banner. His flagship, the Mini Angel, became the symbol of imperial might and maritime sovereignty.
+                    <p class="book-text" data-en="As their numbers swelled and their fleet expanded, the Black Angels evolved beyond mere piracy. Captains rose among them, and the first Daniel was crowned Lord, transforming the crew into a disciplined clan. The Empire of Sacred Daniel was proclaimed, and with it came a new standard: a black pirate's flag, emblazoned with a skull wearing a red eye patch a symbol of their bloody past and unbroken spirit." data-ru="Когда число ихъ умножилось, а флотъ разросся, Черные Ангелы перестали быть простыми пиратами. Среди них возвысились капитаны, и первый Даніилъ былъ коронованъ Владыкой, обративъ шайку въ дисциплинированный кланъ. Была провозглашена Имперія Священнаго Даніила, и съ нею пришелъ новый штандартъ: черный пиратскій флагъ съ черепомъ и красной повязкой на глазу — символъ ихъ кроваваго прошлаго и несокрушимаго духа.">
+                        As their numbers swelled and their fleet expanded, the Black Angels evolved beyond mere piracy. Captains rose among them, and the first Daniel was crowned Lord, transforming the crew into a disciplined clan. The Empire of Sacred Daniel was proclaimed, and with it came a new standard: a black pirate's flag, emblazoned with a skull wearing a red eye patch a symbol of their bloody past and unbroken spirit.
                     </p>
                     <div class="book-quote" data-en="'The sea is our kingdom, and the waves our subjects.' — Emperor Daniel de Courno" data-ru="'Море — наше королевство, а волны — наши подданные.' — Императоръ Данiилъ де Курно">
                         "The sea is our kingdom, and the waves our subjects." — Emperor Daniel de Courno
@@ -1932,32 +1970,47 @@
                 </div>
 
                 <div class="book-section">
-                    <h3 data-en="The Archipelago Campaign (1760–1800)" data-ru="Архипелагская Кампанiя (1760–1800)">The Archipelago Campaign (1760–1800)</h3>
-                    <p class="book-text" data-en="This period marked the empire's greatest territorial expansion. Under the command of Admiral Bharath, the imperial navy conquered six islands without firing a single shot, relying on diplomacy and psychological warfare." data-ru="Этотъ перiодъ ознаменовалъ величайшую территориальную экспансiю имперiи. Подъ командованiемъ адмирала Бхарата императорскiй флотъ завоевалъ шесть острововъ, не произведя ни одного выстрела, полагаясь на дипломатiю и психологическую войну.">
-                        This period marked the empire's greatest territorial expansion. Under the command of Admiral Bharath, the imperial navy conquered six islands without firing a single shot, relying on diplomacy and psychological warfare.
-                    </p>
-                    <p class="book-text" data-en="The alliance with the Scots (1765–1800) proved decisive. Their lost fleet joined the imperial cause, creating a formidable naval force that dominated the archipelago. The campaign ended in 1800 with the strategic decision to abandon the islands, redirecting imperial resources toward new horizons." data-ru="Союзъ съ шотландцами (1765–1800) оказался решающимъ. Ихъ потерянный флотъ присоединился къ имперскому дѣлу, создавъ грозную морскую силу, которая доминировала надъ архипелагомъ. Кампанiя завершилась въ 1800 году стратегическимъ решенiемъ покинуть острова, перенаправивъ имперскiе ресурсы на новые горизонты.">
-                        The alliance with the Scots (1765–1800) proved decisive. Their lost fleet joined the imperial cause, creating a formidable naval force that dominated the archipelago. The campaign ended in 1800 with the strategic decision to abandon the islands, redirecting imperial resources toward new horizons.
+                    <h3 data-en="Admiral James Norridon: The Eternal Rival" data-ru="Адмиралъ Джеймсъ Норридонъ: Вѣчный Соперникъ">Admiral James Norridon: The Eternal Rival</h3>
+                    <p class="book-text" data-en="The war between Britain and what would become the Sacred Daniel's Empire began long before the empire even existed, back when Daniel was just a lord. At every turn, Admiral James Norridon of the Royal Navy was there to oppose him. Their clashes were never decisive. Norridon was a calculating tactician, a master of disciplined broadsides. Daniel fought like a privateer king, unpredictable, ruthless, and always one step ahead. Despite the bloodshed, Lord Daniel admired Norridon. He never relied on dishonorable tricks. He commanded with honor, even in defeat. In later years, Daniel would sometimes stand on the imperial docks, staring at the horizon. Some claimed that, on quiet nights, the emperor would raise a glass of rum and say: 'To Norridon. May the depths be kinder to him than I ever was.'" data-ru="Война между Британіей и тѣмъ, что впослѣдствіи стало Имперіей Священнаго Даніила, началась задолго до появленія самой имперіи, еще когда Даніилъ былъ лишь владыкой. И на каждомъ шагу на пути его стоялъ адмиралъ Джеймсъ Норридонъ изъ Королевскаго флота. Схватки ихъ никогда не бывали рѣшительными. Норридонъ былъ расчетливымъ тактикомъ, мастеромъ дисциплинированныхъ залповъ. Даніилъ же сражался, какъ король каперов — непредсказуемо, безпощадно, всегда на шагъ опережая. Несмотря на кровопролитіе, Владыка Даніилъ уважалъ Норридона. Тотъ никогда не прибѣгалъ къ безчестнымъ уловкамъ. Онъ командовалъ съ честью, даже въ пораженіи. Въ поздніе годы Даніилъ иногда стоялъ на императорскихъ причалахъ, вглядываясь въ горизонтъ. Говорятъ, что тихими ночами императоръ поднималъ стаканъ рома и произносилъ: «За Норридона. Пусть глубины будутъ къ нему милостивѣе, чѣмъ я».">
+                        The war between Britain and what would become the Sacred Daniel's Empire began long before the empire even existed, back when Daniel was just a lord. At every turn, Admiral James Norridon of the Royal Navy was there to oppose him. Their clashes were never decisive. Norridon was a calculating tactician, a master of disciplined broadsides. Daniel fought like a privateer king, unpredictable, ruthless, and always one step ahead. Despite the bloodshed, Lord Daniel admired Norridon. He never relied on dishonorable tricks. He commanded with honor, even in defeat. In later years, Daniel would sometimes stand on the imperial docks, staring at the horizon. Some claimed that, on quiet nights, the emperor would raise a glass of rum and say: "To Norridon. May the depths be kinder to him than I ever was."
                     </p>
                 </div>
 
                 <div class="book-section">
-                    <h3 data-en="The Reforms of 1910" data-ru="Реформы 1910 года">The Reforms of 1910</h3>
-                    <p class="book-text" data-en="The Imperial Judicial Reform of 1910 was a turning point. Inspired by the case of Subject S., the 'Torden Street Butcher,' the reform stripped nobility of procedural immunity, establishing equality before the law." data-ru="Императорская Судебная Реформа 1910 года стала поворотнымъ моментомъ. Вдохновленная дѣломъ Субъекта С., 'Мясника с Торден-стрит,' реформа лишила дворянъ процедурного иммунитета, установивъ равенство передъ закономъ.">
-                        The Imperial Judicial Reform of 1910 was a turning point. Inspired by the case of Subject S., the "Torden Street Butcher," the reform stripped nobility of procedural immunity, establishing equality before the law.
+                    <h3 data-en="The Mystery of the Forbidden Island (1100 AD)" data-ru="Тайна Запретнаго Острова (1100 г. по Р.Х.)">The Mystery of the Forbidden Island (1100 AD)</h3>
+                    <p class="book-text" data-en="In the year 1100, Daniel gathered a crew of raw recruits and set sail aboard the Mini Angel on a lone voyage eastward. His goal was an uncharted island, absent from all known maps. Upon landing, Daniel ordered camp to be set up within sight of the ship. But as night fell, shadows emerged from the trees: feral tribesmen, clad in animal hides and wielding bone knives. They encircled the camp but did not attack. On the fourth day, hundreds of warriors flooded the shore. Their faces were twisted not with rage, but terror. By dawn, the camp was littered with bodies. The survivors scrambled aboard the Mini Angel. As the ship pulled away, something strange happened: the tribesmen did not loot the camp. Instead, they fled into the forest. Later, in his cabin, Daniel wrote in the ship's log: 'They feared not us. They fled from something else… something in the high valleys.' From that day, the island's coordinates were purged from Imperial charts." data-ru="Въ году 1100 Даніилъ собралъ команду изъ новобранцевъ и отплылъ на «Маломъ Ангелѣ» въ одинокое плаваніе на востокъ. Цѣлью его былъ не нанесенный ни на однѣ карты островъ. Высадившись, Даніилъ приказалъ разбить лагерь въ виду корабля. Но съ наступленіемъ ночи изъ деревьевъ выступили тѣни: дикіе туземцы, одѣтые въ звѣриныя шкуры и вооруженные костяными ножами. Они окружили лагерь, но не нападали. На четвертый день сотни воиновъ наводнили берегъ. Лица ихъ были искажены не гнѣвомъ, но ужасомъ. Къ разсвѣту лагерь былъ устланъ тѣлами. Выжившіе взобрались на «Малаго Ангела». Когда корабль отошелъ отъ берега, случилось нѣчто странное: туземцы не стали грабить лагерь. Вмѣсто того они скрылись въ лѣсу. Позже, въ своей каютѣ, Даніилъ записалъ въ судовомъ журналѣ: «Они боялись не насъ. Они бѣжали отъ чего-то иного… отъ чего-то въ высокихъ долинахъ». Съ того дня координаты острова были изъяты изъ имперскихъ картъ.">
+                        In the year 1100, Daniel gathered a crew of raw recruits and set sail aboard the Mini Angel on a lone voyage eastward. His goal was an uncharted island, absent from all known maps. Upon landing, Daniel ordered camp to be set up within sight of the ship. But as night fell, shadows emerged from the trees: feral tribesmen, clad in animal hides and wielding bone knives. They encircled the camp but did not attack. On the fourth day, hundreds of warriors flooded the shore. Their faces were twisted not with rage, but terror. By dawn, the camp was littered with bodies. The survivors scrambled aboard the Mini Angel. As the ship pulled away, something strange happened: the tribesmen did not loot the camp. Instead, they fled into the forest. Later, in his cabin, Daniel wrote in the ship's log: "They feared not us. They fled from something else… something in the high valleys." From that day, the island's coordinates were purged from Imperial charts.
                     </p>
-                    <p class="book-text" data-en="This era also saw the rise of the Legion of the Squid, a militant religious order that became the empire's spiritual and military backbone. Their inquisitors, led by Lord Def, enforced the Kraken's will with unwavering zeal." data-ru="Эта эпоха также ознаменовала возвышенiе Легiона Кальмара, воинственного религиознаго ордена, ставшаго духовнымъ и военнымъ хребтомъ имперiи. Ихъ инквизиторы во главѣ съ Лордомъ Дефомъ съ непоколебимымъ рвенiемъ утверждали волю Кракена.">
-                        This era also saw the rise of the Legion of the Squid, a militant religious order that became the empire's spiritual and military backbone. Their inquisitors, led by Lord Def, enforced the Kraken's will with unwavering zeal.
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="The Archipelago Campaign (1760–1800)" data-ru="Архипелагская Кампанiя (1760–1800)">The Archipelago Campaign (1760–1800)</h3>
+                    <p class="book-text" data-en="In the latter half of the 18th century, the Empire stumbled upon a remote, nameless archipelago. Among them, one island stood out: a jagged landmass cradling the wreck of a massive ship. Recognizing its strategic value, the Empire claimed it as their own. Their presence did not go unnoticed. The Dublin Fleet saw the Empire's expansion as a dire threat. In 1798, Dublin's captains formally declared war. The Empire's response was swift and brutal. Under the command of the legendary Admiral Bharath, they annihilated the Dublin Fleet, sending its shattered remnants to Davy Jones' locker and securing their dominion over the islands." data-ru="Во второй половинѣ XVIII вѣка Имперія наткнулась на отдаленный, безъимянный архипелагъ. Среди них особенно выдѣлялся один: скалистый клочокъ земли, въ которомъ покоились останки огромнаго корабля. Признавъ его стратегическую цѣнность, имперія объявила его своимъ. Ихъ присутствіе не осталось незамѣченнымъ. Дублинскій флотъ усмотрѣлъ въ экспансіи Имперіи прямую угрозу. Въ 1798 году капитаны Дублина формально объявили войну. Отвѣтъ имперіи былъ скоръ и жестокъ. Подъ командованіемъ легендарнаго адмирала Бхарата они уничтожили Дублинскій флотъ, отправивъ его разбитые остатки на дно, и утвердили свое господство надъ островами.">
+                        In the latter half of the 18th century, the Empire stumbled upon a remote, nameless archipelago. Among them, one island stood out: a jagged landmass cradling the wreck of a massive ship. Recognizing its strategic value, the Empire claimed it as their own. Their presence did not go unnoticed. The Dublin Fleet saw the Empire's expansion as a dire threat. In 1798, Dublin's captains formally declared war. The Empire's response was swift and brutal. Under the command of the legendary Admiral Bharath, they annihilated the Dublin Fleet, sending its shattered remnants to Davy Jones' locker and securing their dominion over the islands.
+                    </p>
+                    <p class="book-text" data-en="The alliance with the Scots (1765-1800) proved decisive. Their lost fleet joined the imperial cause, creating a formidable naval force that dominated the archipelago. By 1797, the Scottish command had decided to prepare to sail home. A final, raucous feast was held in the main imperial port. As a final act of safety, a gentleman's agreement was sealed: the Scots vowed to erase the archipelago's location from their official logs. With the dawn of a new century in 1800, as history records, the Sacred Daniel's Empire itself made the strategic decision to abandon the archipelago for greater ambitions elsewhere." data-ru="Союзъ съ шотландцами (1765–1800) оказался решающимъ. Ихъ потерянный флотъ присоединился къ имперскому дѣлу, создавъ грозную морскую силу, которая доминировала надъ архипелагомъ. Къ 1797 году шотландское командованіе рѣшило готовиться къ отплытію домой. Послѣдній шумный пиръ былъ устроенъ въ главномъ имперскомъ порту. Какъ заключительный актъ безопасности, было скрѣплено джентльменское соглашеніе: шотландцы обязались вычеркнуть координаты архипелага изъ своихъ офиціальныхъ журналовъ. Съ наступленіемъ новаго вѣка, въ 1800 году, какъ гласитъ исторія, сама Имперія Священнаго Даніила приняла стратегическое рѣшеніе покинуть архипелагъ ради иныхъ, болѣе великихъ цѣлей.">
+                        The alliance with the Scots (1765-1800) proved decisive. Their lost fleet joined the imperial cause, creating a formidable naval force that dominated the archipelago. By 1797, the Scottish command had decided to prepare to sail home. A final, raucous feast was held in the main imperial port. As a final act of safety, a gentleman's agreement was sealed: the Scots vowed to erase the archipelago's location from their official logs. With the dawn of a new century in 1800, as history records, the Sacred Daniel's Empire itself made the strategic decision to abandon the archipelago for greater ambitions elsewhere.
+                    </p>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="The Tale of Lyn Torden" data-ru="Повѣсть о Линѣ Торденѣ">The Tale of Lyn Torden</h3>
+                    <p class="book-text" data-en="The man who called himself Lyn Torden appeared in the empire without a past, just a name, a sharp mind, and hands that knew cannons better than anything else. He rose swiftly to musketeer. His true test came during the Battle of Dublin. While officers shouted orders and marines braced for boarding, Lyn moved between the guns, ensuring each shot struck true. When enemy fire tore into the hull, he dashed belowdecks, hammering patches into splintered wood. By battle's end, the galleon stood victorious, thanks in no small part to the silent gunner. In the drunken revelry that followed, Lyn drank with the crew, laughed at their stories, and vanished by dawn. No resignation. No farewell. Just gone. The Legion launched a secret investigation, and reached a divine conclusion: Lyn Torden was a blessed spirit sent by the Kraken himself. A saint who had walked among them, only to return to the abyss once his duty was done." data-ru="Человѣкъ, назвавшійся Линомъ Торденомъ, появился въ имперіи безъ прошлаго — только имя, острый умъ и руки, знавшія пушки лучше всего прочаго. Онъ быстро дослужился до мушкетера. Истинное испытаніе пришло во время Битвы за Дублинъ. Пока офицеры выкрикивали приказы, а морская пѣхота готовилась къ абордажу, Линъ двигался межъ орудій, добиваясь, чтобы каждый выстрѣлъ достигалъ цѣли. Когда вражеское ядро пробило бортъ, онъ бросился внизъ, заколачивая доски въ расщепленное дерево. Къ концу битвы галеонъ стоялъ побѣдителемъ, во многомъ благодаря безмолвному канониру. Въ хмельномъ весельѣ, послѣдовавшемъ за побѣдой, Линъ пилъ съ командой, смѣялся надъ ихъ байками — и исчезъ на разсвѣтѣ. Безъ отставки. Безъ прощанія. Просто — ушелъ. Легіонъ началъ тайное разслѣдованіе и пришелъ къ божественному заключенію: Линъ Торденъ былъ благословеннымъ духомъ, посланнымъ самимъ Кракеномъ. Святымъ, который ходилъ среди нихъ, дабы возвратиться въ бездну, когда долгъ его былъ исполненъ.">
+                        The man who called himself Lyn Torden appeared in the empire without a past, just a name, a sharp mind, and hands that knew cannons better than anything else. He rose swiftly to musketeer. His true test came during the Battle of Dublin. While officers shouted orders and marines braced for boarding, Lyn moved between the guns, ensuring each shot struck true. When enemy fire tore into the hull, he dashed belowdecks, hammering patches into splintered wood. By battle's end, the galleon stood victorious, thanks in no small part to the silent gunner. In the drunken revelry that followed, Lyn drank with the crew, laughed at their stories, and vanished by dawn. No resignation. No farewell. Just gone. The Legion launched a secret investigation, and reached a divine conclusion: Lyn Torden was a blessed spirit sent by the Kraken himself. A saint who had walked among them, only to return to the abyss once his duty was done.
+                    </p>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="The Transition of Power (1850–1880)" data-ru="Переходъ власти (1850–1880)">The Transition of Power (1850–1880)</h3>
+                    <p class="book-text" data-en="In the mid-19th century, the Empire faced an unprecedented crisis. The ailing monarch, Daniel, succumbed to a mysterious illness, leaving the throne without a clear successor. Admiral Bharath was proclaimed ruler in 1850. However, his reign proved short-lived. By 1855, facing mounting pressure, Bharath abdicated. Following Bharath's abdication, the Secret Council convened to select a new ruler. Their choice fell upon Aidar, a nobleman with a distinguished naval career. Aidar's reign was marked by stability and resurgence. On December 5, 1880, Vice-Admiral Daniel was revealed to be the direct heir to the throne. Aidar willingly stepped down, fulfilling his duty to restore the rightful dynasty." data-ru="Въ серединѣ XIX вѣка Имперія столкнулась съ безпрецедентнымъ кризисомъ. Больной монархъ, Даніилъ, скончался отъ таинственной болѣзни, оставивъ престолъ безъ яснаго наслѣдника. Адмиралъ Бхаратъ былъ провозглашенъ правителемъ въ 1850 году. Однако его правленіе оказалось недолгимъ. Къ 1855 году, подъ нарастающимъ давленіемъ, Бхаратъ отрекся. Послѣ отреченія Бхарата, Тайный Совѣтъ собрался для избранія новаго правителя. Выборъ ихъ палъ на Айдара, дворянина съ выдающейся морскою карьерой. Правленіе Айдара было отмѣчено стабильностью и возрожденіем. 5-го декабря 1880 года вице-адмиралъ Даніилъ былъ объявленъ прямымъ наслѣдникомъ престола. Айдаръ добровольно уступилъ власть, исполнивъ свой долгъ по возстановленію законной династіи.">
+                        In the mid-19th century, the Empire faced an unprecedented crisis. The ailing monarch, Daniel, succumbed to a mysterious illness, leaving the throne without a clear successor. Admiral Bharath was proclaimed ruler in 1850. However, his reign proved short-lived. By 1855, facing mounting pressure, Bharath abdicated. Following Bharath's abdication, the Secret Council convened to select a new ruler. Their choice fell upon Aidar, a nobleman with a distinguished naval career. Aidar's reign was marked by stability and resurgence. On December 5, 1880, Vice-Admiral Daniel was revealed to be the direct heir to the throne. Aidar willingly stepped down, fulfilling his duty to restore the rightful dynasty.
                     </p>
                 </div>
 
                 <div class="book-section">
                     <h3 data-en="Modern Era" data-ru="Современная Эпоха">Modern Era</h3>
-                    <p class="book-text" data-en="Today, the empire continues its maritime traditions, combining ancient pirate customs with modern naval technology. The Dark Sea remains a mystery, its depths hiding creatures that defy understanding." data-ru="Сегодня имперiя продолжаетъ свои морскiя традицiи, сочетая древнiе пиратские обычаи съ современными военно-морскими технологиями. Темное Море остается загадкой, въ его глубинахъ скрываются существа, бросающiе вызовъ пониманiю.">
-                        Today, the empire continues its maritime traditions, combining ancient pirate customs with modern naval technology. The Dark Sea remains a mystery, its depths hiding creatures that defy understanding.
-                    </p>
-                    <p class="book-text" data-en="The current emperor, Daniel de Courno, fights his own battles, embodying the resilience and determination that have defined the empire for centuries." data-ru="Текущiй императоръ, Данiилъ де Курно, сражается со своими собственными битвами, воплощая стойкость и решимость, которыя опредѣляли имперiю на протяжении вѣковъ.">
-                        The current emperor, Daniel de Courno, fights his own battles, embodying the resilience and determination that have defined the empire for centuries.
+                    <p class="book-text" data-en="Today, the empire continues its maritime traditions, combining ancient pirate customs with modern naval technology. The Dark Sea remains a mystery, its depths hiding creatures that defy understanding. The current emperor, Daniel de Courno, fights his own battles, embodying the resilience and determination that have defined the empire for centuries." data-ru="Сегодня имперiя продолжаетъ свои морскiя традицiи, сочетая древнiе пиратские обычаи съ современными военно-морскими технологиями. Темное Море остается загадкой, въ его глубинахъ скрываются существа, бросающiе вызовъ пониманiю. Текущiй императоръ, Данiилъ де Курно, сражается со своими собственными битвами, воплощая стойкость и решимость, которыя опредѣляли имперiю на протяжении вѣковъ.">
+                        Today, the empire continues its maritime traditions, combining ancient pirate customs with modern naval technology. The Dark Sea remains a mystery, its depths hiding creatures that defy understanding. The current emperor, Daniel de Courno, fights his own battles, embodying the resilience and determination that have defined the empire for centuries.
                     </p>
                 </div>
 
@@ -2238,7 +2291,7 @@
             </div>
         </div>
         
-        <!-- CODEX PAGE - Book style with embedded content -->
+        <!-- CODEX PAGE - Book style with embedded content from Daniel's Sacred Codex1.html -->
         <div id="codex" class="page">
             <div class="book-page">
                 <div class="book-title" data-en="Sacred Codex of Daniel" data-ru="Священный Кодексъ Данiила">Sacred Codex of Daniel</div>
@@ -2248,21 +2301,22 @@
                     <p class="book-text" data-en="The Codex is the supreme legal document of the empire. It establishes the absolute authority of the emperor, the rights and duties of citizens, and the structure of governance. All laws are derived from this sacred text." data-ru="Кодексъ является высшимъ юридическимъ документомъ имперiи. Онъ устанавливаетъ абсолютную власть императора, права и обязанности гражданъ, а также структуру управленiя. Всѣ законы проистекаютъ изъ этого священнаго текста.">
                         The Codex is the supreme legal document of the empire. It establishes the absolute authority of the emperor, the rights and duties of citizens, and the structure of governance. All laws are derived from this sacred text.
                     </p>
-                    <div class="book-article">
+                    
+                    <div class="book-codex-article">
                         <h5 data-en="Article I: The Emperor" data-ru="Статья I: Императоръ">Article I: The Emperor</h5>
-                        <p class="book-text" data-en="The Emperor is the living embodiment of the empire. His word is law, and his will is the will of the Kraken. He commands the navy, the army, and the Legion of the Squid. No law may be enacted without his seal." data-ru="Императоръ является живымъ воплощенiемъ имперiи. Его слово — законъ, его воля — воля Кракена. Онъ командуетъ флотомъ, армiей и Легiономъ Кальмара. Ни одинъ законъ не можетъ быть принятъ безъ его печати.">
+                        <p class="book-article-text" data-en="The Emperor is the living embodiment of the empire. His word is law, and his will is the will of the Kraken. He commands the navy, the army, and the Legion of the Squid. No law may be enacted without his seal." data-ru="Императоръ является живымъ воплощенiемъ имперiи. Его слово — законъ, его воля — воля Кракена. Онъ командуетъ флотомъ, армiей и Легiономъ Кальмара. Ни одинъ законъ не можетъ быть принятъ безъ его печати.">
                             The Emperor is the living embodiment of the empire. His word is law, and his will is the will of the Kraken. He commands the navy, the army, and the Legion of the Squid. No law may be enacted without his seal.
                         </p>
                     </div>
-                    <div class="book-article">
+                    <div class="book-codex-article">
                         <h5 data-en="Article II: Citizenship" data-ru="Статья II: Гражданство">Article II: Citizenship</h5>
-                        <p class="book-text" data-en="Citizenship is granted to those who swear allegiance to the emperor and the Kraken. Citizens have the right to sail under the imperial flag, trade in imperial ports, and seek justice in imperial courts. Citizenship can be revoked for treason, heresy, or cowardice in battle." data-ru="Гражданство предоставляется тѣмъ, кто присягаетъ на верность императору и Кракену. Граждане имеютъ право плавать подъ имперскимъ флагомъ, торговать въ имперскихъ портахъ и искать справедливости въ имперскихъ судахъ. Гражданство можетъ быть лишено за измену, ересь или трусость въ бою.">
+                        <p class="book-article-text" data-en="Citizenship is granted to those who swear allegiance to the emperor and the Kraken. Citizens have the right to sail under the imperial flag, trade in imperial ports, and seek justice in imperial courts. Citizenship can be revoked for treason, heresy, or cowardice in battle." data-ru="Гражданство предоставляется тѣмъ, кто присягаетъ на верность императору и Кракену. Граждане имеютъ право плавать подъ имперскимъ флагомъ, торговать въ имперскихъ портахъ и искать справедливости въ имперскихъ судахъ. Гражданство можетъ быть лишено за измену, ересь или трусость въ бою.">
                             Citizenship is granted to those who swear allegiance to the emperor and the Kraken. Citizens have the right to sail under the imperial flag, trade in imperial ports, and seek justice in imperial courts. Citizenship can be revoked for treason, heresy, or cowardice in battle.
                         </p>
                     </div>
-                    <div class="book-article">
+                    <div class="book-codex-article">
                         <h5 data-en="Article III: The Navy" data-ru="Статья III: Флотъ">Article III: The Navy</h5>
-                        <p class="book-text" data-en="The Imperial Navy is the sword and shield of the empire. Every citizen is required to serve at least six years in the navy. The Admiral of the Fleet is appointed by the emperor and serves as his second-in-command at sea." data-ru="Императорскiй флотъ является мечомъ и щитомъ имперiи. Каждый гражданинъ обязанъ прослужить не менее шести летъ во флотѣ. Адмиралъ флота назначается императоромъ и является его заместителемъ на море.">
+                        <p class="book-article-text" data-en="The Imperial Navy is the sword and shield of the empire. Every citizen is required to serve at least six years in the navy. The Admiral of the Fleet is appointed by the emperor and serves as his second-in-command at sea." data-ru="Императорскiй флотъ является мечомъ и щитомъ имперiи. Каждый гражданинъ обязанъ прослужить не менее шести летъ во флотѣ. Адмиралъ флота назначается императоромъ и является его заместителемъ на море.">
                             The Imperial Navy is the sword and shield of the empire. Every citizen is required to serve at least six years in the navy. The Admiral of the Fleet is appointed by the emperor and serves as his second-in-command at sea.
                         </p>
                     </div>
@@ -2273,22 +2327,105 @@
                     <p class="book-text" data-en="The Legion of the Squid is the military-religious order of the empire. Its members are warriors, inquisitors, and scholars dedicated to the worship of the Kraken. The Legion enforces the faith, guards the empire's relics, and leads crusades against heretics and infidels." data-ru="Легiонъ Кальмара является военно-религиознымъ орденомъ имперiи. Его члены — воины, инквизиторы и ученые, посвятившие себя почитанiю Кракена. Легiонъ утверждаетъ вѣру, охраняетъ реликвiи имперiи и возглавляетъ крестовые походы противъ еретиковъ и невѣрныхъ.">
                         The Legion of the Squid is the military-religious order of the empire. Its members are warriors, inquisitors, and scholars dedicated to the worship of the Kraken. The Legion enforces the faith, guards the empire's relics, and leads crusades against heretics and infidels.
                     </p>
-                    <div class="book-article">
+                    <div class="book-codex-article">
                         <h5 data-en="The Inquisitors" data-ru="Инквизиторы">The Inquisitors</h5>
-                        <p class="book-text" data-en="The Inquisitors are the Legion's most zealous members. They root out heresy, investigate crimes against the faith, and ensure the purity of the empire's doctrine. Their authority extends to all citizens, including nobles." data-ru="Инквизиторы являются самыми ревностными членами Легiона. Они искореняютъ ересь, расследуютъ преступления противъ вѣры и обеспечиваютъ чистоту доктрины имперiи. Ихъ власть распространяется на всѣхъ гражданъ, включая дворянъ.">
+                        <p class="book-article-text" data-en="The Inquisitors are the Legion's most zealous members. They root out heresy, investigate crimes against the faith, and ensure the purity of the empire's doctrine. Their authority extends to all citizens, including nobles." data-ru="Инквизиторы являются самыми ревностными членами Легiона. Они искореняютъ ересь, расследуютъ преступления противъ вѣры и обеспечиваютъ чистоту доктрины имперiи. Ихъ власть распространяется на всѣхъ гражданъ, включая дворянъ.">
                             The Inquisitors are the Legion's most zealous members. They root out heresy, investigate crimes against the faith, and ensure the purity of the empire's doctrine. Their authority extends to all citizens, including nobles.
                         </p>
                     </div>
-                    <div class="book-article">
+                    <div class="book-codex-article">
                         <h5 data-en="The Sacred Vessels" data-ru="Священные Сосуды">The Sacred Vessels</h5>
-                        <p class="book-text" data-en="The Legion is tasked with protecting the empire's sacred vessels, chief among them the Mini Angel. These ships are not merely warships but relics of the faith, blessed by the Kraken himself." data-ru="Легiону поручена защита священныхъ сосудовъ имперiи, главнымъ изъ которыхъ является Минi Ангелъ. Эти корабли являются не просто военными судами, но реликвiями вѣры, благословленными самимъ Кракеномъ.">
+                        <p class="book-article-text" data-en="The Legion is tasked with protecting the empire's sacred vessels, chief among them the Mini Angel. These ships are not merely warships but relics of the faith, blessed by the Kraken himself." data-ru="Легiону поручена защита священныхъ сосудовъ имперiи, главнымъ изъ которыхъ является Минi Ангелъ. Эти корабли являются не просто военными судами, но реликвiями вѣры, благословленными самимъ Кракеномъ.">
                             The Legion is tasked with protecting the empire's sacred vessels, chief among them the Mini Angel. These ships are not merely warships but relics of the faith, blessed by the Kraken himself.
                         </p>
                     </div>
                 </div>
 
                 <div class="book-section">
-                    <h3 data-en="Part III: The Dark Sea" data-ru="Часть III: Темное Море">Part III: The Dark Sea</h3>
+                    <h3 data-en="Part III: Additional Codex Articles" data-ru="Часть III: Дополнительныя Статьи Кодекса">Part III: Additional Codex Articles</h3>
+                    
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 4: Share of Loot" data-ru="Статья 4: Раздѣлъ добычи">Article 4: Share of Loot</h5>
+                        <p class="book-article-text" data-en="All loot must be divided properly between all the members even if the captain itself. Punishment is no loot or reward for 2 upcoming events." data-ru="Вся добыча должна быть раздѣлена должнымъ образомъ между всѣми участниками, включая самаго Капитана. Наказаніе — лишеніе добычи или награды на два предстоящихъ похода.">
+                            All loot must be divided properly between all the members even if the captain itself. Punishment is no loot or reward for 2 upcoming events.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 7: Pirate's Code of Honor" data-ru="Статья 7: Пиратскiй Кодексъ Чести">Article 7: Pirate's Code of Honor</h5>
+                        <p class="book-article-text" data-en="Pirates must respect each other and not betray their allies. Violators are banished from the empire." data-ru="Пираты должны уважать другъ друга и не предавать своихъ союзниковъ. Нарушители изгоняются изъ Имперiи.">
+                            Pirates must respect each other and not betray their allies. Violators are banished from the empire.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 9: Protection of Women" data-ru="Статья 9: Защита женщинъ">Article 9: Protection of Women</h5>
+                        <p class="book-article-text" data-en="If anyone tries to take possession of a woman without her consent, he will be sentenced to death." data-ru="Ежели кто дерзнетъ завладѣть женщиною безъ ея согласія, таковой приговаривается къ смерти.">
+                            If anyone tries to take possession of a woman without her consent, he will be sentenced to death.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 11: Prohibition of Torture" data-ru="Статья 11: Запрещеніе пытокъ">Article 11: Prohibition of Torture</h5>
+                        <p class="book-article-text" data-en="Torture of prisoners is prohibited unless authorized by the emperor." data-ru="Пытки плѣнныхъ воспрещаются, кромѣ случаевъ, разрѣшенныхъ Императоромъ.">
+                            Torture of prisoners is prohibited unless authorized by the emperor.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 13: Prohibition of Rebellion" data-ru="Статья 13: Запрещенiе мятежа">Article 13: Prohibition of Rebellion</h5>
+                        <p class="book-article-text" data-en="Any rebellion against the emperor's family or his representatives is punishable by death." data-ru="Всякое возстаніе противъ Императорскаго Дома или его представителей карается смертью.">
+                            Any rebellion against the emperor's family or his representatives is punishable by death.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 14: The Royal Court" data-ru="Статья 14: Царскiй Судъ">Article 14: The Royal Court</h5>
+                        <p class="book-article-text" data-en="All disputes are settled by the Royal Court. Fights on the ship are prohibited, duels with swords or pistols can only take place on the shore." data-ru="Всѣ споры рѣшаются Царскимъ Судомъ. Ссоры на кораблѣ воспрещаются; дуэли на шпагахъ или пистолетахъ дозволяются лишь на берегу.">
+                            All disputes are settled by the Royal Court. Fights on the ship are prohibited, duels with swords or pistols can only take place on the shore.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 19: Stay on the Ship" data-ru="Статья 19: Пребыванiе на кораблѣ">Article 19: Stay on the Ship</h5>
+                        <p class="book-article-text" data-en="Anyone who leaves the ship during the battle will be executed or landed on an uninhabited island." data-ru="Всякій, покинувшій корабль во время битвы, подлежитъ казни или высадкѣ на необитаемый островъ.">
+                            Anyone who leaves the ship during the battle will be executed or landed on an uninhabited island.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 21: Prohibition of Witchcraft" data-ru="Статья 21: Запрещенiе колдовства">Article 21: Prohibition of Witchcraft</h5>
+                        <p class="book-article-text" data-en="Witchcraft and magic are allowed for the tasks of helping the empire. It requires proof that you are not a charlatan and subsequently obtaining an official document with the seal of the emperor himself." data-ru="Колдовство и магическiя дѣйствiя дозволяются лишь для вспомоществованiя Имперiи, съ обязательнымъ доказательствомъ отсутствiя шарлатанства и послѣдующимъ полученiемъ офиціальнаго документа за печатью самаго Императора.">
+                            Witchcraft and magic are allowed for the tasks of helping the empire. It requires proof that you are not a charlatan and subsequently obtaining an official document with the seal of the emperor himself.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 29: Prohibition of Counterfeiting Coins" data-ru="Статья 29: Запрещенiе поддѣлки монетъ">Article 29: Prohibition of Counterfeiting Coins</h5>
+                        <p class="book-article-text" data-en="Counterfeiting of royal currency is punishable by death." data-ru="Поддѣлка государственной монеты карается смертью.">
+                            Counterfeiting of royal currency is punishable by death.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 39: Prohibition of Betrayal" data-ru="Статья 39: Запрещенiе измѣны">Article 39: Prohibition of Betrayal</h5>
+                        <p class="book-article-text" data-en="Betrayal of the kingdom is punishable by death." data-ru="Измѣна Царству карается смертью.">
+                            Betrayal of the kingdom is punishable by death.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 40: Oath of Allegiance" data-ru="Статья 40: Присяга на вѣрность">Article 40: Oath of Allegiance</h5>
+                        <p class="book-article-text" data-en="Every pirate is required to swear an oath of allegiance to the Daniel or his great advisor." data-ru="Каждый пиратъ обязанъ принести присягу на вѣрность Данiилу или его Великому Совѣтнику.">
+                            Every pirate is required to swear an oath of allegiance to the Daniel or his great advisor.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 42: Emperor's Mental Health" data-ru="Статья 42: Душевное здравiе Императора">Article 42: Emperor's Mental Health</h5>
+                        <p class="book-article-text" data-en="If our highly respected and beloved operator is delirious and unable to give a full order, then all decisions will be made by his wife. In the absence of the empress, the heir will make the choice. If the heir has not reached the age of majority, he will make decisions together with the ministers, that is, a council of ministers will be formed in the capital for the duration of the illness of the current emperor." data-ru="Ежели нашъ высокочтимый и возлюбленный Государь находится въ бреду и не можетъ отдавать полныхъ приказовъ, всѣ рѣшенія принимаются его Супругой. За отсутствіемъ Императрицы — Наслѣдникомъ. Ежели Наслѣдникъ не достигъ совершеннолѣтія, онъ рѣшаетъ совмѣстно съ министрами, и на время болѣзни Императора образуется Совѣтъ Министровъ въ столицѣ.">
+                            If our highly respected and beloved operator is delirious and unable to give a full order, then all decisions will be made by his wife. In the absence of the empress, the heir will make the choice. If the heir has not reached the age of majority, he will make decisions together with the ministers, that is, a council of ministers will be formed in the capital for the duration of the illness of the current emperor.
+                        </p>
+                    </div>
+                    <div class="book-codex-article">
+                        <h5 data-en="Article 56: Propaganda of Ideology Contradicting Monarchical Principles" data-ru="Статья 56: Пропаганда идеологiи, противной монархическимъ началамъ">Article 56: Propaganda of Ideology Contradicting Monarchical Principles</h5>
+                        <p class="book-article-text" data-en="Propaganda of ideology contradicting monarchical principles and values shall be punished. Promotion of communism will result in execution and feeding the culprit to sharks." data-ru="За пропаганду идеологiи, противной монархическимъ началамъ и цѣнностямъ, могутъ быть наложены административныя взысканiя, штрафы или тюремное заключенiе. Пропаганда коммунизма влечётъ казнь и скармливаніе трупа акуламъ.">
+                            Propaganda of ideology contradicting monarchical principles and values shall be punished. Promotion of communism will result in execution and feeding the culprit to sharks.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="Part IV: The Dark Sea" data-ru="Часть IV: Темное Море">Part IV: The Dark Sea</h3>
                     <p class="book-text" data-en="The Dark Sea is a sacred and forbidden region. Its waters are home to the Kraken and his children—creatures of immense size and fury. Only authorized expeditions may enter, and they must be blessed by the Legion before departure." data-ru="Темное Море является священнымъ и запретнымъ региономъ. Его воды являются домомъ для Кракена и его детей — существъ огромныхъ размеровъ и ярости. Только авторизованныя экспедицiи могутъ войти, и онѣ должны быть благословлены Легiономъ передъ отплытiемъ.">
                         The Dark Sea is a sacred and forbidden region. Its waters are home to the Kraken and his children—creatures of immense size and fury. Only authorized expeditions may enter, and they must be blessed by the Legion before departure.
                     </p>
@@ -2353,6 +2490,13 @@
                         <li><strong data-en="Admiralty Court:" data-ru="Адмиралтейский Судъ:">Admiralty Court:</strong> <span data-en="Handles maritime law, piracy, and naval disputes." data-ru="Занимается морскимъ правомъ, пиратствомъ и военно-морскими спорами.">Handles maritime law, piracy, and naval disputes.</span></li>
                         <li><strong data-en="Inquisition Tribunal:" data-ru="Инквизиционный Трибуналъ:">Inquisition Tribunal:</strong> <span data-en="The Legion's internal court for matters of faith and doctrine." data-ru="Внутреннiй судъ Легiона по вопросамъ вѣры и доктрины.">The Legion's internal court for matters of faith and doctrine.</span></li>
                     </ul>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="Ministers of the Empire" data-ru="Министры Имперiи">Ministers of the Empire</h3>
+                    <p class="book-text" data-en="The Imperial Ministry comprises the highest echelon of governance, with the following offices: Minister of Military Affairs, Minister of Economy and Finance, Minister of Family and Relations, Minister of Foreign Affairs, Minister of Health, Minister of Technology and Scientific Progress, Ministers for Estate Affairs (Peasant, Urban, Nobility), Minister of Ecology, Minister of Basic Education, Minister of Agriculture, Minister of Services, Minister of Pirate Affairs, Minister of News Affairs, Minister of Social Security and Honor Protection, and Minister of the Banking System." data-ru="Императорское Министерство составляетъ высшiй эшелонъ управленiя со слѣдующими должностями: Военный Министръ, Министръ Экономики и Финансовъ, Министръ Семьи и Отношенiй, Министръ Иностранныхъ Дѣлъ, Министръ Здравоохраненiя, Министръ Технологий и Научнаго Прогресса, Министры по Сословнымъ Дѣламъ (Крестьянскимъ, Городскимъ, Дворянскимъ), Министръ Экологии, Министръ Начальнаго Образованiя, Министръ Сельскаго Хозяйства, Министръ Услугъ, Министръ Пиратскихъ Дѣлъ, Министръ Новостей, Министръ Соцiальной Безопасности и Защиты Чести, и Министръ Банковской Системы.">
+                        The Imperial Ministry comprises the highest echelon of governance, with the following offices: Minister of Military Affairs, Minister of Economy and Finance, Minister of Family and Relations, Minister of Foreign Affairs, Minister of Health, Minister of Technology and Scientific Progress, Ministers for Estate Affairs (Peasant, Urban, Nobility), Minister of Ecology, Minister of Basic Education, Minister of Agriculture, Minister of Services, Minister of Pirate Affairs, Minister of News Affairs, Minister of Social Security and Honor Protection, and Minister of the Banking System.
+                    </p>
                 </div>
 
                 <div class="book-meta" data-en="— The government serves the Kraken and the empire. May it never waver." data-ru="— Правительство служитъ Кракену и имперiи. Да не поколеблется оно никогда.">
