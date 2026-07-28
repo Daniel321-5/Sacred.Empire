@@ -22,6 +22,7 @@ Technical Notes
 - Fully responsive design (works on mobile/desktop)
 - Hosted on [GitHub]
 - All documents linked via Google 
+- Site is translated into both languages which are: English and Russian pre-revolutionary (according to 1917 rules)
 
 Attention!
 if you are citizen youll be given an unique login and password to log into your personal cabinet. 
