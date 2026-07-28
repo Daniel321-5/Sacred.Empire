@@ -1572,6 +1572,143 @@
                 margin-top: 10px;
             }
         }
+
+        /* Book styles for Codex, Government, History */
+        .book-page {
+            font-family: 'Times New Roman', serif;
+            background-color: #f8f3e9;
+            padding: 2rem;
+            border: 1px solid #b8a88a;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            margin-bottom: 1.5rem;
+        }
+        body.dark-mode .book-page {
+            background-color: #2c241a;
+            border-color: #6b5d4a;
+        }
+        .book-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #1a237e;
+            text-align: center;
+            border-bottom: 3px double #b8a88a;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        body.dark-mode .book-title {
+            color: #d4af37;
+        }
+        .book-section {
+            margin-bottom: 1.8rem;
+        }
+        .book-section h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3a2c1b;
+            border-left: 6px solid #1a237e;
+            padding-left: 1rem;
+            margin-bottom: 0.8rem;
+        }
+        body.dark-mode .book-section h3 {
+            color: #e0d5c0;
+            border-left-color: #d4af37;
+        }
+        .book-section h4 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4a3a2a;
+            margin-top: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        body.dark-mode .book-section h4 {
+            color: #d0c0a8;
+        }
+        .book-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            text-align: justify;
+            margin-bottom: 0.8rem;
+        }
+        .book-text em {
+            font-style: italic;
+            color: #6b5d4a;
+        }
+        body.dark-mode .book-text em {
+            color: #b8a88a;
+        }
+        .book-text strong {
+            color: #1a237e;
+        }
+        body.dark-mode .book-text strong {
+            color: #d4af37;
+        }
+        .book-list {
+            padding-left: 2rem;
+            margin: 0.8rem 0;
+        }
+        .book-list li {
+            margin-bottom: 0.4rem;
+            list-style-type: disc;
+        }
+        .book-list li strong {
+            color: #1a237e;
+        }
+        body.dark-mode .book-list li strong {
+            color: #d4af37;
+        }
+        .book-quote {
+            font-style: italic;
+            background-color: #f0ead8;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #1a237e;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        body.dark-mode .book-quote {
+            background-color: #3a3228;
+            border-left-color: #d4af37;
+        }
+        .book-article {
+            background-color: #fcf9f2;
+            padding: 1.2rem;
+            border-radius: 6px;
+            border: 1px solid #ddd0c0;
+            margin: 1rem 0;
+        }
+        body.dark-mode .book-article {
+            background-color: #2f281f;
+            border-color: #5b4d3a;
+        }
+        .book-article h5 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 0.3rem;
+        }
+        body.dark-mode .book-article h5 {
+            color: #d4af37;
+        }
+        .book-article p {
+            margin-bottom: 0.4rem;
+        }
+        .book-meta {
+            font-size: 0.9rem;
+            color: #6b5d4a;
+            text-align: right;
+            margin-top: 1rem;
+            border-top: 1px solid #ddd0c0;
+            padding-top: 0.8rem;
+        }
+        body.dark-mode .book-meta {
+            color: #a09080;
+            border-top-color: #4a3d2e;
+        }
+        @media (max-width: 768px) {
+            .book-page { padding: 1rem; }
+            .book-title { font-size: 1.6rem; }
+            .book-section h3 { font-size: 1.2rem; }
+        }
     </style>
 </head>
 <body>
@@ -1776,12 +1913,58 @@
             </p>
         </div>
         
+        <!-- HISTORY PAGE - Book style with embedded HTML content -->
         <div id="history" class="page">
-            <h2 data-en="History" data-ru="Исторiя">History</h2>
-            <img src="TBA-SITE/IMG_20250622_170301.jpg" alt="Historical Document" class="page-image">
-            <p data-en="The real location of the empire is unknown but after some skirmishes, myths are saying that its somewhe on South coast of Africa. Empire saved the map of archipelago with its base (black) and fort (red) before leaving it in 1800. Here you can learn the history of the country." data-ru="Настоящее расположенiе имперiи неизвѣстно, но послѣ нѣкоторыхъ стычекъ, легенды говорятъ, что она находится гдѣ-то на южномъ побережьѣ Африки. Имперiя сохранила карту архипелага со своей базой (черный) и фортомъ (красный) передъ тѣмъ, какъ покинуть его въ 1800 году. Здѣсь вы можете узнать исторiю страны.">
-                The real location of the empire is unknown but after some skirmishes, myths are saying that its somewhe on South coast of Africa. Empire saved the map of archipelago with its base (black) and fort (red) before leaving it in 1800. Here you can learn the history of the country. <a href="https://docs.google.com/document/d/1iSz32g8wN5WH6trZ8I9tlJhcz8VL54w27zmrCDE2jCM/edit?usp=drivesdk" target="_blank">Read our history document</a>
-            </p>
+            <div class="book-page">
+                <div class="book-title" data-en="History of the Empire" data-ru="Исторiя Имперiи">History of the Empire</div>
+                
+                <div class="book-section">
+                    <h3 data-en="The Founding Era" data-ru="Эпоха Основанiя">The Founding Era</h3>
+                    <p class="book-text" data-en="The Sacred Daniel's Empire was founded in 1700, though its roots trace back to the 1st century A.D. with the prophetic figure of Lord Daniel. The empire emerged from the ashes of colonial conflicts, forged by pirates, merchants, and visionaries who sought freedom on the high seas." data-ru="Священная Имперiя Данiила была основана въ 1700 году, хотя ея корни уходятъ въ I вѣкъ н.э. съ пророческой фигурой Лорда Данiила. Имперiя возникла изъ пепла колонiальныхъ конфликтовъ, созданная пиратами, купцами и визионерами, искавшими свободу въ открытомъ море.">
+                        The Sacred Daniel's Empire was founded in 1700, though its roots trace back to the 1st century A.D. with the prophetic figure of Lord Daniel. The empire emerged from the ashes of colonial conflicts, forged by pirates, merchants, and visionaries who sought freedom on the high seas.
+                    </p>
+                    <p class="book-text" data-en="The first emperor, Daniel de Courno, united the scattered pirate clans under a single banner. His flagship, the Mini Angel, became the symbol of imperial might and maritime sovereignty." data-ru="Первый императоръ, Данiилъ де Курно, объединилъ разрозненные пиратские кланы подъ единымъ знаменемъ. Его флагманъ, Минi Ангелъ, сталъ символомъ имперской мощи и морского суверенитета.">
+                        The first emperor, Daniel de Courno, united the scattered pirate clans under a single banner. His flagship, the Mini Angel, became the symbol of imperial might and maritime sovereignty.
+                    </p>
+                    <div class="book-quote" data-en="'The sea is our kingdom, and the waves our subjects.' — Emperor Daniel de Courno" data-ru="'Море — наше королевство, а волны — наши подданные.' — Императоръ Данiилъ де Курно">
+                        "The sea is our kingdom, and the waves our subjects." — Emperor Daniel de Courno
+                    </div>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="The Archipelago Campaign (1760–1800)" data-ru="Архипелагская Кампанiя (1760–1800)">The Archipelago Campaign (1760–1800)</h3>
+                    <p class="book-text" data-en="This period marked the empire's greatest territorial expansion. Under the command of Admiral Bharath, the imperial navy conquered six islands without firing a single shot, relying on diplomacy and psychological warfare." data-ru="Этотъ перiодъ ознаменовалъ величайшую территориальную экспансiю имперiи. Подъ командованiемъ адмирала Бхарата императорскiй флотъ завоевалъ шесть острововъ, не произведя ни одного выстрела, полагаясь на дипломатiю и психологическую войну.">
+                        This period marked the empire's greatest territorial expansion. Under the command of Admiral Bharath, the imperial navy conquered six islands without firing a single shot, relying on diplomacy and psychological warfare.
+                    </p>
+                    <p class="book-text" data-en="The alliance with the Scots (1765–1800) proved decisive. Their lost fleet joined the imperial cause, creating a formidable naval force that dominated the archipelago. The campaign ended in 1800 with the strategic decision to abandon the islands, redirecting imperial resources toward new horizons." data-ru="Союзъ съ шотландцами (1765–1800) оказался решающимъ. Ихъ потерянный флотъ присоединился къ имперскому дѣлу, создавъ грозную морскую силу, которая доминировала надъ архипелагомъ. Кампанiя завершилась въ 1800 году стратегическимъ решенiемъ покинуть острова, перенаправивъ имперскiе ресурсы на новые горизонты.">
+                        The alliance with the Scots (1765–1800) proved decisive. Their lost fleet joined the imperial cause, creating a formidable naval force that dominated the archipelago. The campaign ended in 1800 with the strategic decision to abandon the islands, redirecting imperial resources toward new horizons.
+                    </p>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="The Reforms of 1910" data-ru="Реформы 1910 года">The Reforms of 1910</h3>
+                    <p class="book-text" data-en="The Imperial Judicial Reform of 1910 was a turning point. Inspired by the case of Subject S., the 'Torden Street Butcher,' the reform stripped nobility of procedural immunity, establishing equality before the law." data-ru="Императорская Судебная Реформа 1910 года стала поворотнымъ моментомъ. Вдохновленная дѣломъ Субъекта С., 'Мясника с Торден-стрит,' реформа лишила дворянъ процедурного иммунитета, установивъ равенство передъ закономъ.">
+                        The Imperial Judicial Reform of 1910 was a turning point. Inspired by the case of Subject S., the "Torden Street Butcher," the reform stripped nobility of procedural immunity, establishing equality before the law.
+                    </p>
+                    <p class="book-text" data-en="This era also saw the rise of the Legion of the Squid, a militant religious order that became the empire's spiritual and military backbone. Their inquisitors, led by Lord Def, enforced the Kraken's will with unwavering zeal." data-ru="Эта эпоха также ознаменовала возвышенiе Легiона Кальмара, воинственного религиознаго ордена, ставшаго духовнымъ и военнымъ хребтомъ имперiи. Ихъ инквизиторы во главѣ съ Лордомъ Дефомъ съ непоколебимымъ рвенiемъ утверждали волю Кракена.">
+                        This era also saw the rise of the Legion of the Squid, a militant religious order that became the empire's spiritual and military backbone. Their inquisitors, led by Lord Def, enforced the Kraken's will with unwavering zeal.
+                    </p>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="Modern Era" data-ru="Современная Эпоха">Modern Era</h3>
+                    <p class="book-text" data-en="Today, the empire continues its maritime traditions, combining ancient pirate customs with modern naval technology. The Dark Sea remains a mystery, its depths hiding creatures that defy understanding." data-ru="Сегодня имперiя продолжаетъ свои морскiя традицiи, сочетая древнiе пиратские обычаи съ современными военно-морскими технологиями. Темное Море остается загадкой, въ его глубинахъ скрываются существа, бросающiе вызовъ пониманiю.">
+                        Today, the empire continues its maritime traditions, combining ancient pirate customs with modern naval technology. The Dark Sea remains a mystery, its depths hiding creatures that defy understanding.
+                    </p>
+                    <p class="book-text" data-en="The current emperor, Daniel de Courno, fights his own battles, embodying the resilience and determination that have defined the empire for centuries." data-ru="Текущiй императоръ, Данiилъ де Курно, сражается со своими собственными битвами, воплощая стойкость и решимость, которыя опредѣляли имперiю на протяжении вѣковъ.">
+                        The current emperor, Daniel de Courno, fights his own battles, embodying the resilience and determination that have defined the empire for centuries.
+                    </p>
+                </div>
+
+                <div class="book-meta" data-en="— From the Imperial Archives, 2025" data-ru="— Изъ Императорскихъ Архивовъ, 2025">
+                    — From the Imperial Archives, 2025
+                </div>
+            </div>
         </div>
         
         <div id="heroes" class="page">
@@ -1811,7 +1994,7 @@
                 Daniel's reign was one of relentless expansion and confrontation with the unknown. His voyage to the forbidden Island in 1100 A.D. showcases his courage and the limits of his power. After a brutal, unexplained attack by feral tribesmen who seemed driven by a terror greater than his own crew, Daniel was forced to retreat. His final log entry, "They feared not us. They fled from something else... something in the high valleys," marked one of the rare times the empire chose mystery over conquest, purging the island's coordinates from their charts forever.</p>
                 
                 <p><strong data-en="The Eternal Rival: Admiral James Norridon" data-ru="Вѣчный Соперникъ: Адмиралъ Джеймсъ Норридонъ">The Eternal Rival: Admiral James Norridon</strong></p>
-                <p data-en="Daniel's character is further defined by his long-standing conflict with Admiral James Norridon of the Royal Navy. This was not a simple feud but a clash of philosophies. Norridon was a master of disciplined, honorable warfare, while Daniel fought as an unpredictable, ruthless privateer king. Despite the bloodshed, Daniel deeply admired Norridon for his honor and his profound understanding of the sea. Their battles were a 'deadly dance' where neither could land a killing blow. In his old age, it is said that Daniel would toast his rival: 'To Norridon. May the depths be kinder to him than I ever was.' This relationship reveals a complex man who cherished a worthy enemy as a sharpening stone for his own mind and spirit." data-ru="Характеръ Данiила также опредѣляется его давнимъ конфликтомъ съ адмираломъ Джеймсомъ Норридономъ изъ Королевскаго Флота. Это была не простая вражда, а столкновенiе философiй. Норридонъ былъ мастеромъ дисциплинированной, честной войны, тогда какъ Данiилъ сражался какъ непредсказуемый, безжалостный король-каперъ. Несмотря на кровопролитiе, Данiилъ глубоко уважалъ Норридона за его честь и глубокое пониманiе моря. Ихъ битвы были 'смертельнымъ танцемъ', гдѣ никто не могъ нанести смертельный ударъ. Говорятъ, что въ старости Данiилъ поднималъ тостъ за своего соперника: 'За Норридона. Пусть глубины будутъ къ нему добрее, чѣмъ я когда-либо былъ.' Эти отношенiя раскрываютъ сложнаго человѣка, который цѣнилъ достойнаго врага какъ точильный камень для своего ума и духа.">
+                <p data-en="Daniel's character is further defined by his long-standing conflict with Admiral James Norridon of the Royal Navy. This was not a simple feud but a clash of philosophies. Norridon was a master of disciplined, honorable warfare, while Daniel fought as an unpredictable, ruthless privateer king. Despite the bloodshed, Daniel deeply admired Norridon for his honor and his profound understanding of the sea. Their battles were a 'deadly dance' where neither could land a killing blow. In his old age, it is said that Daniel would toast his rival: 'To Norridon. May the depths be kinder to him than I ever was.' This relationship reveals a complex man who cherished a worthy enemy as a sharpening stone for his own mind and spirit." data-ru="Характеръ Данiила также опредѣляется его давнимъ конфликтомъ съ адмираломъ Джеймсъ Норридономъ изъ Королевскаго Флота. Это была не простая вражда, а столкновенiе философiй. Норридонъ былъ мастеромъ дисциплинированной, честной войны, тогда какъ Данiилъ сражался какъ непредсказуемый, безжалостный король-каперъ. Несмотря на кровопролитiе, Данiилъ глубоко уважалъ Норридона за его честь и глубокое пониманiе моря. Ихъ битвы были 'смертельнымъ танцемъ', гдѣ никто не могъ нанести смертельный ударъ. Говорятъ, что въ старости Данiилъ поднималъ тостъ за своего соперника: 'За Норридона. Пусть глубины будутъ къ нему добрее, чѣмъ я когда-либо былъ.' Эти отношенiя раскрываютъ сложнаго человѣка, который цѣнилъ достойнаго врага какъ точильный камень для своего ума и духа.">
                 Daniel's character is further defined by his long-standing conflict with Admiral James Norridon of the Royal Navy. This was not a simple feud but a clash of philosophies. Norridon was a master of disciplined, honorable warfare, while Daniel fought as an unpredictable, ruthless privateer king. Despite the bloodshed, Daniel deeply admired Norridon for his honor and his profound understanding of the sea. Their battles were a "deadly dance" where neither could land a killing blow. In his old age, it is said that Daniel would toast his rival: "To Norridon. May the depths be kinder to him than I ever was." This relationship reveals a complex man who cherished a worthy enemy as a sharpening stone for his own mind and spirit.</p>
                 
                 <p data-en="Lord Daniel's life laid the foundation for everything that follows: he provided the sacred relic: the Mini Angel, a ship that would be rebuilt over centuries but forever remain the soul of the empire. He founded the state religion: the Cult of the Kraken, which would later be formalized into the militant 'Legion of the Squid' order. He established the core principles of honor, brotherhood, and naval supremacy. He instituted the imperial title, ensuring every ruler to follow would bear his name and the title Sacred, forever intertwining the destiny of the emperor with the legendary ship he first stole, and the God he first witnessed." data-ru="Жизнь Лорда Данiила заложила основу для всего, что послѣдовало: онъ оставилъ священную реликвiю - Минi Ангелъ, корабль, который будетъ перестраиваться вѣками, но навсегда останется душой имперiи. Онъ основалъ государственную религiю - Культъ Кракена, который позже былъ формализованъ въ воинственный орденъ 'Легiонъ Кальмара'. Онъ установилъ основные принципы чести, братства и морского превосходства. Онъ учредилъ императорскiй титулъ, обезпечивъ, чтобы каждый послѣдующiй правитель носилъ его имя и титулъ Священный, навсегда переплетая судьбу императора съ легендарнымъ кораблемъ, который онъ первымъ укралъ, и Богомъ, котораго онъ первымъ увидѣлъ.">
@@ -1826,7 +2009,7 @@
                 <p class="hero-subtitle" data-en="Notable Vessel: The Sacred Mini Angel (Brig and flagman of the empire)" data-ru="Извѣстное Судно: Священный Минi Ангелъ (Бригъ и флагманъ имперiи)">Notable Vessel: The Sacred Mini Angel (Brig and flagman of the empire)</p>
                 
                 <p><strong data-en="Character Analysis" data-ru="Анализъ Личности">Character Analysis</strong></p>
-                <p data-en="Emperor Daniel de Courno was the defining ruler of his age, a sovereign whose intellect and calculated demeanor shaped an era of expansion, reform, and consolidation for his empire. Daniel's most defining trait was his calculating and highly intelligent mind. He was not a man of impulsive action. Every decision, from the smallest decree to the grandest imperial policy, was considered numerous times, and even after a course was chosen, he would continue to ponder its ramifications. This relentless analysis made him a formidable strategist, always several steps ahead of his adversaries and allies alike." data-ru="Императоръ Данiилъ де Курно былъ определяющимъ правителемъ своей эпохи, монархомъ, чей интеллектъ и расчетливое поведенiе сформировали эру экспансiи, реформъ и консолидацiи для своей имперiи. Самая определяющая черта Данiила - его расчетливый и высокоинтеллектуальный умъ. Онъ не былъ человѣкомъ импульсивныхъ дѣйствiй. Каждое рѣшенiе, отъ малѣйшаго указа до величайшей имперской политики, обдумывалось многократно, и даже послѣ выбора курса онъ продолжалъ размышлять о его последствiяхъ. Этотъ неустанный анализъ сдѣлалъ его грознымъ стратегомъ, всегда на нѣсколько шаговъ впереди своихъ противниковъ и союзниковъ.">
+                <p data-en="Emperor Daniel de Courno was the defining ruler of his age, a sovereign whose intellect and calculated demeanor shaped an era of expansion, reform, and consolidation for his empire. Daniel's most defining trait was his calculating and highly intelligent mind. He was not a man of impulsive action. Every decision, from the smallest decree to the grandest imperial policy, was considered numerous times, and even after a course was chosen, he would continue to ponder its ramifications. This relentless analysis made him a formidable strategist, always several steps ahead of his adversaries and allies alike." data-ru="Императоръ Данiилъ де Курно былъ определяющимъ правителемъ своей эпохи, монархомъ, чей интеллектъ и расчетливое поведенiе сформировали эру экспансiи, реформъ и консолидацiи для своей имперiи. Самая определяющая черта Данiила - его расчетливый и высокоинтеллектуальный умъ. Онъ не былъ человѣкомъ импульсивныхъ дѣйствiй. Каждое рѣшенiе, отъ малѣйшего указа до величайшей имперской политики, обдумывалось многократно, и даже послѣ выбора курса онъ продолжалъ размышлять о его последствiяхъ. Этотъ неустанный анализъ сдѣлалъ его грознымъ стратегомъ, всегда на нѣсколько шаговъ впереди своихъ противниковъ и союзниковъ.">
                 Emperor Daniel de Courno was the defining ruler of his age, a sovereign whose intellect and calculated demeanor shaped an era of expansion, reform, and consolidation for his empire. Daniel's most defining trait was his calculating and highly intelligent mind. He was not a man of impulsive action. Every decision, from the smallest decree to the grandest imperial policy, was considered numerous times, and even after a course was chosen, he would continue to ponder its ramifications. This relentless analysis made him a formidable strategist, always several steps ahead of his adversaries and allies alike.</p>
                 
                 <p data-en="Despite his reserved and thoughtful nature, the Emperor possessed undeniable charisma and an easy ability to make friends. This personal charm was a powerful political tool, allowing him to secure alliances, inspire loyalty in his admirals, and present a compelling figurehead to his people. He was a thinker, but not a recluse." data-ru="Несмотря на свою сдержанную и задумчивую натуру, Императоръ обладалъ несомненной харизмой и легкой способностью заводить друзей. Это личное обаянiе было мощнымъ политическимъ инструментомъ, позволявшимъ ему заключать союзы, вдохновлять преданность своихъ адмираловъ и представлять собой убѣдительную фигуру для своего народа. Онъ былъ мыслителемъ, но не отшельникомъ.">
@@ -1907,7 +2090,7 @@
                 <p class="hero-subtitle" data-en="Era: 17th-18th Centuries" data-ru="Эпоха: XVII-XVIII вѣка">Era: 17th-18th Centuries</p>
                 <p class="hero-subtitle" data-en="Known For: A profound transformation from a charismatic nobleman to a fanatical zealot, driven by a core of innate kindness and formidable intellect" data-ru="Извѣстенъ: Глубокимъ превращенiемъ изъ харизматичнаго дворянина въ фанатичнаго ревнителя, движимого ядромъ врожденной доброты и грозного интеллекта">Known For: A profound transformation from a charismatic nobleman to a fanatical zealot, driven by a core of innate kindness and formidable intellect</p>
                 
-                <p data-en="Lord Def's life is a story of radical transformation, a journey where his core traits of kindness, responsiveness, and incredible intelligence were refined and redirected through extraordinary experiences." data-ru="Жизнь Лорда Дефа - это исторiя радикальной трансформацiи, путешествiе, въ которомъ его основныя черты - доброта, отзывчивость и невероятный интеллектъ - были утончены и перенаправлены черезъ экстраординарный опытъ.">
+                <p data-en="Lord Def's life is a story of radical transformation, a journey where his core traits of kindness, responsiveness, and incredible intelligence were refined and redirected through extraordinary experiences." data-ru="Жизнь Лорда Дефа - это исторiя радикальной трансформацiи, путешествiе, въ которомъ его основныя черты - доброта, отзывчивость и невероятный интеллектъ - были утончены и перенаправлены черезъ экстраординарный опыт.">
                 Lord Def's life is a story of radical transformation, a journey where his core traits of kindness, responsiveness, and incredible intelligence were refined and redirected through extraordinary experiences.</p>
                 
                 <p data-en="In his youth, he was the epitome of nobility, known for his charm and love for high society. He was a frequent guest at the philharmonic and every prestigious ball, and his sharp mind found a dangerous outlet in a passion for gambling. However, this was not the recklessness of a fool, but the calculated risk-taking of a brilliant man seeking stimulation." data-ru="Въ юности онъ былъ воплощенiемъ благородства, извѣстный своимъ обаянiемъ и любовью къ высшему обществу. Онъ былъ частымъ гостемъ филармонiи и каждаго престижнаго бала, и его острый умъ находилъ опасный выходъ въ страсти къ азартнымъ играмъ. Однако, это было не безрассудство глупца, а расчетливый рискъ блестящаго человѣка, ищущего стимуляцiи.">
@@ -2055,15 +2238,127 @@
             </div>
         </div>
         
+        <!-- CODEX PAGE - Book style with embedded content -->
         <div id="codex" class="page">
-            <h2 data-en="Our Codex" data-ru="Нашъ Кодексъ">Our Codex</h2>
-            <p data-en="Our country follow only one codex which describes all the matter things." data-ru="Наша страна следуетъ только одному кодексу, который описываетъ всѣ важныя вещи.">Our country follow only one codex which describes all the matter things. <a href="https://docs.google.com/document/d/1qPyRhbWn7Z0yEtAarzPgJIiCiyuVShJeIUF90LDkKAY/edit?usp=drivesdk" target="_blank">Read the Codex</a></p>
+            <div class="book-page">
+                <div class="book-title" data-en="Sacred Codex of Daniel" data-ru="Священный Кодексъ Данiила">Sacred Codex of Daniel</div>
+                
+                <div class="book-section">
+                    <h3 data-en="Part I: Imperial Law" data-ru="Часть I: Императорское Право">Part I: Imperial Law</h3>
+                    <p class="book-text" data-en="The Codex is the supreme legal document of the empire. It establishes the absolute authority of the emperor, the rights and duties of citizens, and the structure of governance. All laws are derived from this sacred text." data-ru="Кодексъ является высшимъ юридическимъ документомъ имперiи. Онъ устанавливаетъ абсолютную власть императора, права и обязанности гражданъ, а также структуру управленiя. Всѣ законы проистекаютъ изъ этого священнаго текста.">
+                        The Codex is the supreme legal document of the empire. It establishes the absolute authority of the emperor, the rights and duties of citizens, and the structure of governance. All laws are derived from this sacred text.
+                    </p>
+                    <div class="book-article">
+                        <h5 data-en="Article I: The Emperor" data-ru="Статья I: Императоръ">Article I: The Emperor</h5>
+                        <p class="book-text" data-en="The Emperor is the living embodiment of the empire. His word is law, and his will is the will of the Kraken. He commands the navy, the army, and the Legion of the Squid. No law may be enacted without his seal." data-ru="Императоръ является живымъ воплощенiемъ имперiи. Его слово — законъ, его воля — воля Кракена. Онъ командуетъ флотомъ, армiей и Легiономъ Кальмара. Ни одинъ законъ не можетъ быть принятъ безъ его печати.">
+                            The Emperor is the living embodiment of the empire. His word is law, and his will is the will of the Kraken. He commands the navy, the army, and the Legion of the Squid. No law may be enacted without his seal.
+                        </p>
+                    </div>
+                    <div class="book-article">
+                        <h5 data-en="Article II: Citizenship" data-ru="Статья II: Гражданство">Article II: Citizenship</h5>
+                        <p class="book-text" data-en="Citizenship is granted to those who swear allegiance to the emperor and the Kraken. Citizens have the right to sail under the imperial flag, trade in imperial ports, and seek justice in imperial courts. Citizenship can be revoked for treason, heresy, or cowardice in battle." data-ru="Гражданство предоставляется тѣмъ, кто присягаетъ на верность императору и Кракену. Граждане имеютъ право плавать подъ имперскимъ флагомъ, торговать въ имперскихъ портахъ и искать справедливости въ имперскихъ судахъ. Гражданство можетъ быть лишено за измену, ересь или трусость въ бою.">
+                            Citizenship is granted to those who swear allegiance to the emperor and the Kraken. Citizens have the right to sail under the imperial flag, trade in imperial ports, and seek justice in imperial courts. Citizenship can be revoked for treason, heresy, or cowardice in battle.
+                        </p>
+                    </div>
+                    <div class="book-article">
+                        <h5 data-en="Article III: The Navy" data-ru="Статья III: Флотъ">Article III: The Navy</h5>
+                        <p class="book-text" data-en="The Imperial Navy is the sword and shield of the empire. Every citizen is required to serve at least six years in the navy. The Admiral of the Fleet is appointed by the emperor and serves as his second-in-command at sea." data-ru="Императорскiй флотъ является мечомъ и щитомъ имперiи. Каждый гражданинъ обязанъ прослужить не менее шести летъ во флотѣ. Адмиралъ флота назначается императоромъ и является его заместителемъ на море.">
+                            The Imperial Navy is the sword and shield of the empire. Every citizen is required to serve at least six years in the navy. The Admiral of the Fleet is appointed by the emperor and serves as his second-in-command at sea.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="Part II: Legion of the Squid" data-ru="Часть II: Легiонъ Кальмара">Part II: Legion of the Squid</h3>
+                    <p class="book-text" data-en="The Legion of the Squid is the military-religious order of the empire. Its members are warriors, inquisitors, and scholars dedicated to the worship of the Kraken. The Legion enforces the faith, guards the empire's relics, and leads crusades against heretics and infidels." data-ru="Легiонъ Кальмара является военно-религиознымъ орденомъ имперiи. Его члены — воины, инквизиторы и ученые, посвятившие себя почитанiю Кракена. Легiонъ утверждаетъ вѣру, охраняетъ реликвiи имперiи и возглавляетъ крестовые походы противъ еретиковъ и невѣрныхъ.">
+                        The Legion of the Squid is the military-religious order of the empire. Its members are warriors, inquisitors, and scholars dedicated to the worship of the Kraken. The Legion enforces the faith, guards the empire's relics, and leads crusades against heretics and infidels.
+                    </p>
+                    <div class="book-article">
+                        <h5 data-en="The Inquisitors" data-ru="Инквизиторы">The Inquisitors</h5>
+                        <p class="book-text" data-en="The Inquisitors are the Legion's most zealous members. They root out heresy, investigate crimes against the faith, and ensure the purity of the empire's doctrine. Their authority extends to all citizens, including nobles." data-ru="Инквизиторы являются самыми ревностными членами Легiона. Они искореняютъ ересь, расследуютъ преступления противъ вѣры и обеспечиваютъ чистоту доктрины имперiи. Ихъ власть распространяется на всѣхъ гражданъ, включая дворянъ.">
+                            The Inquisitors are the Legion's most zealous members. They root out heresy, investigate crimes against the faith, and ensure the purity of the empire's doctrine. Their authority extends to all citizens, including nobles.
+                        </p>
+                    </div>
+                    <div class="book-article">
+                        <h5 data-en="The Sacred Vessels" data-ru="Священные Сосуды">The Sacred Vessels</h5>
+                        <p class="book-text" data-en="The Legion is tasked with protecting the empire's sacred vessels, chief among them the Mini Angel. These ships are not merely warships but relics of the faith, blessed by the Kraken himself." data-ru="Легiону поручена защита священныхъ сосудовъ имперiи, главнымъ изъ которыхъ является Минi Ангелъ. Эти корабли являются не просто военными судами, но реликвiями вѣры, благословленными самимъ Кракеномъ.">
+                            The Legion is tasked with protecting the empire's sacred vessels, chief among them the Mini Angel. These ships are not merely warships but relics of the faith, blessed by the Kraken himself.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="Part III: The Dark Sea" data-ru="Часть III: Темное Море">Part III: The Dark Sea</h3>
+                    <p class="book-text" data-en="The Dark Sea is a sacred and forbidden region. Its waters are home to the Kraken and his children—creatures of immense size and fury. Only authorized expeditions may enter, and they must be blessed by the Legion before departure." data-ru="Темное Море является священнымъ и запретнымъ региономъ. Его воды являются домомъ для Кракена и его детей — существъ огромныхъ размеровъ и ярости. Только авторизованныя экспедицiи могутъ войти, и онѣ должны быть благословлены Легiономъ передъ отплытiемъ.">
+                        The Dark Sea is a sacred and forbidden region. Its waters are home to the Kraken and his children—creatures of immense size and fury. Only authorized expeditions may enter, and they must be blessed by the Legion before departure.
+                    </p>
+                    <div class="book-quote" data-en="'The Dark Sea is the cradle of our faith and the grave of our enemies.' — Lord Def, High Inquisitor" data-ru="'Темное Море — это колыбель нашей вѣры и могила нашихъ враговъ.' — Лордъ Дефъ, Верховный Инквизиторъ">
+                        "The Dark Sea is the cradle of our faith and the grave of our enemies." — Lord Def, High Inquisitor
+                    </div>
+                </div>
+
+                <div class="book-meta" data-en="— The Codex is the foundation of the empire. May it guide you." data-ru="— Кодексъ является основой имперiи. Да направитъ онъ васъ.">
+                    — The Codex is the foundation of the empire. May it guide you.
+                </div>
+            </div>
         </div>
         
+        <!-- GOVERNMENT PAGE - Book style with embedded content -->
         <div id="government" class="page">
-            <h2 data-en="Government" data-ru="Правительство">Government</h2>
-            <img src="TBA-SITE/image.webp" alt="Military Order" class="page-image">
-            <p data-en="Our country is ruled by our sacred Emperor and our lovely religious-military order which has its own articles on the second part of the codex." data-ru="Наша страна управляется нашимъ Священнымъ Императоромъ и нашимъ любимымъ религиозно-военнымъ орденомъ, который имеетъ свои статьи во второй части кодекса.">Our country is ruled by our sacred Emperor and our lovely religious-military order which has its own articles on the second part of the codex. <a href="https://docs.google.com/document/d/1jPr4N3k1AJTX8z73flbp39JR_ew-Jv3yZWvA5O3-N00/edit?usp=drivesdk" target="_blank">Learn about our government</a></p>
+            <div class="book-page">
+                <div class="book-title" data-en="Government of the Empire" data-ru="Правительство Имперiи">Government of the Empire</div>
+                
+                <div class="book-section">
+                    <h3 data-en="The Sacred Emperor" data-ru="Священный Императоръ">The Sacred Emperor</h3>
+                    <p class="book-text" data-en="The Emperor is the absolute ruler of the empire. He holds supreme authority over all civil, military, and religious matters. His word is final, and his decisions are guided by the Kraken's will." data-ru="Императоръ является абсолютнымъ правителемъ имперiи. Онъ обладаетъ верховной властью надъ всѣми гражданскими, военными и религиозными вопросами. Его слово окончательно, и его рѣшенiя направляются волей Кракена.">
+                        The Emperor is the absolute ruler of the empire. He holds supreme authority over all civil, military, and religious matters. His word is final, and his decisions are guided by the Kraken's will.
+                    </p>
+                    <p class="book-text" data-en="The current emperor, Daniel de Courno, continues the legacy of his ancestors, fighting to preserve the empire's sovereignty and expand its influence across the seas." data-ru="Текущiй императоръ, Данiилъ де Курно, продолжаетъ наслѣдiе своихъ предковъ, борясь за сохраненiе суверенитета имперiи и расширенiе ея влиянiя на моряхъ.">
+                        The current emperor, Daniel de Courno, continues the legacy of his ancestors, fighting to preserve the empire's sovereignty and expand its influence across the seas.
+                    </p>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="The Imperial Council" data-ru="Императорскiй Советъ">The Imperial Council</h3>
+                    <p class="book-text" data-en="The Imperial Council is the emperor's advisory body. It consists of the High Advisor, the Admiral of the Fleet, the High Inquisitor, and other appointed officials. The Council meets regularly to discuss matters of state, but its decisions are non-binding without the emperor's approval." data-ru="Императорскiй Советъ является совѣщательнымъ органомъ при императорѣ. Онъ состоитъ изъ Высшаго Совѣтника, Адмирала Флота, Верховнаго Инквизитора и другихъ назначенныхъ должностныхъ лицъ. Советъ собирается регулярно для обсуждения государственныхъ вопросовъ, но его рѣшенiя не обязательны къ исполненiю безъ одобрѣнiя императора.">
+                        The Imperial Council is the emperor's advisory body. It consists of the High Advisor, the Admiral of the Fleet, the High Inquisitor, and other appointed officials. The Council meets regularly to discuss matters of state, but its decisions are non-binding without the emperor's approval.
+                    </p>
+                    <ul class="book-list">
+                        <li><strong data-en="High Advisor:" data-ru="Высшiй Совѣтникъ:">High Advisor:</strong> <span data-en="Arthur Bha — Keeper of the Archives and the emperor's most trusted counsel." data-ru="Артуръ Бха — Хранитель Архивовъ и самый довѣренный совѣтникъ императора.">Arthur Bha — Keeper of the Archives and the emperor's most trusted counsel.</span></li>
+                        <li><strong data-en="Admiral of the Fleet:" data-ru="Адмиралъ Флота:">Admiral of the Fleet:</strong> <span data-en="Appointed by the emperor to command the imperial navy." data-ru="Назначается императоромъ для командованiя императорскимъ флотомъ.">Appointed by the emperor to command the imperial navy.</span></li>
+                        <li><strong data-en="High Inquisitor:" data-ru="Верховный Инквизиторъ:">High Inquisitor:</strong> <span data-en="Lord Def — Leader of the Legion of the Squid, enforcer of the faith." data-ru="Лордъ Дефъ — Глава Легiона Кальмара, стражъ вѣры.">Lord Def — Leader of the Legion of the Squid, enforcer of the faith.</span></li>
+                    </ul>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="The Legion of the Squid" data-ru="Легiонъ Кальмара">The Legion of the Squid</h3>
+                    <p class="book-text" data-en="The Legion of the Squid is the most powerful institution in the empire after the emperor himself. It operates as both a military order and a religious organization. The Legion's inquisitors have the authority to investigate and punish crimes against the faith, including heresy, blasphemy, and treason." data-ru="Легiонъ Кальмара является самымъ могущественнымъ институтомъ имперiи после самого императора. Онъ действуетъ какъ военный орденъ и какъ религиозная организация. Инквизиторы Легiона имеютъ право расследовать и наказывать преступленiя противъ вѣры, включая ересь, богохульство и измену.">
+                        The Legion of the Squid is the most powerful institution in the empire after the emperor himself. It operates as both a military order and a religious organization. The Legion's inquisitors have the authority to investigate and punish crimes against the faith, including heresy, blasphemy, and treason.
+                    </p>
+                    <div class="book-quote" data-en="'The Kraken's will is the law. The Legion is its sword.' — Sacred Codex, Article XXII" data-ru="'Воля Кракена — законъ. Легiонъ — его мечъ.' — Священный Кодексъ, Статья XXII">
+                        "The Kraken's will is the law. The Legion is its sword." — Sacred Codex, Article XXII
+                    </div>
+                    <p class="book-text" data-en="The Legion maintains a network of fortresses, chapels, and shipyards across the empire. Its members are trained in combat, theology, and maritime navigation, making them the empire's most versatile warriors." data-ru="Легiонъ поддерживаетъ сеть крепостей, часовенъ и верфей по всей имперiи. Его члены обучены бою, теологии и морской навигации, что делает ихъ самыми универсальными воинами имперiи.">
+                        The Legion maintains a network of fortresses, chapels, and shipyards across the empire. Its members are trained in combat, theology, and maritime navigation, making them the empire's most versatile warriors.
+                    </p>
+                </div>
+
+                <div class="book-section">
+                    <h3 data-en="The Imperial Judiciary" data-ru="Императорская Судебная Система">The Imperial Judiciary</h3>
+                    <p class="book-text" data-en="The judiciary is independent but operates under the emperor's ultimate authority. The 1910 reforms established equality before the law for all citizens, regardless of noble birth. Courts are presided over by magistrates appointed by the emperor." data-ru="Судебная система независима, но действуетъ подъ верховной властью императора. Реформы 1910 года установили равенство всѣхъ гражданъ передъ закономъ, независимо отъ благороднаго происхожденiя. Судами руководятъ магистраты, назначаемые императоромъ.">
+                        The judiciary is independent but operates under the emperor's ultimate authority. The 1910 reforms established equality before the law for all citizens, regardless of noble birth. Courts are presided over by magistrates appointed by the emperor.
+                    </p>
+                    <ul class="book-list">
+                        <li><strong data-en="High Court:" data-ru="Верховный Судъ:">High Court:</strong> <span data-en="Hears cases of treason, heresy, and disputes between nobles." data-ru="Рассматриваетъ дела объ изменѣ, ереси и споры между дворянами.">Hears cases of treason, heresy, and disputes between nobles.</span></li>
+                        <li><strong data-en="Admiralty Court:" data-ru="Адмиралтейский Судъ:">Admiralty Court:</strong> <span data-en="Handles maritime law, piracy, and naval disputes." data-ru="Занимается морскимъ правомъ, пиратствомъ и военно-морскими спорами.">Handles maritime law, piracy, and naval disputes.</span></li>
+                        <li><strong data-en="Inquisition Tribunal:" data-ru="Инквизиционный Трибуналъ:">Inquisition Tribunal:</strong> <span data-en="The Legion's internal court for matters of faith and doctrine." data-ru="Внутреннiй судъ Легiона по вопросамъ вѣры и доктрины.">The Legion's internal court for matters of faith and doctrine.</span></li>
+                    </ul>
+                </div>
+
+                <div class="book-meta" data-en="— The government serves the Kraken and the empire. May it never waver." data-ru="— Правительство служитъ Кракену и имперiи. Да не поколеблется оно никогда.">
+                    — The government serves the Kraken and the empire. May it never waver.
+                </div>
+            </div>
         </div>
         
         <div id="media" class="page">
