@@ -27,3 +27,6 @@ Technical Notes
 Attention!
 if you are citizen youll be given an unique login and password to log into your personal cabinet. 
 Also, registered users are able to chat on live chat section (Works now!)
+
+
+P.S Im really sorry if russian version has any small mistakes, even tho its my native language, I was too lazy to type the whole stuff I wrote in English again but in russian so I used translator for it. 
