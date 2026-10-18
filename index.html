@@ -1134,28 +1134,7 @@
         'Alex': { name: 'Alex', bio: 'admiral, car lover' }
     };
 
-    // ============================================================
-    // ⚠️ SEED PASSWORDS — REMOVE THIS BLOCK AFTER FIRST RUN ⚠️
-    // These are hashed with PBKDF2 (salt + 10000 iterations) and
-    // stored in Firebase (credentials/{username}). After seeding is
-    // done (see console log "[Credentials] Seeding complete"),
-    // delete this entire block from index.html — login will still
-    // work because passwords live in Firebase now.
-    // ============================================================
-    const SEED_PASSWORDS = {
-        'emp123dan': 'Lyusek2020',
-        'blueisthebestcolor': '123blue123',
-        'theemperorsson': 'vikings123power',
-        'ottobutnotottoman': 'verdeilineverde',
-        'defenseqwerty': '123church123',
-        'pyroorpairo': 'iguesspairo123',
-        'bluebecauseblue': 'notthedragons123',
-        'Russell': '123emperorsfriend$',
-        'Alex': 'bespontoviy_pirozhok123'
-    };
-    // ============================================================
-    // END SEED BLOCK
-    // ============================================================
+  //There were seed passwords. All the passwords are now in firebase
 
     let firebaseApp, database, publicChatRef, privateMessagesRef, avatarsRef, profilesRef;
     let publicPinsRef, publicReactionsRef, privatePinsRef, privateReactionsRef;
