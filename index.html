@@ -71,15 +71,17 @@
         body.dark-mode .message { background-color: #1e1e1e; border-left-color: gold; }
         .message-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #1a237e; flex-shrink: 0; background-color: #f0f0f0; }
         body.dark-mode .message-avatar { border-color: gold; background-color: #2d2d2d; }
-        .message-content-wrapper { flex: 1; }
+        .message-content-wrapper { flex: 1; min-width: 0; }
         .message.system-message { background-color: #e3f2fd; border-left-color: #2196f3; text-align: center; font-style: italic; display: block; }
         body.dark-mode .message.system-message { background-color: #0d47a1; border-left-color: #64b5f6; }
-        .message-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .message-header { display: flex; justify-content: space-between; margin-bottom: 5px; gap: 10px; align-items: center; }
         .message-user { font-weight: bold; color: #1a237e; }
         body.dark-mode .message-user { color: gold; }
-        .message-time { color: #666; font-size: 0.9em; }
+        .message-user.clickable { cursor: pointer; }
+        .message-user.clickable:hover { text-decoration: underline; }
+        .message-time { color: #666; font-size: 0.8em; white-space: nowrap; }
         body.dark-mode .message-time { color: #aaa; }
-        .message-content { line-height: 1.4; word-break: break-word; }
+        .message-content { line-height: 1.4; word-break: break-word; white-space: pre-wrap; }
         .encryption-badge { font-size: 0.8em; color: #9c27b0; margin-top: 5px; display: inline-block; }
         .chat-input-container { display: flex; gap: 10px; padding: 15px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 0 0 5px 5px; align-items: center; }
         body.dark-mode .chat-input-container { background-color: #2d2d2d; border-color: #444; }
@@ -87,8 +89,48 @@
         body.dark-mode .chat-input { background-color: #1e1e1e; color: #e0e0e0; border-color: #444; }
         .send-button { background-color: #1a237e; color: gold; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .send-button:hover { background-color: #303f9f; }
+        .send-button:disabled { opacity: 0.4; cursor: not-allowed; }
         .chat-notice { text-align: center; padding: 20px; color: #666; font-style: italic; }
         body.dark-mode .chat-notice { color: #aaa; }
+
+        .message-actions { display: flex; gap: 2px; flex-shrink: 0; }
+        .msg-action-btn { background: none; border: none; cursor: pointer; font-size: 13px; opacity: 0.35; padding: 2px 4px; border-radius: 3px; transition: all 0.2s; line-height: 1; }
+        .msg-action-btn:hover { opacity: 1; background: rgba(26,35,126,0.1); }
+        .msg-action-btn.pinned { opacity: 1; }
+        body.dark-mode .msg-action-btn:hover { background: rgba(255,215,0,0.15); }
+
+        .reply-quote { background: rgba(26,35,126,0.08); border-left: 3px solid #1a237e; padding: 4px 8px; margin-bottom: 6px; font-size: 0.82em; color: #555; border-radius: 3px; }
+        body.dark-mode .reply-quote { background: rgba(255,215,0,0.08); border-color: gold; color: #bbb; }
+        .reply-quote strong { color: #1a237e; }
+        body.dark-mode .reply-quote strong { color: gold; }
+
+        .reply-bar { display: none; background: #f0f0f0; padding: 8px 15px; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-top: 1px solid #ddd; font-size: 0.88em; justify-content: space-between; align-items: center; gap: 10px; }
+        body.dark-mode .reply-bar { background: #2d2d2d; border-color: #444; color: #e0e0e0; }
+        .reply-bar .cancel-btn { background: none; border: none; cursor: pointer; font-size: 18px; color: #666; font-weight: bold; }
+        body.dark-mode .reply-bar .cancel-btn { color: #aaa; }
+
+        .pending-image-preview { display: none; background: #f0f0f0; padding: 8px 15px; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-top: 1px solid #ddd; align-items: center; gap: 10px; font-size: 0.9em; }
+        body.dark-mode .pending-image-preview { background: #2d2d2d; border-color: #444; }
+        .pending-image-preview .cancel-img-btn { background: #d32f2f; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .pending-image-preview img { max-height: 60px; border-radius: 4px; border: 1px solid #1a237e; }
+
+        .pinned-bar { display: none; background: #fffbe6; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-top: 1px solid #ddd; padding: 6px 15px; font-size: 0.85em; max-height: 100px; overflow-y: auto; }
+        body.dark-mode .pinned-bar { background: #3a3520; border-color: #444; }
+        .pinned-item { display: flex; gap: 8px; padding: 3px 0; align-items: center; }
+        .pinned-item-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pinned-item-text strong { color: #1a237e; }
+        body.dark-mode .pinned-item-text strong { color: gold; }
+        .pinned-bar .unpin-btn { background: none; border: none; cursor: pointer; color: #666; font-weight: bold; font-size: 14px; padding: 0 4px; }
+        body.dark-mode .pinned-bar .unpin-btn { color: #aaa; }
+
+        .message-reactions { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+        .reaction-chip { background: transparent; border: 1px solid #ddd; border-radius: 12px; padding: 1px 8px; font-size: 0.85em; cursor: pointer; opacity: 0.45; transition: all 0.2s; font-family: inherit; color: inherit; }
+        .reaction-chip:hover { opacity: 1; border-color: #1a237e; }
+        .reaction-chip.has-votes { opacity: 0.85; background: #f5f5f5; }
+        .reaction-chip.mine { opacity: 1; background: #e3f2fd; border-color: #1a237e; font-weight: bold; }
+        body.dark-mode .reaction-chip { border-color: #444; }
+        body.dark-mode .reaction-chip.has-votes { background: #2d2d2d; }
+        body.dark-mode .reaction-chip.mine { background: #1a237e; border-color: gold; color: gold; }
 
         .contacts-container { display: flex; gap: 20px; height: 400px; }
         .contacts-list { width: 250px; border-right: 2px solid #1a237e; overflow-y: auto; padding-right: 10px; }
@@ -106,7 +148,7 @@
         .contact-last-message { font-size: 0.8em; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
         body.dark-mode .contact-last-message { color: #aaa; }
         .contact-unread { background-color: gold; color: #1a237e; border-radius: 50%; min-width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: bold; padding: 0 4px; }
-        .private-chat-area { flex: 1; display: flex; flex-direction: column; }
+        .private-chat-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
         .private-chat-header { padding: 15px; background-color: #f0f0f0; border-bottom: 2px solid #1a237e; font-weight: bold; color: #1a237e; }
         body.dark-mode .private-chat-header { background-color: #2d2d2d; color: gold; }
         .private-messages { flex: 1; overflow-y: auto; padding: 15px; background-color: #fafafa; }
@@ -196,7 +238,6 @@
         body.lang-ru .content-en { display: none; }
         body.lang-ru .content-ru { display: block; }
 
-        /* BOOK STYLES */
         .book-container { background-color: #f8f3e9; border: 1px solid #b8a88a; border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); padding: 2rem; margin-bottom: 1.5rem; position: relative; }
         body.dark-mode .book-container { background-color: #2c241a; border-color: #6b5d4a; }
         .book-title { font-size: 2rem; font-weight: bold; color: #1a237e; text-align: center; border-bottom: 3px double #b8a88a; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
@@ -217,7 +258,6 @@
         .book-loading { text-align: center; padding: 60px 20px; color: #666; font-style: italic; font-size: 1.1rem; }
         body.dark-mode .book-loading { color: #aaa; }
 
-        /* NEW: profile settings / image upload / clickable username */
         .image-upload-label { background-color: #1a237e; color: gold; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 18px; display: flex; align-items: center; justify-content: center; border: 2px solid gold; user-select: none; }
         .image-upload-label:hover { background-color: #303f9f; }
         .image-upload-label.disabled { opacity: 0.4; pointer-events: none; cursor: not-allowed; }
@@ -225,9 +265,41 @@
         .image-upload-input { display: none; }
         .chat-image { max-width: 100%; max-height: 250px; border-radius: 5px; margin-top: 5px; display: block; border: 1px solid #1a237e; cursor: pointer; }
         body.dark-mode .chat-image { border-color: gold; }
-        .message-user.clickable { cursor: pointer; }
-        .message-user.clickable:hover { text-decoration: underline; }
-        .contact-name.clickable { cursor: pointer; }
+
+        .wall-section { margin-top: 20px; border-top: 2px solid #1a237e; padding-top: 20px; }
+        body.dark-mode .wall-section { border-color: gold; }
+        .wall-section h3 { color: #1a237e; margin-bottom: 12px; text-align: center; }
+        body.dark-mode .wall-section h3 { color: gold; }
+        .wall-input { width: 100%; padding: 10px; border: 2px solid #1a237e; border-radius: 5px; font-size: 14px; font-family: 'Times New Roman', serif; resize: vertical; min-height: 60px; margin-bottom: 8px; }
+        body.dark-mode .wall-input { background-color: #2d2d2d; color: #e0e0e0; border-color: #444; }
+        .wall-posts { margin-top: 15px; }
+        .wall-post { background: #f8f8f8; padding: 12px; margin-bottom: 10px; border-radius: 5px; border-left: 3px solid gold; position: relative; }
+        body.dark-mode .wall-post { background: #2d2d2d; }
+        .wall-post-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.9em; gap: 10px; align-items: center; padding-right: 25px; }
+        .wall-post-author { color: #1a237e; cursor: pointer; }
+        .wall-post-author:hover { text-decoration: underline; }
+        body.dark-mode .wall-post-author { color: gold; }
+        .wall-post-time { color: #666; white-space: nowrap; }
+        body.dark-mode .wall-post-time { color: #aaa; }
+        .wall-post-text { white-space: pre-wrap; word-break: break-word; line-height: 1.4; }
+        .wall-post-delete { position: absolute; top: 6px; right: 6px; background: rgba(211,47,47,0.1); border: none; cursor: pointer; font-size: 14px; padding: 4px 8px; border-radius: 3px; opacity: 0.6; transition: all 0.2s; }
+        .wall-post-delete:hover { opacity: 1; background: rgba(211,47,47,0.25); }
+        .wall-empty { text-align: center; color: #666; font-style: italic; padding: 20px; }
+        body.dark-mode .wall-empty { color: #aaa; }
+
+        /* Citizens list modal */
+        .citizens-list-container { display: flex; flex-direction: column; gap: 10px; }
+        .citizen-card { display: flex; gap: 15px; padding: 12px; background: #f8f8f8; border-radius: 5px; border-left: 3px solid gold; cursor: pointer; transition: all 0.2s; align-items: center; }
+        .citizen-card:hover { background: #eee; transform: translateX(3px); }
+        body.dark-mode .citizen-card { background: #2d2d2d; }
+        body.dark-mode .citizen-card:hover { background: #3d3d3d; }
+        .citizen-card img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #1a237e; object-fit: cover; flex-shrink: 0; }
+        body.dark-mode .citizen-card img { border-color: gold; }
+        .citizen-card-info { flex: 1; min-width: 0; }
+        .citizen-card-name { font-weight: bold; color: #1a237e; font-size: 1.05em; }
+        body.dark-mode .citizen-card-name { color: gold; }
+        .citizen-card-bio { color: #666; font-size: 0.9em; overflow: hidden; text-overflow: ellipsis; }
+        body.dark-mode .citizen-card-bio { color: #aaa; }
 
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
@@ -285,6 +357,7 @@
             <div class="chat-buttons">
                 <button onclick="showPublicChat()" data-en="💬 Live Chat" data-ru="💬 Общий Чатъ">💬 Live Chat</button>
                 <button onclick="showPrivateMessages()" id="privateMessagesButton" data-en="✉️ Personal Chats" data-ru="✉️ Личныя Чаты">✉️ Personal Chats<span class="unread-badge" id="totalUnreadBadge" style="display: none;">0</span></button>
+                <button onclick="showCitizensList()" data-en="👥 Citizens" data-ru="👥 Граждане">👥 Citizens</button>
             </div>
         </div>
     </div>
@@ -293,7 +366,7 @@
         <div class="modal-content">
             <button class="close-button" onclick="closeLoginModal()">×</button>
             <h2 data-en="Imperial Login" data-ru="Императорскiй Входъ">Imperial Login</h2>
-            <form id="loginForm">
+            <form id="loginForm" onsubmit="event.preventDefault(); login();">
                 <div class="form-group">
                     <label for="username" data-en="Login:" data-ru="Логинъ:">Login:</label>
                     <input type="text" id="username" required>
@@ -302,7 +375,7 @@
                     <label for="password" data-en="Password:" data-ru="Пароль:">Password:</label>
                     <input type="password" id="password" required>
                 </div>
-                <button type="button" class="submit-button" onclick="login()" data-en="Enter the Empire" data-ru="Войти въ Имперiю">Enter the Empire</button>
+                <button type="submit" class="submit-button" data-en="Enter the Empire" data-ru="Войти въ Имперiю">Enter the Empire</button>
                 <div class="error-message" id="loginError" data-en="Invalid login or password!" data-ru="Неверный логинъ или пароль!">Invalid login or password!</div>
             </form>
         </div>
@@ -324,9 +397,12 @@
                 <div class="chat-header">
                     <span data-en="💬 Imperial Citizens Public Chat" data-ru="💬 Общiй Чатъ Гражданъ Имперiи">💬 Imperial Citizens Public Chat</span>
                 </div>
+                <div class="pinned-bar" id="publicPinnedBar"></div>
                 <div class="chat-messages" id="publicChatMessages">
                     <div class="chat-notice" data-en="Welcome to the Imperial Public Chat!" data-ru="Добро пожаловать въ Императорскiй Общiй Чатъ!">Welcome to the Imperial Public Chat!</div>
                 </div>
+                <div class="reply-bar" id="publicReplyBar"></div>
+                <div class="pending-image-preview" id="publicPendingImage"></div>
                 <div class="chat-input-container">
                     <label for="publicImageInput" class="image-upload-label" title="Send image">📷</label>
                     <input type="file" id="publicImageInput" class="image-upload-input" accept="image/*" onchange="handlePublicImageUpload(event)">
@@ -348,9 +424,12 @@
                 <div class="contacts-list" id="contactsList"></div>
                 <div class="private-chat-area">
                     <div class="private-chat-header" id="privateChatHeader" data-en="✉️ Select a citizen" data-ru="✉️ Выберите гражданина">✉️ Select a citizen</div>
+                    <div class="pinned-bar" id="privatePinnedBar"></div>
                     <div class="private-messages" id="privateMessages">
                         <div class="chat-notice" data-en="Choose a citizen from the list" data-ru="Выберите гражданина изъ списка">Choose a citizen from the list</div>
                     </div>
+                    <div class="reply-bar" id="privateReplyBar"></div>
+                    <div class="pending-image-preview" id="privatePendingImage"></div>
                     <div class="chat-input-container">
                         <label for="privateImageInput" class="image-upload-label disabled" id="privateImageLabel" title="Send image">📷</label>
                         <input type="file" id="privateImageInput" class="image-upload-input" accept="image/*" onchange="handlePrivateImageUpload(event)" disabled>
@@ -365,12 +444,19 @@
         </div>
     </div>
 
-    <!-- NEW: User profile popup modal -->
     <div class="modal" id="userProfileModal">
         <div class="modal-content">
             <button class="close-button" onclick="closeUserProfile()">×</button>
             <h2 id="userProfileTitle" data-en="Citizen Profile" data-ru="Профиль Гражданина">Citizen Profile</h2>
             <div id="userProfileContent"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="citizensModal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeCitizensModal()">×</button>
+            <h2 data-en="Citizens of the Empire" data-ru="Граждане Имперiи">Citizens of the Empire</h2>
+            <div id="citizensListContainer" class="citizens-list-container"></div>
         </div>
     </div>
 
@@ -910,16 +996,12 @@
     <footer>&copy; 1700 Sacred Daniel's Empire. All rights reserved.</footer>
 
     <script>
-    // ============================================================
-    // BOOK FILE NAMES (root of the site)
-    // ============================================================
     const BOOK_FILES = {
         history: 'History of Empire.html',
         codex: "Daniel's Sacred Codex1.html",
         gov: 'Military-religious militarised orden. The second part of the codex.html'
     };
 
-    // Language split markers (Russian part starts at these)
     const RU_MARKERS = {
         history: /\n\s*Исторія\s*\n/,
         codex: /\n\s*Кодексъ Чести/,
@@ -934,24 +1016,16 @@
 
     function htmlToPlainText(html) {
         let text = html;
-        // BOM
         text = text.replace(/^\uFEFF/, '');
-        // Remove comments
         text = text.replace(/<!--[\s\S]*?-->/g, '');
-        // Remove script & style
         text = text.replace(/<script[\s\S]*?<\/script>/gi, '');
         text = text.replace(/<style[\s\S]*?<\/style>/gi, '');
-        // Remove head
         text = text.replace(/<head[\s\S]*?<\/head>/gi, '');
-        // Remove DOCTYPE
         text = text.replace(/<!DOCTYPE[^>]*>/gi, '');
-        // Replace block tags with newlines
         text = text.replace(/<br\s*\/?>/gi, '\n');
         text = text.replace(/<\/(p|div|h[1-6]|li|tr|td|th|section|article)>/gi, '\n');
         text = text.replace(/<(p|div|h[1-6]|li|tr|section|article)[^>]*>/gi, '\n');
-        // Strip remaining tags
         text = text.replace(/<[^>]+>/g, '');
-        // Decode entities
         text = text.replace(/&nbsp;/g, ' ');
         text = text.replace(/&amp;/g, '&');
         text = text.replace(/&lt;/g, '<');
@@ -962,7 +1036,6 @@
         text = text.replace(/&mdash;/g, '—');
         text = text.replace(/&ndash;/g, '–');
         text = text.replace(/&hellip;/g, '…');
-        // Normalize whitespace
         text = text.replace(/\r\n/g, '\n');
         text = text.replace(/[ \t]+/g, ' ');
         text = text.replace(/\n[ \t]+/g, '\n');
@@ -988,9 +1061,7 @@
                 }
                 bookTexts[key + 'EN'] = en;
                 bookTexts[key + 'RU'] = ru;
-                console.log('[Book loaded] ' + fileName + ' — EN: ' + en.length + ' chars, RU: ' + ru.length + ' chars');
             } catch (e) {
-                console.error('[Book failed] ' + fileName, e);
                 const errEn = 'Failed to load "' + fileName + '".\n\nError: ' + e.message +
                     '\n\nPlease ensure the file exists in the site root (same folder as index.html).' +
                     '\nNote: fetch() works only when the site is served over HTTP/HTTPS, not from file://.';
@@ -1005,9 +1076,6 @@
         reinitBooks();
     }
 
-    // ============================================================
-    // LANGUAGE
-    // ============================================================
     function setLanguage(lang) {
         if (lang === 'ru') document.body.classList.add('lang-ru');
         else document.body.classList.remove('lang-ru');
@@ -1043,9 +1111,6 @@
         setTimeout(reinitBooks, 50);
     }
 
-    // ============================================================
-    // FIREBASE
-    // ============================================================
     const firebaseConfig = {
         apiKey: "AIzaSyCOXWodWpE4KdEW1zwryydQUjfxHPiS-3E",
         authDomain: "sacred-empire-chat.firebaseapp.com",
@@ -1056,18 +1121,44 @@
         appId: "1:131630929373:web:d4208575c65f0df4525234"
     };
 
+    // Public user data. Passwords are stored as PBKDF2 hashes in Firebase.
     const users = {
-        'emp123dan': { password: 'Lyusek2020', name: 'Daniel', bio: 'sacred emperor, writer' },
-        'blueisthebestcolor': { password: '123blue123', name: 'Blue_The_Drak', bio: 'nobleman, loves dragons' },
-        'theemperorsson': { password: 'vikings123power', name: 'Einar', bio: 'nobleman of the royal blood' },
-        'ottobutnotottoman': { password: 'verdeilineverde', name: 'Otto', bio: 'nobleman, captain' },
-        'defenseqwerty': { password: '123church123', name: 'Def', bio: 'nobleman, lucky, high inquisitor, loves fishing' },
-        'pyroorpairo': { password: 'iguesspairo123', name: 'Pairo', bio: 'professor, scientist' },
-        'bluebecauseblue': { password: 'notthedragons123', name: 'Blue2', bio: 'the brother of other Blue, nobleman, explorer' },
-        'Russell': { password: '123emperorsfriend$', name: 'Russel.A', bio: 'businessman, nobleman, a dangerous man in the Empire' }
+        'emp123dan': { name: 'Daniel', bio: 'sacred emperor, writer' },
+        'blueisthebestcolor': { name: 'Blue_The_Drak', bio: 'nobleman, loves dragons' },
+        'theemperorsson': { name: 'Einar', bio: 'nobleman of the royal blood' },
+        'ottobutnotottoman': { name: 'Otto', bio: 'nobleman, captain' },
+        'defenseqwerty': { name: 'Def', bio: 'nobleman, lucky, high inquisitor, loves fishing' },
+        'pyroorpairo': { name: 'Pairo', bio: 'professor, scientist' },
+        'bluebecauseblue': { name: 'Blue2', bio: 'the brother of other Blue, nobleman, explorer' },
+        'Russell': { name: 'Russel_A', bio: 'businessman, nobleman, a dangerous man in the Empire, have a good relationship with emperor' },
+        'Alex': { name: 'Alex', bio: 'admiral, car lover' }
     };
 
+    // ============================================================
+    // ⚠️ SEED PASSWORDS — REMOVE THIS BLOCK AFTER FIRST RUN ⚠️
+    // These are hashed with PBKDF2 (salt + 10000 iterations) and
+    // stored in Firebase (credentials/{username}). After seeding is
+    // done (see console log "[Credentials] Seeding complete"),
+    // delete this entire block from index.html — login will still
+    // work because passwords live in Firebase now.
+    // ============================================================
+    const SEED_PASSWORDS = {
+        'emp123dan': 'Lyusek2020',
+        'blueisthebestcolor': '123blue123',
+        'theemperorsson': 'vikings123power',
+        'ottobutnotottoman': 'verdeilineverde',
+        'defenseqwerty': '123church123',
+        'pyroorpairo': 'iguesspairo123',
+        'bluebecauseblue': 'notthedragons123',
+        'Russell': '123emperorsfriend$',
+        'Alex': 'bespontoviy_pirozhok123'
+    };
+    // ============================================================
+    // END SEED BLOCK
+    // ============================================================
+
     let firebaseApp, database, publicChatRef, privateMessagesRef, avatarsRef, profilesRef;
+    let publicPinsRef, publicReactionsRef, privatePinsRef, privateReactionsRef;
     let isFirebaseConnected = false;
     let currentUser = null;
     let selectedContact = null;
@@ -1075,14 +1166,25 @@
     let unreadCounts = {};
     let avatarCache = {};
     let profileExtrasCache = {};
+    let publicChatMessages = {};
+    let publicPins = {};
+    let publicReactions = {};
+    let privatePins = {};
+    let privateReactions = {};
+    let replyToPublic = null;
+    let replyToPrivate = null;
+    let pendingPublicImage = null;
+    let pendingPrivateImage = null;
+    let credentialsReady = Promise.resolve();
     const PUBLIC_ENCRYPTION_KEY = "public_empire_chat_key_1700";
     const EMPEROR_USERNAME = 'emp123dan';
+    const REACTIONS = ['👍', '❤️', '👎', '😢'];
 
     function isEmperor(userId) { return userId === EMPEROR_USERNAME; }
-
     function escapeHtml(str) {
         return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
+    function getPrivateChatId(a, b) { return [a, b].sort().join('__'); }
 
     function initFirebase() {
         try {
@@ -1098,14 +1200,50 @@
                     if (avatars[userId] && avatars[userId].data) avatarCache[userId] = avatars[userId].data;
                 });
             });
-        } catch (e) { console.error("Firebase error:", e); }
+            credentialsReady = ensureCredentialsSeeded();
+        } catch (e) { console.error("Firebase error:", e); credentialsReady = Promise.resolve(); }
+    }
+
+    async function ensureCredentialsSeeded() {
+        if (!isFirebaseConnected || typeof SEED_PASSWORDS === 'undefined') return;
+        try {
+            const snap = await database.ref('credentials').once('value');
+            const existing = snap.val() || {};
+            const missing = Object.keys(SEED_PASSWORDS).filter(u => !existing[u]);
+            if (missing.length === 0) {
+                console.log('[Credentials] All citizens already have credentials in Firebase. You can now remove the SEED_PASSWORDS block from index.html.');
+                return;
+            }
+            for (const username of missing) {
+                const pw = SEED_PASSWORDS[username];
+                if (!pw) continue;
+                const salt = CryptoJS.lib.WordArray.random(16).toString();
+                const hash = CryptoJS.PBKDF2(pw, salt, { keySize: 256/32, iterations: 10000 }).toString();
+                await database.ref('credentials/' + username).set({ salt: salt, hash: hash, updatedAt: Date.now() });
+                console.log('[Credentials] Seeded: ' + username);
+            }
+            console.log('[Credentials] Seeding complete. You can now remove the SEED_PASSWORDS block from index.html.');
+        } catch (e) {
+            console.error('[Credentials] Seed error:', e);
+        }
+    }
+
+    async function checkCredentials(username, password) {
+        if (!isFirebaseConnected) return { ok: false, error: 'Firebase not connected' };
+        try {
+            const snap = await database.ref('credentials/' + username).once('value');
+            const cred = snap.val();
+            if (!cred || !cred.salt || !cred.hash) return { ok: false, error: 'No credentials' };
+            const computed = CryptoJS.PBKDF2(password, cred.salt, { keySize: 256/32, iterations: 10000 }).toString();
+            return { ok: computed === cred.hash };
+        } catch (e) {
+            console.error('[Login] error:', e);
+            return { ok: false, error: 'Network error' };
+        }
     }
 
     function getUserProfileExtra(userId, callback) {
-        if (profileExtrasCache[userId]) {
-            if (callback) callback(profileExtrasCache[userId]);
-            return profileExtrasCache[userId];
-        }
+        if (profileExtrasCache[userId]) { if (callback) callback(profileExtrasCache[userId]); return profileExtrasCache[userId]; }
         if (isFirebaseConnected && profilesRef) {
             profilesRef.child(userId).once('value', snap => {
                 const d = snap.val() || {};
@@ -1118,7 +1256,6 @@
         }
         return profileExtrasCache[userId] || {};
     }
-
     function saveProfileExtra(userId, data) {
         profileExtrasCache[userId] = data;
         if (!isFirebaseConnected || !profilesRef) return;
@@ -1151,7 +1288,21 @@
     function connectToPublicChat() {
         if (!isFirebaseConnected || !currentUser) return;
         publicChatRef = database.ref('publicChat/messages');
-        publicChatRef.limitToLast(100).on('value', snap => updatePublicChatDisplay(snap.val() || {}));
+        publicChatRef.limitToLast(100).on('value', snap => {
+            publicChatMessages = snap.val() || {};
+            updatePublicChatDisplay(publicChatMessages);
+        });
+        publicPinsRef = database.ref('pins/publicChat');
+        publicPinsRef.on('value', snap => {
+            publicPins = snap.val() || {};
+            renderPublicPinnedBar();
+            if (Object.keys(publicChatMessages).length > 0) updatePublicChatDisplay(publicChatMessages);
+        });
+        publicReactionsRef = database.ref('reactions/publicChat');
+        publicReactionsRef.on('value', snap => {
+            publicReactions = snap.val() || {};
+            if (Object.keys(publicChatMessages).length > 0) updatePublicChatDisplay(publicChatMessages);
+        });
     }
     function connectToPrivateMessages() {
         if (!isFirebaseConnected || !currentUser) return;
@@ -1175,39 +1326,73 @@
         const badge = document.getElementById('totalUnreadBadge');
         if (badge) { if (total > 0) { badge.style.display = 'inline'; badge.textContent = total; } else badge.style.display = 'none'; }
     }
+
+    function formatMsgDate(msg) {
+        if (msg.date) return msg.date;
+        if (msg.timestamp) return new Date(msg.timestamp).toLocaleDateString([], { day: '2-digit', month: 'short' });
+        return '';
+    }
+
+    function renderReactionsFor(reactionsObj, scope, messageId) {
+        if (!reactionsObj) reactionsObj = {};
+        let html = '<div class="message-reactions">';
+        REACTIONS.forEach(e => {
+            const voters = reactionsObj[e] || {};
+            const count = Object.keys(voters).length;
+            const mine = currentUser && voters[currentUser.username];
+            html += `<button class="reaction-chip ${count > 0 ? 'has-votes' : ''} ${mine ? 'mine' : ''}" onclick="toggleReaction('${scope}', '${escapeHtml(messageId)}', '${e}')">${e}${count > 0 ? ' ' + count : ''}</button>`;
+        });
+        html += '</div>';
+        return html;
+    }
+
     function updatePublicChatDisplay(messages) {
+        publicChatMessages = messages || {};
         const el = document.getElementById('publicChatMessages');
         if (!el) return;
-        const arr = Object.values(messages).sort((a,b) => a.timestamp - b.timestamp);
+        const entries = Object.entries(publicChatMessages).sort((a,b) => (a[1].timestamp||0) - (b[1].timestamp||0));
         el.innerHTML = '';
-        if (arr.length === 0) { el.innerHTML = '<div class="chat-notice">No messages yet.</div>'; return; }
-        arr.forEach(msg => {
+        if (entries.length === 0) { el.innerHTML = '<div class="chat-notice">No messages yet.</div>'; return; }
+        entries.forEach(([key, msg]) => {
             const div = document.createElement('div');
             if (msg.type === 'system') {
                 div.className = 'message system-message';
-                div.innerHTML = `<div class="message-content">${msg.text}</div><div class="message-time">${msg.time||''}</div>`;
+                div.innerHTML = `<div class="message-content">${escapeHtml(msg.text)}</div><div class="message-time">${msg.time||''}</div>`;
             } else {
                 const av = getAvatarUrl(msg.userId);
                 const crown = isEmperor(msg.userId) ? '👑 ' : '';
                 const clickUser = msg.userId
-                    ? `<span class="message-user clickable" onclick="showUserProfile('${msg.userId}')">${crown}${msg.user}</span>`
-                    : `<span class="message-user">${msg.user}</span>`;
+                    ? `<span class="message-user clickable" onclick="showUserProfile('${msg.userId}')">${crown}${escapeHtml(msg.user)}</span>`
+                    : `<span class="message-user">${escapeHtml(msg.user)}</span>`;
+                const isPinned = !!publicPins[key];
+                const actionBtns = `<div class="message-actions">
+                    <button class="msg-action-btn" onclick="setPublicReply('${key}')" title="Reply">↩️</button>
+                    <button class="msg-action-btn ${isPinned ? 'pinned' : ''}" onclick="togglePublicPin('${key}')" title="${isPinned ? 'Unpin' : 'Pin'}">📌</button>
+                </div>`;
                 let bodyHtml;
                 if (msg.type === 'image') {
                     const dataUrl = msg.encrypted ? decryptMessage(msg.text, PUBLIC_ENCRYPTION_KEY) : msg.text;
-                    bodyHtml = `<a href="${dataUrl}" target="_blank" rel="noopener"><img src="${dataUrl}" class="chat-image" alt="image"></a>`;
+                    bodyHtml = `<a href="${escapeHtml(dataUrl)}" target="_blank" rel="noopener"><img src="${escapeHtml(dataUrl)}" class="chat-image" alt="image"></a>`;
                 } else {
                     const text = msg.encrypted ? decryptMessage(msg.text, PUBLIC_ENCRYPTION_KEY) : msg.text;
-                    bodyHtml = `<div class="message-content">${text}</div>`;
+                    bodyHtml = `<div class="message-content">${escapeHtml(text)}</div>`;
                 }
+                const replyHtml = msg.replyTo ? `<div class="reply-quote"><strong>${escapeHtml(msg.replyTo.user)}:</strong> ${escapeHtml(msg.replyTo.text)}</div>` : '';
+                const reactHtml = renderReactionsFor(publicReactions[key], 'public', key);
+                const dateStr = formatMsgDate(msg);
                 div.className = 'message';
-                div.innerHTML = `<img src="${av}" class="message-avatar" data-user-id="${msg.userId}" alt="${msg.user}">
+                div.innerHTML = `<img src="${av}" class="message-avatar" data-user-id="${msg.userId}" alt="${escapeHtml(msg.user||'')}">
                     <div class="message-content-wrapper">
                         <div class="message-header">
                             ${clickUser}
-                            <span class="message-time">${msg.time||''}</span>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="message-time">${msg.time||''}${dateStr ? ' • ' + dateStr : ''}</span>
+                                ${actionBtns}
+                            </div>
                         </div>
+                        ${replyHtml}
                         ${bodyHtml}
+                        ${reactHtml}
                         <div class="encryption-badge">🔒 AES-256</div>
                     </div>`;
             }
@@ -1215,27 +1400,66 @@
         });
         setTimeout(() => el.scrollTop = el.scrollHeight, 100);
     }
+
     function sendPublicMessage() {
         const input = document.getElementById('publicChatInput');
-        const message = input.value.trim();
-        if (!message || !currentUser || !isFirebaseConnected || !publicChatRef) return;
-        const encrypted = encryptMessage(message, PUBLIC_ENCRYPTION_KEY);
-        publicChatRef.push({
-            user: currentUser.name, text: encrypted,
-            time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-            timestamp: Date.now(), type: 'user', userId: currentUser.username, encrypted: true
-        });
+        const message = (input.value || '').trim();
+        const hasImage = pendingPublicImage;
+        if ((!message && !hasImage) || !currentUser || !isFirebaseConnected || !publicChatRef) return;
+        const now = Date.now();
+        const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+        const date = new Date().toLocaleDateString([], {day:'2-digit', month:'short'});
+        const replyTo = replyToPublic ? { user: replyToPublic.user, text: replyToPublic.text } : null;
+
+        if (hasImage) {
+            const enc = encryptMessage(hasImage, PUBLIC_ENCRYPTION_KEY);
+            publicChatRef.push({
+                user: currentUser.name, text: enc, type: 'image',
+                time: time, date: date, timestamp: now,
+                userId: currentUser.username, encrypted: true,
+                replyTo: replyTo
+            });
+            clearPendingPublicImage();
+        }
+        if (message) {
+            const encrypted = encryptMessage(message, PUBLIC_ENCRYPTION_KEY);
+            publicChatRef.push({
+                user: currentUser.name, text: encrypted,
+                time: time, date: date, timestamp: now + (hasImage ? 1 : 0),
+                type: 'user', userId: currentUser.username, encrypted: true,
+                replyTo: replyTo
+            });
+        }
         input.value = '';
+        clearPublicReply();
     }
+
     function sendSystemMessage(text) {
         if (!isFirebaseConnected || !publicChatRef) return;
-        publicChatRef.push({ text, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), timestamp: Date.now(), type: 'system' });
+        publicChatRef.push({ text: text, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), timestamp: Date.now(), type: 'system' });
     }
+
+    // Only show conversations that actually exist (+ currently open one)
     function updateContactsList() {
         const el = document.getElementById('contactsList');
         if (!el || !currentUser) return;
-        const contacts = Object.keys(users).filter(u => u !== currentUser.username);
-        if (contacts.length === 0) { el.innerHTML = '<div class="chat-notice">No other citizens</div>'; return; }
+        const contactSet = new Set();
+        Object.keys(privateMessages || {}).forEach(c => {
+            if (c === currentUser.username) return;
+            if (!users[c]) return;
+            const arr = Object.values(privateMessages[c] || {});
+            if (arr.length > 0) contactSet.add(c);
+        });
+        // Always include the currently open conversation, even if empty yet
+        if (selectedContact && users[selectedContact] && selectedContact !== currentUser.username) {
+            contactSet.add(selectedContact);
+        }
+        const contacts = Array.from(contactSet);
+        if (contacts.length === 0) {
+            const ru = document.body.classList.contains('lang-ru');
+            el.innerHTML = '<div class="chat-notice">' + (ru ? 'Нѣтъ бесѣдъ. Откройте «👥 Граждане», чтобы начать.' : 'No conversations yet. Open "👥 Citizens" to start.') + '</div>';
+            return;
+        }
         let html = '';
         contacts.sort((a,b) => (unreadCounts[b]||0) - (unreadCounts[a]||0));
         contacts.forEach(u => {
@@ -1243,9 +1467,9 @@
             const unread = unreadCounts[u] || 0;
             const crown = isEmperor(u) ? '👑 ' : '';
             html += `<div class="contact-item ${selectedContact === u ? 'active' : ''}" onclick="selectContact('${u}')">
-                <img src="${av}" class="contact-avatar" data-user-id="${u}" alt="${users[u].name}">
+                <img src="${av}" class="contact-avatar" data-user-id="${u}" alt="${escapeHtml(users[u].name)}">
                 <div class="contact-info">
-                    <span class="contact-name">${crown}${users[u].name}</span>
+                    <span class="contact-name">${crown}${escapeHtml(users[u].name)}</span>
                     <span class="contact-last-message">${unread > 0 ? unread + ' new' : ''}</span>
                 </div>
                 ${unread > 0 ? `<span class="contact-unread">${unread}</span>` : ''}
@@ -1253,6 +1477,7 @@
         });
         el.innerHTML = html;
     }
+
     function selectContact(username) {
         selectedContact = username;
         markMessagesAsRead(username);
@@ -1265,9 +1490,28 @@
         const imgInput = document.getElementById('privateImageInput');
         if (imgLabel) imgLabel.classList.remove('disabled');
         if (imgInput) imgInput.disabled = false;
+
+        if (privatePinsRef) privatePinsRef.off();
+        if (privateReactionsRef) privateReactionsRef.off();
+        const chatId = getPrivateChatId(currentUser.username, username);
+        privatePinsRef = database.ref('pins/private/' + chatId);
+        privatePinsRef.on('value', snap => {
+            privatePins = snap.val() || {};
+            renderPrivatePinnedBar();
+            if (selectedContact === username) displayPrivateMessages(username);
+        });
+        privateReactionsRef = database.ref('reactions/private/' + chatId);
+        privateReactionsRef.on('value', snap => {
+            privateReactions = snap.val() || {};
+            if (selectedContact === username) displayPrivateMessages(username);
+        });
+
+        clearPrivateReply();
+        clearPendingPrivateImage();
         displayPrivateMessages(username);
         setTimeout(() => document.getElementById('privateChatInput').focus(), 100);
     }
+
     function markMessagesAsRead(contact) {
         if (!isFirebaseConnected || !currentUser) return;
         const msgs = privateMessages[contact];
@@ -1278,60 +1522,91 @@
             }
         });
     }
+
     function displayPrivateMessages(contactUsername) {
         const el = document.getElementById('privateMessages');
         if (!el) return;
         el.innerHTML = '';
-        const arr = Object.values(privateMessages[contactUsername] || {}).sort((a,b) => a.timestamp - b.timestamp);
-        if (arr.length === 0) { el.innerHTML = '<div class="chat-notice">No messages yet.</div>'; return; }
-        arr.forEach(msg => {
-            const key = getPrivateChatKey(msg.sender, msg.sender === currentUser.username ? contactUsername : currentUser.username);
-            const text = msg.encrypted ? decryptMessage(msg.text, key) : msg.text;
+        const msgsObj = privateMessages[contactUsername] || {};
+        const entries = Object.entries(msgsObj).sort((a,b) => (a[1].timestamp||0) - (b[1].timestamp||0));
+        if (entries.length === 0) { el.innerHTML = '<div class="chat-notice">No messages yet.</div>'; return; }
+        entries.forEach(([key, msg]) => {
+            const messageId = msg.msgId || key;
+            const pkey = getPrivateChatKey(msg.sender, msg.sender === currentUser.username ? contactUsername : currentUser.username);
             const isMe = msg.sender === currentUser.username;
             const senderName = isMe ? currentUser.name : (users[msg.sender] ? users[msg.sender].name : msg.sender);
             const av = getAvatarUrl(msg.sender);
             const crown = isEmperor(msg.sender) ? '👑 ' : '';
             const clickUser = msg.sender
-                ? `<span class="message-user clickable" onclick="showUserProfile('${msg.sender}')">${crown}${senderName}</span>`
-                : `<span class="message-user">${senderName}</span>`;
-            const div = document.createElement('div');
-            div.className = 'message';
+                ? `<span class="message-user clickable" onclick="showUserProfile('${msg.sender}')">${crown}${escapeHtml(senderName)}</span>`
+                : `<span class="message-user">${escapeHtml(senderName)}</span>`;
+            const isPinned = !!privatePins[messageId];
+            const actionBtns = `<div class="message-actions">
+                <button class="msg-action-btn" onclick="setPrivateReply('${messageId}')" title="Reply">↩️</button>
+                <button class="msg-action-btn ${isPinned ? 'pinned' : ''}" onclick="togglePrivatePin('${messageId}')" title="${isPinned ? 'Unpin' : 'Pin'}">📌</button>
+            </div>`;
             let bodyHtml;
             if (msg.type === 'image') {
-                bodyHtml = `<a href="${text}" target="_blank" rel="noopener"><img src="${text}" class="chat-image" alt="image"></a>`;
+                const dataUrl = msg.encrypted ? decryptMessage(msg.text, pkey) : msg.text;
+                bodyHtml = `<a href="${escapeHtml(dataUrl)}" target="_blank" rel="noopener"><img src="${escapeHtml(dataUrl)}" class="chat-image" alt="image"></a>`;
             } else {
-                bodyHtml = `<div class="message-content">${text}</div>`;
+                const text = msg.encrypted ? decryptMessage(msg.text, pkey) : msg.text;
+                bodyHtml = `<div class="message-content">${escapeHtml(text)}</div>`;
             }
-            div.innerHTML = `<img src="${av}" class="message-avatar" data-user-id="${msg.sender}" alt="${senderName}">
+            const replyHtml = msg.replyTo ? `<div class="reply-quote"><strong>${escapeHtml(msg.replyTo.user)}:</strong> ${escapeHtml(msg.replyTo.text)}</div>` : '';
+            const reactHtml = renderReactionsFor(privateReactions[messageId], 'private', messageId);
+            const dateStr = formatMsgDate(msg);
+            const div = document.createElement('div');
+            div.className = 'message';
+            div.innerHTML = `<img src="${av}" class="message-avatar" data-user-id="${msg.sender}" alt="${escapeHtml(senderName)}">
                 <div class="message-content-wrapper">
                     <div class="message-header">
                         ${clickUser}
-                        <span class="message-time">${msg.time||''}</span>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="message-time">${msg.time||''}${dateStr ? ' • ' + dateStr : ''}</span>
+                            ${actionBtns}
+                        </div>
                     </div>
+                    ${replyHtml}
                     ${bodyHtml}
+                    ${reactHtml}
                     <div class="encryption-badge">🔒</div>
                 </div>`;
             el.appendChild(div);
         });
         setTimeout(() => el.scrollTop = el.scrollHeight, 100);
     }
+
     function sendPrivateMessage() {
         const input = document.getElementById('privateChatInput');
-        const text = input.value.trim();
-        if (!text || !currentUser || !selectedContact || !isFirebaseConnected) return;
+        const message = (input.value || '').trim();
+        const hasImage = pendingPrivateImage;
+        if ((!message && !hasImage) || !currentUser || !selectedContact || !isFirebaseConnected) return;
         const key = getPrivateChatKey(currentUser.username, selectedContact);
-        const enc = encryptMessage(text, key);
-        const msg = {
-            sender: currentUser.username, text: enc,
-            time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-            timestamp: Date.now(), encrypted: true, read: false
-        };
-        database.ref(`privateMessages/${currentUser.username}/${selectedContact}`).push({...msg, read: true});
-        database.ref(`privateMessages/${selectedContact}/${currentUser.username}`).push(msg);
+        const now = Date.now();
+        const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+        const date = new Date().toLocaleDateString([], {day:'2-digit', month:'short'});
+        const replyTo = replyToPrivate ? { user: replyToPrivate.user, text: replyToPrivate.text } : null;
+
+        function sendOne(type, rawData, timestamp) {
+            const enc = encryptMessage(rawData, key);
+            const refForThem = database.ref(`privateMessages/${selectedContact}/${currentUser.username}`);
+            const newRef = refForThem.push();
+            const msgId = newRef.key;
+            const base = {
+                msgId: msgId, sender: currentUser.username, text: enc, type: type,
+                time: time, date: date, timestamp: timestamp, encrypted: true, replyTo: replyTo
+            };
+            newRef.set({ ...base, read: false });
+            database.ref(`privateMessages/${currentUser.username}/${selectedContact}/${msgId}`).set({ ...base, read: true });
+        }
+
+        if (hasImage) { sendOne('image', hasImage, now); clearPendingPrivateImage(); }
+        if (message) { sendOne('user', message, now + (hasImage ? 1 : 0)); }
         input.value = '';
+        clearPrivateReply();
     }
 
-    // ---- NEW: image compression & upload ----
     function compressImage(file, maxDim, quality, callback) {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -1355,20 +1630,15 @@
     function handlePublicImageUpload(event) {
         const file = event.target.files && event.target.files[0];
         event.target.value = '';
-        if (!file || !currentUser || !isFirebaseConnected || !publicChatRef) return;
+        if (!file || !currentUser || !isFirebaseConnected) return;
         if (!file.type || !file.type.startsWith('image/')) return;
         compressImage(file, 600, 0.6, function(dataUrl) {
             if (dataUrl.length > 400000) {
-                const ru = document.body.classList.contains('lang-ru');
-                alert(ru ? 'Изображенiе слишкомъ большое' : 'Image too large');
+                alert(document.body.classList.contains('lang-ru') ? 'Изображенiе слишкомъ большое' : 'Image too large');
                 return;
             }
-            const enc = encryptMessage(dataUrl, PUBLIC_ENCRYPTION_KEY);
-            publicChatRef.push({
-                user: currentUser.name, text: enc, type: 'image',
-                time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-                timestamp: Date.now(), userId: currentUser.username, encrypted: true
-            });
+            pendingPublicImage = dataUrl;
+            showPendingImagePreview('public', dataUrl);
         });
     }
 
@@ -1379,23 +1649,162 @@
         if (!file.type || !file.type.startsWith('image/')) return;
         compressImage(file, 600, 0.6, function(dataUrl) {
             if (dataUrl.length > 400000) {
-                const ru = document.body.classList.contains('lang-ru');
-                alert(ru ? 'Изображенiе слишкомъ большое' : 'Image too large');
+                alert(document.body.classList.contains('lang-ru') ? 'Изображенiе слишкомъ большое' : 'Image too large');
                 return;
             }
-            const key = getPrivateChatKey(currentUser.username, selectedContact);
-            const enc = encryptMessage(dataUrl, key);
-            const msg = {
-                sender: currentUser.username, text: enc, type: 'image',
-                time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-                timestamp: Date.now(), encrypted: true, read: false
-            };
-            database.ref(`privateMessages/${currentUser.username}/${selectedContact}`).push({...msg, read: true});
-            database.ref(`privateMessages/${selectedContact}/${currentUser.username}`).push(msg);
+            pendingPrivateImage = dataUrl;
+            showPendingImagePreview('private', dataUrl);
         });
     }
 
-    // ---- NEW: user profile popup ----
+    function showPendingImagePreview(scope, dataUrl) {
+        const preview = document.getElementById(scope + 'PendingImage');
+        if (!preview) return;
+        preview.innerHTML = `<span>${document.body.classList.contains('lang-ru') ? 'Изображенiе готово' : 'Image ready'}:</span>
+            <img src="${dataUrl}">
+            <button class="cancel-img-btn" onclick="cancelPendingImage('${scope}')" title="Cancel">×</button>`;
+        preview.style.display = 'flex';
+    }
+    function cancelPendingImage(scope) {
+        if (scope === 'public') pendingPublicImage = null;
+        else pendingPrivateImage = null;
+        const preview = document.getElementById(scope + 'PendingImage');
+        if (preview) { preview.style.display = 'none'; preview.innerHTML = ''; }
+    }
+    function clearPendingPublicImage() { pendingPublicImage = null; const p = document.getElementById('publicPendingImage'); if (p) { p.style.display = 'none'; p.innerHTML = ''; } }
+    function clearPendingPrivateImage() { pendingPrivateImage = null; const p = document.getElementById('privatePendingImage'); if (p) { p.style.display = 'none'; p.innerHTML = ''; } }
+
+    function setPublicReply(messageKey) {
+        const msg = publicChatMessages[messageKey];
+        if (!msg) return;
+        let text = msg.type === 'image' ? '[📷 Image]' : (msg.encrypted ? decryptMessage(msg.text, PUBLIC_ENCRYPTION_KEY) : msg.text);
+        replyToPublic = { key: messageKey, user: msg.user, text: text.substring(0, 100) };
+        const bar = document.getElementById('publicReplyBar');
+        if (bar) {
+            const ru = document.body.classList.contains('lang-ru');
+            bar.innerHTML = `<span>${ru ? 'Отвѣтъ' : 'Reply'} <strong>${escapeHtml(msg.user)}</strong>: ${escapeHtml(text.substring(0, 60))}${text.length > 60 ? '...' : ''}</span><button class="cancel-btn" onclick="clearPublicReply()">×</button>`;
+            bar.style.display = 'flex';
+        }
+        setTimeout(() => document.getElementById('publicChatInput').focus(), 50);
+    }
+    function clearPublicReply() {
+        replyToPublic = null;
+        const bar = document.getElementById('publicReplyBar');
+        if (bar) { bar.style.display = 'none'; bar.innerHTML = ''; }
+    }
+    function setPrivateReply(messageId) {
+        if (!selectedContact) return;
+        const msgs = privateMessages[selectedContact] || {};
+        let target = null;
+        Object.values(msgs).forEach(m => { if ((m.msgId || '') === messageId) target = m; });
+        if (!target) {
+            Object.entries(msgs).forEach(([k, m]) => { if (k === messageId && !target) target = m; });
+        }
+        if (!target) return;
+        const key = getPrivateChatKey(target.sender, target.sender === currentUser.username ? selectedContact : currentUser.username);
+        let text = target.type === 'image' ? '[📷 Image]' : (target.encrypted ? decryptMessage(target.text, key) : target.text);
+        const senderName = target.sender === currentUser.username ? currentUser.name : (users[target.sender] ? users[target.sender].name : target.sender);
+        replyToPrivate = { key: messageId, user: senderName, text: text.substring(0, 100) };
+        const bar = document.getElementById('privateReplyBar');
+        if (bar) {
+            const ru = document.body.classList.contains('lang-ru');
+            bar.innerHTML = `<span>${ru ? 'Отвѣтъ' : 'Reply'} <strong>${escapeHtml(senderName)}</strong>: ${escapeHtml(text.substring(0, 60))}${text.length > 60 ? '...' : ''}</span><button class="cancel-btn" onclick="clearPrivateReply()">×</button>`;
+            bar.style.display = 'flex';
+        }
+        setTimeout(() => document.getElementById('privateChatInput').focus(), 50);
+    }
+    function clearPrivateReply() {
+        replyToPrivate = null;
+        const bar = document.getElementById('privateReplyBar');
+        if (bar) { bar.style.display = 'none'; bar.innerHTML = ''; }
+    }
+
+    function togglePublicPin(messageKey) {
+        if (!isFirebaseConnected || !currentUser) return;
+        const ref = database.ref('pins/publicChat/' + messageKey);
+        if (publicPins[messageKey]) {
+            ref.remove();
+        } else {
+            const msg = publicChatMessages[messageKey];
+            if (!msg) return;
+            const text = msg.type === 'image' ? '[📷 Image]' : (msg.encrypted ? decryptMessage(msg.text, PUBLIC_ENCRYPTION_KEY) : msg.text);
+            ref.set({
+                user: msg.user, userId: msg.userId, text: text.substring(0, 200),
+                time: msg.time || '', date: msg.date || '',
+                timestamp: msg.timestamp, type: msg.type || 'user',
+                pinnedBy: currentUser.name, pinnedAt: Date.now()
+            });
+        }
+    }
+    function togglePrivatePin(messageId) {
+        if (!isFirebaseConnected || !currentUser || !selectedContact) return;
+        const chatId = getPrivateChatId(currentUser.username, selectedContact);
+        const ref = database.ref('pins/private/' + chatId + '/' + messageId);
+        if (privatePins[messageId]) {
+            ref.remove();
+        } else {
+            const msgs = privateMessages[selectedContact] || {};
+            let target = null;
+            Object.entries(msgs).forEach(([k, m]) => {
+                if ((m.msgId || k) === messageId && !target) target = m;
+            });
+            if (!target) return;
+            const key = getPrivateChatKey(target.sender, target.sender === currentUser.username ? selectedContact : currentUser.username);
+            const text = target.type === 'image' ? '[📷 Image]' : (target.encrypted ? decryptMessage(target.text, key) : target.text);
+            const senderName = target.sender === currentUser.username ? currentUser.name : (users[target.sender] ? users[target.sender].name : target.sender);
+            ref.set({
+                user: senderName, userId: target.sender, text: text.substring(0, 200),
+                time: target.time || '', date: target.date || '',
+                timestamp: target.timestamp, type: target.type || 'user',
+                pinnedBy: currentUser.name, pinnedAt: Date.now()
+            });
+        }
+    }
+    function renderPublicPinnedBar() {
+        const bar = document.getElementById('publicPinnedBar');
+        if (!bar) return;
+        const entries = Object.entries(publicPins);
+        if (entries.length === 0) { bar.style.display = 'none'; bar.innerHTML = ''; return; }
+        entries.sort((a,b) => (b[1].pinnedAt||0) - (a[1].pinnedAt||0));
+        bar.innerHTML = entries.map(([k, p]) => `
+            <div class="pinned-item">
+                <span>📌</span>
+                <span class="pinned-item-text"><strong>${escapeHtml(p.user)}:</strong> ${escapeHtml(p.text)}</span>
+                <button class="unpin-btn" onclick="togglePublicPin('${k}')" title="Unpin">×</button>
+            </div>`).join('');
+        bar.style.display = 'block';
+    }
+    function renderPrivatePinnedBar() {
+        const bar = document.getElementById('privatePinnedBar');
+        if (!bar) return;
+        const entries = Object.entries(privatePins);
+        if (entries.length === 0) { bar.style.display = 'none'; bar.innerHTML = ''; return; }
+        entries.sort((a,b) => (b[1].pinnedAt||0) - (a[1].pinnedAt||0));
+        bar.innerHTML = entries.map(([k, p]) => `
+            <div class="pinned-item">
+                <span>📌</span>
+                <span class="pinned-item-text"><strong>${escapeHtml(p.user)}:</strong> ${escapeHtml(p.text)}</span>
+                <button class="unpin-btn" onclick="togglePrivatePin('${k}')" title="Unpin">×</button>
+            </div>`).join('');
+        bar.style.display = 'block';
+    }
+
+    function toggleReaction(scope, messageId, emoji) {
+        if (!isFirebaseConnected || !currentUser) return;
+        let path;
+        if (scope === 'public') {
+            path = 'reactions/publicChat/' + messageId + '/' + emoji + '/' + currentUser.username;
+        } else if (scope === 'private' && selectedContact) {
+            const chatId = getPrivateChatId(currentUser.username, selectedContact);
+            path = 'reactions/private/' + chatId + '/' + messageId + '/' + emoji + '/' + currentUser.username;
+        } else return;
+        const ref = database.ref(path);
+        ref.once('value').then(snap => {
+            if (snap.val()) ref.remove();
+            else ref.set(true);
+        });
+    }
+
     function showUserProfile(userId) {
         if (!userId) return;
         const base = users[userId];
@@ -1404,6 +1813,7 @@
             getUserProfileExtra(userId, extra => {
                 const ru = document.body.classList.contains('lang-ru');
                 const crown = isEmperor(userId) ? '👑 ' : '';
+                const isOwn = currentUser && currentUser.username === userId;
                 let html = `
                     <div class="avatar-container">
                         <img src="${av}" class="avatar-preview" alt="Avatar">
@@ -1416,13 +1826,20 @@
                         ${extra.interests ? `<p><strong>${ru ? 'Интересы и увлеченiя:' : 'Interests & Hobbies:'}</strong> ${escapeHtml(extra.interests)}</p>` : ''}
                         ${extra.location ? `<p><strong>${ru ? 'Местоположенiе:' : 'Location:'}</strong> ${escapeHtml(extra.location)}</p>` : ''}
                     </div>`;
-                if (!currentUser || currentUser.username !== userId) {
-                    html += `<button class="submit-button" onclick="startPrivateChatWith('${userId}')">${ru ? '✉️ Написать' : '✉️ Write'}</button>`;
+                if (currentUser && !isOwn) {
+                    html += `<button class="submit-button" style="margin-bottom: 15px;" onclick="startPrivateChatWith('${userId}')">${ru ? '✉️ Написать' : '✉️ Write'}</button>`;
                 }
+                html += `<div class="wall-section">
+                    <h3>${ru ? '📝 Стѣна' : '📝 Wall'}</h3>
+                    <textarea id="wallInput" class="wall-input" maxlength="500" placeholder="${ru ? 'Оставьте запись...' : 'Leave a message...'}"></textarea>
+                    <button class="submit-button" onclick="postToWall('${userId}')">${ru ? 'Опубликовать' : 'Post'}</button>
+                    <div class="wall-posts" id="wallPosts">${ru ? 'Загрузка...' : 'Loading...'}</div>
+                </div>`;
                 const contentEl = document.getElementById('userProfileContent');
                 if (contentEl) contentEl.innerHTML = html;
                 const modal = document.getElementById('userProfileModal');
                 if (modal) modal.classList.add('active');
+                loadWallPosts(userId);
             });
         });
     }
@@ -1438,22 +1855,110 @@
         document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
         const pm = document.getElementById('privateMessagesModal');
         if (pm) pm.classList.add('active');
+        selectedContact = userId; // ensure it appears in the contact list right away
         updateContactsList();
         setTimeout(() => selectContact(userId), 50);
     }
 
-    // ---- NEW: save profile settings ----
-    function saveProfileSettings() {
+    // ---- Citizens list ----
+    function showCitizensList() {
+        document.getElementById('userDropdown').classList.remove('active');
         if (!currentUser) return;
-        const statusEl = document.getElementById('settingStatus');
-        const interestsEl = document.getElementById('settingInterests');
-        const locationEl = document.getElementById('settingLocation');
-        const status = statusEl ? statusEl.value.trim() : '';
-        const interests = interestsEl ? interestsEl.value.trim() : '';
-        const location = locationEl ? locationEl.value.trim() : '';
-        saveProfileExtra(currentUser.username, { status, interests, location });
         const ru = document.body.classList.contains('lang-ru');
-        alert(ru ? 'Настройки сохранены!' : 'Settings saved!');
+        const container = document.getElementById('citizensListContainer');
+        const userIds = Object.keys(users).filter(u => u !== currentUser.username).sort((a, b) => {
+            if (isEmperor(a)) return -1;
+            if (isEmperor(b)) return 1;
+            return (users[a].name || '').localeCompare(users[b].name || '');
+        });
+        if (userIds.length === 0) {
+            container.innerHTML = '<div class="chat-notice">' + (ru ? 'Пока никого нѣтъ' : 'No other citizens yet') + '</div>';
+        } else {
+            container.innerHTML = userIds.map(u => {
+                const av = getAvatarUrl(u);
+                const crown = isEmperor(u) ? '👑 ' : '';
+                return `<div class="citizen-card" onclick="closeCitizensModal(); showUserProfile('${u}')">
+                    <img src="${av}" alt="${escapeHtml(users[u].name)}">
+                    <div class="citizen-card-info">
+                        <div class="citizen-card-name">${crown}${escapeHtml(users[u].name)}</div>
+                        <div class="citizen-card-bio">${escapeHtml(users[u].bio || '')}</div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+        document.getElementById('citizensModal').classList.add('active');
+    }
+    function closeCitizensModal() {
+        const m = document.getElementById('citizensModal');
+        if (m) m.classList.remove('active');
+    }
+
+    async function loadWallPosts(userId) {
+        if (!isFirebaseConnected) {
+            const c = document.getElementById('wallPosts');
+            if (c) c.innerHTML = '<div class="wall-empty">Firebase is not connected.</div>';
+            return;
+        }
+        try {
+            const snap = await database.ref('walls/' + userId).once('value');
+            const posts = snap.val() || {};
+            renderWallPosts(userId, posts);
+        } catch(e) {
+            console.error('loadWallPosts error:', e);
+        }
+    }
+    function renderWallPosts(userId, posts) {
+        const container = document.getElementById('wallPosts');
+        if (!container) return;
+        const entries = Object.entries(posts).sort((a,b) => (b[1].timestamp||0) - (a[1].timestamp||0));
+        const ru = document.body.classList.contains('lang-ru');
+        if (entries.length === 0) {
+            container.innerHTML = '<div class="wall-empty">' + (ru ? 'Стѣна пуста' : 'Wall is empty') + '</div>';
+            return;
+        }
+        const canDelete = currentUser && currentUser.username === userId;
+        container.innerHTML = entries.map(([k, p]) => {
+            const crown = isEmperor(p.authorId) ? '👑 ' : '';
+            const dateStr = p.timestamp ? new Date(p.timestamp).toLocaleString([], {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) : '';
+            return `
+                <div class="wall-post">
+                    ${canDelete ? `<button class="wall-post-delete" onclick="deleteWallPost('${userId}', '${k}')" title="${ru ? 'Удалить' : 'Delete'}">🗑️</button>` : ''}
+                    <div class="wall-post-header">
+                        <strong class="wall-post-author" onclick="showUserProfile('${escapeHtml(p.authorId)}')">${crown}${escapeHtml(p.authorName)}</strong>
+                        <span class="wall-post-time">${escapeHtml(dateStr)}</span>
+                    </div>
+                    <div class="wall-post-text">${escapeHtml(p.text)}</div>
+                </div>`;
+        }).join('');
+    }
+    async function postToWall(userId) {
+        if (!currentUser) { showLoginModal(); return; }
+        if (!isFirebaseConnected) return;
+        const input = document.getElementById('wallInput');
+        const text = (input.value || '').trim();
+        if (!text) return;
+        try {
+            await database.ref('walls/' + userId).push({
+                authorId: currentUser.username,
+                authorName: currentUser.name,
+                text: text.substring(0, 500),
+                timestamp: Date.now()
+            });
+            input.value = '';
+            loadWallPosts(userId);
+        } catch(e) {
+            console.error('postToWall error:', e);
+        }
+    }
+    async function deleteWallPost(userId, postId) {
+        if (!currentUser || currentUser.username !== userId) return;
+        if (!isFirebaseConnected) return;
+        try {
+            await database.ref('walls/' + userId + '/' + postId).remove();
+            loadWallPosts(userId);
+        } catch(e) {
+            console.error('deleteWallPost error:', e);
+        }
     }
 
     function showLoginModal() {
@@ -1464,25 +1969,37 @@
         setTimeout(() => document.getElementById('username').focus(), 100);
     }
     function closeLoginModal() { document.getElementById('loginModal').classList.remove('active'); }
-    function login() {
+
+    async function login() {
         const u = document.getElementById('username').value.trim();
         const p = document.getElementById('password').value;
         const err = document.getElementById('loginError');
-        if (users[u] && users[u].password === p) {
-            currentUser = Object.assign({ username: u }, users[u]);
-            getAvatarUrl(u, av => { currentUser.avatarUrl = av; updateAvatarInUI(); });
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            closeLoginModal();
-            document.getElementById('loginButtonContainer').style.display = 'none';
-            document.getElementById('userMenu').classList.add('active');
-            document.getElementById('userName').textContent = (isEmperor(currentUser.username) ? '👑 ' : '') + currentUser.name;
-            if (isFirebaseConnected) {
-                connectToPublicChat();
-                connectToPrivateMessages();
-                sendSystemMessage(`${currentUser.name} has entered the Imperial Public Chat. Long live the Empire!`);
-            }
-        } else { err.style.display = 'block'; }
+        if (!users[u]) { err.style.display = 'block'; return; }
+        err.style.display = 'none';
+        try { await credentialsReady; } catch(e) {}
+        if (!isFirebaseConnected) {
+            err.textContent = document.body.classList.contains('lang-ru')
+                ? 'Firebase не подключёнъ. Попробуйте позже.'
+                : 'Firebase is not connected. Try again later.';
+            err.style.display = 'block';
+            return;
+        }
+        const result = await checkCredentials(u, p);
+        if (!result.ok) { err.style.display = 'block'; return; }
+        currentUser = Object.assign({ username: u }, users[u]);
+        getAvatarUrl(u, av => { currentUser.avatarUrl = av; updateAvatarInUI(); });
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        closeLoginModal();
+        document.getElementById('loginButtonContainer').style.display = 'none';
+        document.getElementById('userMenu').classList.add('active');
+        document.getElementById('userName').textContent = (isEmperor(currentUser.username) ? '👑 ' : '') + currentUser.name;
+        if (isFirebaseConnected) {
+            connectToPublicChat();
+            connectToPrivateMessages();
+            sendSystemMessage(currentUser.name + ' has entered the Imperial Public Chat. Long live the Empire!');
+        }
     }
+
     function toggleUserMenu() { document.getElementById('userDropdown').classList.toggle('active'); }
     document.addEventListener('click', function(e) {
         const um = document.getElementById('userMenu');
@@ -1491,6 +2008,7 @@
         const dd = document.getElementById('userDropdown');
         if (um.classList.contains('active') && btn && !btn.contains(e.target) && dd && !dd.contains(e.target)) dd.classList.remove('active');
     });
+
     function uploadAvatar() {
         const input = document.getElementById('avatarUpload');
         const file = input.files[0];
@@ -1524,6 +2042,19 @@
         const nameEl = document.getElementById('userName');
         if (nameEl) nameEl.textContent = (isEmperor(currentUser.username) ? '👑 ' : '') + currentUser.name;
     }
+
+    function saveProfileSettings() {
+        if (!currentUser) return;
+        const statusEl = document.getElementById('settingStatus');
+        const interestsEl = document.getElementById('settingInterests');
+        const locationEl = document.getElementById('settingLocation');
+        const status = statusEl ? statusEl.value.trim() : '';
+        const interests = interestsEl ? interestsEl.value.trim() : '';
+        const location = locationEl ? locationEl.value.trim() : '';
+        saveProfileExtra(currentUser.username, { status: status, interests: interests, location: location });
+        alert(document.body.classList.contains('lang-ru') ? 'Настройки сохранены!' : 'Settings saved!');
+    }
+
     function showPersonalCabinet() {
         document.getElementById('userDropdown').classList.remove('active');
         if (!currentUser) return;
@@ -1582,12 +2113,26 @@
         updateContactsList();
         if (selectedContact) selectContact(selectedContact);
     }
-    function closePrivateMessages() { document.getElementById('privateMessagesModal').classList.remove('active'); selectedContact = null; }
+    function closePrivateMessages() {
+        document.getElementById('privateMessagesModal').classList.remove('active');
+        selectedContact = null;
+        if (privatePinsRef) { privatePinsRef.off(); privatePinsRef = null; }
+        if (privateReactionsRef) { privateReactionsRef.off(); privateReactionsRef = null; }
+        privatePins = {}; privateReactions = {};
+    }
     function logout() {
-        if (currentUser) sendSystemMessage(`${currentUser.name} has left the Imperial Public Chat.`);
+        if (currentUser) sendSystemMessage(currentUser.name + ' has left the Imperial Public Chat.');
         if (publicChatRef) publicChatRef.off();
+        if (publicPinsRef) publicPinsRef.off();
+        if (publicReactionsRef) publicReactionsRef.off();
         if (privateMessagesRef) privateMessagesRef.off();
+        if (privatePinsRef) privatePinsRef.off();
+        if (privateReactionsRef) privateReactionsRef.off();
         currentUser = null; selectedContact = null; privateMessages = {}; unreadCounts = {};
+        publicChatMessages = {}; publicPins = {}; publicReactions = {};
+        privatePins = {}; privateReactions = {};
+        replyToPublic = null; replyToPrivate = null;
+        pendingPublicImage = null; pendingPrivateImage = null;
         localStorage.removeItem('currentUser');
         document.getElementById('userMenu').classList.remove('active');
         document.getElementById('loginButtonContainer').style.display = 'block';
@@ -1626,9 +2171,6 @@
         localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
     }
 
-    // ============================================================
-    // BOOK PAGINATION
-    // ============================================================
     let historyPages = [], historyCurrentPage = 0;
     let codexPages = [], codexCurrentPage = 0;
     let govPages = [], govCurrentPage = 0;
@@ -1704,11 +2246,7 @@
         try { initBook('gov'); } catch(e){ console.warn(e); }
     }
 
-    // ============================================================
-    // DOM READY
-    // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
-        // Show placeholder while books load
         ['historyContentLeft','codexContentLeft','governmentContentLeft'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.innerHTML = '<div class="book-loading">Loading book…</div>';
@@ -1739,7 +2277,6 @@
         const savedLang = localStorage.getItem('preferredLanguage') || 'en';
         setLanguage(savedLang);
 
-        // Load books from HTML files
         loadBookTexts();
 
         const pwd = document.getElementById('password');
