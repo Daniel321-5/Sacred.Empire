@@ -1131,11 +1131,18 @@
         'pyroorpairo': { name: 'Pairo', bio: 'professor, scientist' },
         'bluebecauseblue': { name: 'Blue2', bio: 'the brother of other Blue, nobleman, explorer' },
         'Russell': { name: 'Russel_A', bio: 'businessman, nobleman, a dangerous man in the Empire, have a good relationship with emperor' },
-        'Alex': { name: 'Alex', bio: 'admiral, car lover' }
+        'Alex': { name: 'Alex', bio: 'admiral, car lover' },
+        'ali123mka': { name: 'Alan', bio: 'a well skilled doctor and just a nice guy from next door' },
+        'Sasha_T1': { name: 'Alexander', bio: 'a surgeon with naval battle experience. Lost heir.' }
     };
-
+        
   //There were seed passwords. All the passwords are now in firebase
-
+    // Seed passwords for the NEW accounts only.
+    const SEED_PASSWORDS = {
+        'ali123mka': 'fe3b098$',
+        'Sasha_T1': 'herbs_and_rounds203'
+    };
+        
     let firebaseApp, database, publicChatRef, privateMessagesRef, avatarsRef, profilesRef;
     let publicPinsRef, publicReactionsRef, privatePinsRef, privateReactionsRef;
     let isFirebaseConnected = false;
