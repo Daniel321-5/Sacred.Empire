@@ -15,85 +15,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
     <style>
-
-/* Стили для страницы кораблей */
-.ships-layout {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-.ships-sidebar {
-  flex: 0 0 220px;
-  border-right: 2px solid #1a237e;
-  padding-right: 20px;
-}
-.ships-sidebar ul { list-style: none; padding: 0; }
-.ships-sidebar li { margin-bottom: 12px; }
-.ship-nav-item {
-  background: none;
-  border: none;
-  font-family: 'Times New Roman', serif;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #1a237e;
-  cursor: pointer;
-  padding: 8px 12px;
-  width: 100%;
-  text-align: left;
-  transition: all 0.2s;
-  border-left: 3px solid transparent;
-}
-body.dark-mode .ship-nav-item { color: gold; }
-.ship-nav-item:hover {
-  background-color: rgba(26,35,126,0.1);
-  border-left-color: gold;
-}
-.ship-nav-item.active {
-  background-color: #1a237e;
-  color: gold;
-  border-left-color: gold;
-}
-body.dark-mode .ship-nav-item.active { background-color: #303f9f; }
-.ships-detail { flex: 1; min-width: 250px; }
-.ship-card {
-  background: #fafafa;
-  border-radius: 8px;
-  padding: 20px;
-  border: 1px solid #ddd;
-}
-body.dark-mode .ship-card { background: #2a2a2a; border-color: #444; }
-.ship-name {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #1a237e;
-  margin-bottom: 0.5rem;
-}
-body.dark-mode .ship-name { color: gold; }
-.ship-prefix { font-size: 1.2rem; color: #555; margin-bottom: 1rem; }
-.ship-details-list { margin: 1rem 0; padding-left: 1rem; }
-.ship-details-list li { margin-bottom: 0.4rem; }
-.ship-image {
-  max-width: 100%;
-  margin: 20px 0;
-  border: 2px solid #1a237e;
-  border-radius: 6px;
-}
-.plan-image {
-  max-width: 100%;
-  margin: 15px 0;
-  border: 1px dashed #1a237e;
-  border-radius: 4px;
-}
-@media (max-width: 768px) {
-  .ships-layout { flex-direction: column; }
-  .ships-sidebar {
-    border-right: none;
-    border-bottom: 2px solid #1a237e;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-  }
-}
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .login-button-container { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 10px; align-items: center; }
         .login-button { background-color: #1a237e; color: gold; border: 2px solid gold; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; font-family: 'Times New Roman', serif; font-weight: bold; transition: all 0.3s; }
@@ -553,7 +474,6 @@ body.dark-mode .ship-name { color: gold; }
         <a href="#" onclick="return showPage('government')" data-en="Government" data-ru="Правительство">Government</a>
         <a href="#" onclick="return showPage('media')" data-en="Media" data-ru="Медiа">Media</a>
         <a href="#" onclick="return showPage('contact')" data-en="Contact" data-ru="Контакты">Contact</a>
-        <a href="#" onclick="showPage('ships')" data-en="Ships" data-ru="Корабли">Ships</a>
     </nav>
 
     <div class="container">
@@ -1071,21 +991,6 @@ body.dark-mode .ship-name { color: gold; }
             </div>
         </div>
 
-<div id="ships" class="page">
-  <h2 data-en="Imperial Ships" data-ru="Императорскiе Корабли">Imperial Ships</h2>
-  <div class="ships-layout">
-    <div class="ships-sidebar">
-      <ul>
-        <li><button class="ship-nav-item active" onclick="showShip('miniAngel')">𝓜𝓲𝓷𝓲 𝓐𝓷𝓰𝓮𝓵</button></li>
-        <li><button class="ship-nav-item" onclick="showShip('apollo')">𝓐𝓹𝓸𝓵𝓵𝓸</button></li>
-        <li><button class="ship-nav-item" onclick="showShip('knyaz')">𝒦𝓃𝓎𝒶𝓏</button></li>
-      </ul>
-    </div>
-    <div class="ships-detail" id="shipsDetail">
-    </div>
-  </div>
-</div>
-        
     </div>
 
     <footer>&copy; 1700 Sacred Daniel's Empire. All rights reserved.</footer>
@@ -1229,11 +1134,13 @@ body.dark-mode .ship-name { color: gold; }
         'Alex': { name: 'Alex', bio: 'admiral, car lover' },
         'ali123mka': { name: 'Alan', bio: 'a well skilled doctor and just a nice guy from next door' },
         'Sasha_T1': { name: 'Alexander', bio: 'a surgeon with naval battle experience. Lost heir.' }
-        'Arthur_Nocount': { name: 'Arthur_Bha', bio: 'Imperial advisor and traveller. Nature enjoyer' }
+           'Arthur_Nocount': { name: 'Arthur_Bha', bio: 'Imperial advisor and traveller. Nature enjoyer' }
         'Bharath_CantDecide': { name: 'Bharath_G', bio: 'Honored admiral and genius in some sort of things' }
     };
         
-//There were seed passwords. All the passwords are now in firebase
+        const SEED_PASSWORDS = {
+    'Arthur_Nocount': 'the1second2try'
+      'Bharath_CantDecide': 'IsItWarOrJustAGame123'
         
     let firebaseApp, database, publicChatRef, privateMessagesRef, avatarsRef, profilesRef;
     let publicPinsRef, publicReactionsRef, privatePinsRef, privateReactionsRef;
@@ -2370,106 +2277,6 @@ body.dark-mode .ship-name { color: gold; }
             m.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); });
         });
     });
-
-    // Ship display function
-        function showShip(shipId) {
-            const detailContainer = document.getElementById('shipsDetail');
-            if (!detailContainer) return;
-            
-            document.querySelectorAll('.ship-nav-item').forEach(btn => btn.classList.remove('active'));
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
-            }
-            
-            const lang = currentLanguage || 'en';
-            let shipHtml = '';
-            if (shipId === 'miniAngel') {
-                const typeText = lang === 'en' ? 'Type:' : 'Типъ:';
-                const purposeText = lang === 'en' ? 'Purpose:' : 'Назначенiе:';
-                const yearText = lang === 'en' ? 'Version\'s year:' : 'Годъ версiи:';
-                const crewText = lang === 'en' ? 'Crew amount:' : 'Количество экипажа:';
-                const gunsText = lang === 'en' ? 'Guns:' : 'Орудия:';
-                const mastsText = lang === 'en' ? 'Masts:' : 'Мачты:';
-                const descText = lang === 'en' 
-                    ? 'It was built under the personal supervision of the emperor himself. Initially, the vessel was an old Roman trireme, repeatedly modified over time. When corrosion made further refits impossible, the decision was made to construct an entirely new ship, using the blueprints of a brig as its foundation. The ship\'s ultimate purpose is to lead the fleet into battle, undertake diplomatic missions, and serve as the personal transport of His Majesty the Emperor.'
-                    : 'Онъ былъ построенъ подъ личнымъ наблюденiемъ самого императора. Изначально судно было старой римской трiерой, многократно модифицированной съ теченiемъ времени. Когда коррозiя сделала дальнейшiя переоборудованiя невозможными, было принято решенiе построить совершенно новое судно, используя чертежи брига какъ основу. Конечная цель корабля - вести флотъ в бой, выполнять дипломатическiя миссiи и служить личнымъ транспортомъ Его Величества Императора.';
-                shipHtml = `
-                    <div class="ship-card">
-                        <div class="ship-name">𝓜𝓲𝓷𝓲 𝓐𝓷𝓰𝓮𝓵</div>
-                        <div class="ship-prefix">BAES Mini Angel</div>
-                        <ul class="ship-details-list">
-                            <li><strong>${typeText}</strong> brig</li>
-                            <li><strong>${purposeText}</strong> ${lang === 'en' ? 'warship, diplomatic, emperor\'s personal ship' : 'военный корабль, дипломатическiй, личный корабль императора'}</li>
-                            <li><strong>${yearText}</strong> 1745 - ${lang === 'en' ? 'current days' : 'настоящее время'}</li>
-                            <li><strong>${crewText}</strong> ${lang === 'en' ? '97 souls + space for emperor and his family' : '97 душъ + место для императора и его семьи'}</li>
-                            <li><strong>${gunsText}</strong> ${lang === 'en' ? '46 in total. 21 on side (9 carronades, 12 longs); 2 bow cannons, 2 stern cannons.' : '46 всего. 21 на борту (9 карронадъ, 12 длинныхъ); 2 носовыхъ орудия, 2 кормовыхъ орудия.'}</li>
-                            <li><strong>${mastsText}</strong> 2</li>
-                        </ul>
-                        <p>${descText}</p>
-                        <img src="TBA-SITE/17813354954935.png" alt="Mini Angel Main" class="ship-image" onerror="this.style.display='none'">
-                        <img src="TBA-SITE/Polish_20260613_151942803.png" alt="Mini Angel Blueprint" class="plan-image" onerror="this.style.display='none'">
-                    </div>
-                `;
-            } else if (shipId === 'apollo') {
-                const typeText = lang === 'en' ? 'Type:' : 'Типъ:';
-                const purposeText = lang === 'en' ? 'Purpose:' : 'Назначенiе:';
-                const yearText = lang === 'en' ? 'Year of build:' : 'Годъ постройки:';
-                const crewText = lang === 'en' ? 'Crew amount:' : 'Количество экипажа:';
-                const gunsText = lang === 'en' ? 'Guns:' : 'Орудия:';
-                const mastsText = lang === 'en' ? 'Masts:' : 'Мачты:';
-                const ownerText = lang === 'en' ? 'Owner:' : 'Владелецъ:';
-                const descText = lang === 'en' 
-                    ? 'Apollo, a sleek schooner built under the emperor\'s direct supervision as a gift for Otto. This was no ordinary warship, it was a raider\'s masterpiece, fast enough to outrun anything and armed just enough to ruin any merchant foolish enough to resist.'
-                    : 'Аполлонъ, изящная шхуна, построенная подъ непосредственнымъ наблюдениемъ императора какъ подарокъ Отто. Это былъ не обычный военный корабль, это былъ шедевръ рейдера, достаточно быстрый, чтобы уйти отъ чего угодно, и вооруженный ровно настолько, чтобы погубить любого купца, достаточно глупого, чтобы сопротивляться.';
-                shipHtml = `
-                    <div class="ship-card">
-                        <div class="ship-name">𝓐𝓹𝓸𝓵𝓵𝓸</div>
-                        <div class="ship-prefix">BAES Apollo</div>
-                        <ul class="ship-details-list">
-                            <li><strong>${typeText}</strong> ${lang === 'en' ? 'war schooner' : 'военная шхуна'}</li>
-                            <li><strong>${purposeText}</strong> ${lang === 'en' ? 'warship, small fast deliveries' : 'военный корабль, малыя быстрыя доставки'}</li>
-                            <li><strong>${yearText}</strong> 1785</li>
-                            <li><strong>${crewText}</strong> ${lang === 'en' ? '70 souls' : '70 душъ'}</li>
-                            <li><strong>${gunsText}</strong> ${lang === 'en' ? '11 in total. 5 on side where 2 are carronades. One long cannon on bow.' : '11 всего. 5 на борту, изъ которыхъ 2 карронады. Одна длинная пушка на носу.'}</li>
-                            <li><strong>${mastsText}</strong> 2</li>
-                            <li><strong>${ownerText}</strong> ${lang === 'en' ? 'cpt. Otto Verde' : 'кап. Отто Верде'}</li>
-                        </ul>
-                        <p>${descText}</p>
-                        <img src="TBA-SITE/1781341608e9c3.png" alt="Apollo Main" class="ship-image" onerror="this.style.display='none'">
-                        <img src="TBA-SITE/IMG_20260613_163217.png" alt="Apollo Blueprint" class="plan-image" onerror="this.style.display='none'">
-                    </div>
-                `;
-            } else if (shipId === 'knyaz') {
-                const typeText = lang === 'en' ? 'Type:' : 'Типъ:';
-                const purposeText = lang === 'en' ? 'Purpose:' : 'Назначенiе:';
-                const yearText = lang === 'en' ? 'Year of build:' : 'Годъ постройки:';
-                const crewText = lang === 'en' ? 'Crew amount:' : 'Количество экипажа:';
-                const gunsText = lang === 'en' ? 'Guns:' : 'Орудия:';
-                const ownerText = lang === 'en' ? 'Owner:' : 'Владелецъ:';
-                const descText = lang === 'en' 
-                    ? 'Aidar bought this ship in Caracas, completely unaware of the future importance it would have for the empire. Initially, the purchase was intended solely for the purpose of transporting cargo and collecting profit. The ship initially had only eight cannons. Later, when Aidar ascended the throne, he ordered the ship to be outfitted for war, making it his flagship.'
-                    : 'Айдаръ купилъ этотъ корабль въ Каракасе, совершенно не подозрѣвая о будущей важности, которую онъ будетъ имѣть для имперiи. Изначально покупка предназначалась исключительно для транспортировки грузовъ и полученiя прибыли. Корабль изначально имѣлъ только восемь пушекъ. Позже, когда Айдаръ взошелъ на престолъ, онъ приказалъ оснастить корабль для войны, сделавъ его своимъ флагманомъ.';
-                shipHtml = `
-                    <div class="ship-card">
-                        <div class="ship-name">𝒦𝓃𝓎𝒶𝓏</div>
-                        <div class="ship-prefix">BAES Knyaz</div>
-                        <ul class="ship-details-list">
-                            <li><strong>${typeText}</strong> brig</li>
-                            <li><strong>${purposeText}</strong> ${lang === 'en' ? 'warship, delivering' : 'военный корабль, доставка'}</li>
-                            <li><strong>${yearText}</strong> 1800</li>
-                            <li><strong>${crewText}</strong> ${lang === 'en' ? '84 souls' : '84 души'}</li>
-                            <li><strong>${gunsText}</strong> ${lang === 'en' ? '32 in total. 12 on side where 4 are carronades. 2 bow cannons. 6 long cannons on upper deck' : '32 всего. 12 на борту, изъ которыхъ 4 карронады. 2 носовыхъ орудия. 6 длинныхъ пушекъ на верхней палубе'}</li>
-                            <li><strong>${ownerText}</strong> ${lang === 'en' ? 'ex-emperor, admiral Aidar' : 'экс-императоръ, адмиралъ Айдаръ'}</li>
-                        </ul>
-                        <p>${descText}</p>
-                        <img src="TBA-SITE/IMG_20260614_032352.png" alt="Knyaz Main" class="ship-image" onerror="this.style.display='none'">
-                        <img src="TBA-SITE/IMG_20260614_033318.jpg" alt="Knyaz Blueprint" class="plan-image" onerror="this.style.display='none'">
-                    </div>
-                `;
-            }
-            detailContainer.innerHTML = shipHtml;
-        }
-        
     </script>
 </body>
 </html>
